@@ -1,0 +1,42 @@
+
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Upload Photo</title>
+	<style>
+    h1 {
+      font-size: 2em;
+      font-weight: bold;
+      color: #777777;
+      text-align: center
+    }
+    table {
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+{% block content %}
+<h1>
+	{{what}}
+</h1>
+<table>
+<tr>
+<td>
+<form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
+	{% csrf_token %}
+<input type="file" name="file"/>
+	<br/>
+<input type="submit" name="" value="Upload Now"/>
+</form>
+</td>
+</tr>
+</table>
+
+{% endblock content %}
+</body>
+</html>
+
+
