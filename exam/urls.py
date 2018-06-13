@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from register.views import (register, register_view, logout_view,upload_file)
+from register.views import (register,upload_file,candidate)
+from django.conf import settings
+from django.conf.urls.static import static
+from candidate.views import cour
 
 urlpatterns = [
 
@@ -26,7 +29,9 @@ urlpatterns = [
     #url(r'^login/$',contrib.auth_views.login, name='login'),
     # url(r'^users/login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
     url(r'^admin/', admin.site.urls),
-    url(r'^register/', register, name='register'),
+    url(r'^register',register,name="register"),
     url(r'^upload/', upload_file, name="upload"),
+    url(r'^', candidate, name="candidate"),
+    url(r'^cour/', cour, name="cour"),
     # url(r'^',include('example.urls')),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

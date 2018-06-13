@@ -11,6 +11,7 @@ from .forms import UploadFileForm
 from .forms import FileUpload
 from .models import Register
 from .models import Image
+from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 #from .forms import SignUpForm
 
@@ -22,24 +23,28 @@ def register(request):
 		lastname = request.POST.get('lastname')
 		phonenumber = request.POST.get('phonenumber')
 		country = request.POST.get('country')
+		city = request.POST.get('city')
+		sname = request.POST.get('sname')
+		birthday = request.POST.get('birthday')
+		address =request.POST.get('address')
 		# images = register.POST.get('file')
-		register_obj=Register(email = email, firstname = firstname, lastname = lastname, phonenumber = phonenumber, country = country)
+		register_obj=Register(email = email,city=city,sname=sname,birthday=birthday,address=address, firstname = firstname, lastname = lastname, phonenumber = phonenumber, country = country)
 		register_obj.save()
 		book = FileUpload(request.POST, request.FILES)
 		if book.is_valid():
 			# book = FileUpload(file=request.FILES['image'])
 			book.save()
-	        return HttpResponseRedirect('/register/')
+	        return HttpResponseRedirect('/candidate/')
 	else:
 	    book = FileUpload()
 	
 	return render(request,'form.html',{'book':book})
 	
-def register_view(request):
-	return render(request,'form.html',{})
-
-def logout_view(request):
-	return render(request,'form.html',{})
+def candidate(request):
+	# c=Register.objects.all()
+	candidates = Register.objects.all()
+	# return HttpResponse(output)
+	return render(request,'candidate.html',{'candidates':candidates})
 
 def upload_file(request):
 	if request.method == 'POST':
@@ -50,7 +55,8 @@ def upload_file(request):
 	        return HttpResponseRedirect('/success/url/')
 	else:
 	    form = UploadFileForm()
-	return render(request, 'upload.html', {'form': form})
+
+	return render(request, 'candidate.html', {'form': form})
 
 # def upload(request):
 #     if request.method == 'POST':
