@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+# from __future__ import unicode_literals
 
 from django.shortcuts import render
+from .models import Test
+from django_tables2 import RequestConfig
 
 
 # Create your views here.
 def test_list(request):
-    return render(request, 'test_list.html')
+    list = Test.objects.all()
+    return render(request, 'test_list.html',{'list':list})
 
 def subject_list(request):
     return render(request, 'subject_list.html')

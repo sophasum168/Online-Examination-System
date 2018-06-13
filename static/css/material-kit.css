@@ -2055,6 +2055,12 @@ pre code {
   border-color: rgba(0, 0, 0, 0.06);
 }
 
+.table .thead-table-list th {
+  color: #495057;
+  background-color: #cec3eb;
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
 .table-dark {
   color: #fafafa;
   background-color: #212529;
