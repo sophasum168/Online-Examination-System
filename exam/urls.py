@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from register.views import (register, register_view, logout_view,upload_file)
+from register.views import (register, register_view, logout_view, upload_file)
+# from test_management.views import (test, subject, question)
+from test_management.views import test
 
 urlpatterns = [
 
@@ -28,5 +30,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^register/', register, name='register'),
     url(r'^upload/', upload_file, name="upload"),
+    url(r'^test-management/test/', test, name='test'),
+    # url(r'^test-management/subject/', subject, name='subject'),
+    # url(r'^test-management/question/', question, name='question'),
+
     # url(r'^',include('example.urls')),
 ]
