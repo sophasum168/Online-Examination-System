@@ -42,6 +42,7 @@ def register(request):
 	
 def candidate(request):
 	# c=Register.objects.all()
+	# lastSeenId = float('-Inf')
 	candidates = Register.objects.all()
 	# return HttpResponse(output)
 	return render(request,'candidate.html',{'candidates':candidates})

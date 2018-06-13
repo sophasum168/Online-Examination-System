@@ -67,7 +67,7 @@
                   </div>
                   <form name="form" method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
                   	{% csrf_token %}
-
+                
 					    <div>
 					    	<h1>
 							{{what}}
@@ -85,7 +85,7 @@
 					    <input type="text" id="fname" name="firstname" placeholder="Your name..">
 					    
 					    <label for="lname">Last Name</label>
-					    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+					    <input class="required" type="text" id="lname" name="lastname" placeholder="Your last name..">
 					   
 					    
 					    <label for="fname">Email</label>

@@ -15,6 +15,9 @@ class UploadFileForm(forms.ModelForm):
    	fields = ['file']
 
 class FileUpload(forms.ModelForm):
+	def __init__(self, *args, **kwargs):
+		super(FileUpload, self).__init__(*args, **kwargs)
+		self.fields['email'].required
 	class Meta:
    		model = Register
    		fields = ['email','lastname','phonenumber','country','image','file','sname','address','city','birthday']
