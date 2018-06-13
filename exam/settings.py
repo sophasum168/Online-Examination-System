@@ -40,13 +40,11 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'exam',
-    'django_tables2',
     'crispy_forms',
     'register',
     'candidate',
     'test_management',
     'django.contrib.staticfiles',
-    
 ]
 
 MIDDLEWARE = [

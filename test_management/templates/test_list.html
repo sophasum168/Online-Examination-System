@@ -1,8 +1,6 @@
 {% extends 'navigation_bar.html'%}
-<!-- {% load render_table from django_table2 %} -->
 {% block test_list %}
         <h1>Test List</h1>
-        {% for test_list in tests %}
         <table class="table table-striped">
                 <thead class="thead-table-list">
                   <tr>
@@ -13,24 +11,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
+                    {% for test in tests %}
+                    <tr>
+                        <td>{{ test.id}}</td>
+                        <td>{{ test.test_name}}</td>
+                        <td>{{ test.test_type}}</td>
+                        <td>{{ test.create_test}}</td>
+                    </tr>      
+                    {% endfor %}
                 </tbody>
               </table>
 {% endblock %}

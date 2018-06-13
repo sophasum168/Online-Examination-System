@@ -37,7 +37,7 @@ urlpatterns = [
     url(r'^test-management/topic/', topic_list, name='topic'),
     url(r'^test-management/question/', question_list, name='question'),
     url(r'^test-management/import_question/', import_question, name='import_question'),
-    url(r'^', candidate, name="candidate"),
+    url(r'^candidate/', candidate, name="candidate"),
     url(r'^cour/', cour, name="cour"),
     # url(r'^',include('example.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
