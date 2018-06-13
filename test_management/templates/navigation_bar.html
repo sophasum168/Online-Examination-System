@@ -22,17 +22,17 @@
             <a class="nav-link" href="#">Dashboard<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="./question_list.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Question
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Import Question</a>
+              <a class="dropdown-item" href="{% url 'import_question' %}">Import Question</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Subject</a>
+              <a class="dropdown-item" href="{% url 'subject' %}">Subject</a>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./test_list.html" name="Test">Test</a>
+            <a class="nav-link" href="{% url 'topic' %}" name="Test">Test</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Candidate</a>

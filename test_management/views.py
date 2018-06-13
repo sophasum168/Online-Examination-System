@@ -5,10 +5,20 @@ from django.shortcuts import render
 
 
 # Create your views here.
-def test(request):
+def test_list(request):
     return render(request, 'test_list.html')
 
+def subject_list(request):
+    return render(request, 'subject_list.html')
 
+def topic_list(request):
+    return render(request, 'topic_list.html')
+    
+def question_list(request):
+    return render(request, 'question_list.html')
+
+def import_question(request):
+    return render(request, 'import_question.html')
 
 
 
