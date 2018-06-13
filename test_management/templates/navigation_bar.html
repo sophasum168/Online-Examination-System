@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Online Examination System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="{% static "css/material-kit.css" %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/material-kit.css' %}" />
     
 </head>
 <body>
@@ -22,7 +22,7 @@
             <a class="nav-link" href="#">Dashboard<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="./question_list.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="{% url 'question' %}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Question
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -48,11 +48,20 @@
     </div>
   </nav>
 
-              {% block content %}
-              {% endblock %}
-    <script src="{% static "js/core/jquery.min.js" %}"></script>
-    <script src="{% static "js/core/popper.min.js" %}"></script>
-    <script src="{% static "js/core/bootstrap-material-design.min.js" %}"></script>
+    {% block test_list %}
+    {% endblock %}
+    {% block subject_list %}
+    {% endblock %}
+    {% block topic_list %}
+    {% endblock %}
+    {% block question_list %}
+    {% endblock %}
+    {% block import_question %}
+    {% endblock %}
+
+    <script src="{% static 'js/core/jquery.min.js' %}"></script>
+    <script src="{% static 'js/core/popper.min.js' %}"></script>
+    <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
     
 </body>
 </html>
