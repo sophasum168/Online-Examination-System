@@ -1,10 +1,17 @@
 # -*- coding: utf-8 -*-
-
-
 from django.contrib import admin
-from .models import Register
-from .models import Image
+from .models import *
 
+
+class CandidateProfile(admin.ModelAdmin):
+	list_filter= ('firstname','email','sname')
+	list_display=('created_at','email','firstname','lastname','phonenumber','birthday','sname','address','city','country','file','image')
+	
+	def get_queryset(self, request):
+		queryset=super(CandidateProfile, self).get_queryset(request)
+		queryset=queryset.order_by('firstname')
+		return queryset
+		
 # class ProfileImagesInline(admin.TabularInline):
 #     model = Register
 #     extra = 3
@@ -17,5 +24,5 @@ from .models import Image
 # 	class Meta:
 # 		model = Register
 					
-admin.site.register(Register) 
+admin.site.register(Register, CandidateProfile)
 admin.site.register(Image)

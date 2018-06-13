@@ -1,0 +1,27 @@
+/*
+
+h4,b{
+	color: white;
+    margin-right: auto;
+    left: 50px;
+    margin-left: -25px;
+}
+
+margin-top: -22px;
+    margin-bottom: -17px*/
+
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}

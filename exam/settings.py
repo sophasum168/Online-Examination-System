@@ -26,7 +26,8 @@ SECRET_KEY = 'r998j^tkgzc@2#)k5tlv941vwm=v=nfo)v16n1$t4(a351bl%2'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+DATE_FORMAT = "Y-m-d"
+USE_L10N = False
 
 # Application definition
 
@@ -41,7 +42,11 @@ INSTALLED_APPS = [
     'exam',
     'crispy_forms',
     'register',
+<<<<<<< HEAD
     'test_management',
+=======
+    'candidate',
+>>>>>>> ba060531e676144443d610b70e019bc0adc8fafb
     'django.contrib.staticfiles',
 ]
 
@@ -88,7 +93,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
@@ -124,6 +128,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
+
+MEDIA_URL='/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),

@@ -14,17 +14,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Image',
+            name='course',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('file', models.ImageField(upload_to=b'images/%Y/%m/%d/')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Register',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('email', models.EmailField(blank=True, max_length=120, null=True)),
                 ('firstname', models.CharField(blank=True, max_length=120, null=True)),
                 ('lastname', models.CharField(blank=True, max_length=120, null=True)),
