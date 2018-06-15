@@ -1,2 +1,3 @@
 # Online-Examination-System
-Development Web App
+Online Examination System. Web application code.
+By:Mr. Sopha Sum, Mr. Sokunthaneth Chhoy

@@ -1,0 +1,24 @@
+{% extends 'navigation_bar.html'%}
+{% block test_list %}
+        <h1>Test List</h1>
+        <table class="table table-striped">
+                <thead class="thead-table-list">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Test</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Created Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for test in tests %}
+                    <tr>
+                        <td>{{ test.id}}</td>
+                        <td>{{ test.test_name}}</td>
+                        <td>{{ test.test_type}}</td>
+                        <td>{{ test.create_test}}</td>
+                    </tr>      
+                    {% endfor %}
+                </tbody>
+              </table>
+{% endblock %}
