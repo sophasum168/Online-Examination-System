@@ -73,72 +73,81 @@
                   	{% csrf_token %}
                 
 					    <div>
-					    	<h1>
-							{{what}}
-						</h1>
-						<table>
-						<tr>
-						<td>
-						<input type="file" name="file"/>
-							<br/>
-						</td>
-						</tr>
-						</table>
-            
+					    	
+            <h1>
+              {{what}}
+            </h1>
             <table>
+              <tr>
+            <td>
+            <label for="uload" style="color: black;">Profile Picture</label>
+            </br>
+            <input type="file" required="True" name="file"/>
+            </td>
+            <td>
+            <label for="uload" style="color: black;">Student IDCard</label>
+            </br>
+            <input type="file" required="True" name="image"/>
+            <br/>
+            </td>
+            </tr>
+          
+        </table>
+        </br>
+        <table>
             <tr>
             <td>
 					    <label for="fname" style="color: black;">First Name</label>
-					    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+					    <input type="text" id="fname" name="firstname" required="True" placeholder="Your name..">
             </td>
            <!-- &nbsp; &nbsp;  &nbsp;  &nbsp;  --> 
             <td>
 					    <label for="lname" style="color: black;">Last Name</label>
-					    <input class="required" type="text" id="lname" name="lastname" placeholder="Your last name..">
+					    <input class="required" type="text" id="lname" required="True" name="lastname" placeholder="Your last name..">
 					     </td>
               </tr>
             <tr>
               <td>
-					    <label for="fname" style="color: black;">Email</label>
-					    <input type="text" id="email" name="email" placeholder="Email">
+					    <label for="email" style="color: black;">Email</label>
+					    <input type="text" id="email" name="email" placeholder="Email" required="True">
               </td>
               <td>
               <label for="phone" style="color: black;">Mobile Phone</label>
-              <input type="text" id="phone" name="phonenumber" placeholder="Phone Number">
+              <input type="text" id="phone" name="phonenumber" required="True" placeholder="Phone Number">
               </td>
               </tr>
               <tr>
                 <td>
               
               <label for="School" style="color: black;">School Name</label>
-              <input type="text" id="sname" name="sname" placeholder="School Name">
+              <input type="text" id="sname" name="sname" required="True" placeholder="School Name">
               </td>
               
                 <td>
-					    <label for="birthday" style="color: black;">Birthday</label>
+					    <label for="birthday" style="color: black; ">Birthday</label>
             </br>
-              <input type="date" id="birthday" name="birthday" placeholder="birthday">
+              <input type="date" style="border: 2px solid gray;" id="birthday" name="birthday" required="True" placeholder="birthday">
               </td>
               </tr>
               <tr>
                 <th>
 
 					    <label for="address" style="color: black;">Address</label>
-					    <input type="text" id="address" name="address" placeholder="Fill Your Address">
+					    <input type="text" id="address" name="address" required="True" placeholder="Fill Your Address">
               </th>
               </tr>
               <tr>
                 <td>
-					    <label for="city">City</label>
-					    <select id="city" name="city">
+					    <label for="city" style="color: black;">City</label>
+					    <select id="city" name="city" required="True">
 					      <option value="Kompot">Kompot</option>
 					      <option value="PP">PP</option>
 					      <option value="Koh Kong">Koh Kong</option>
 					    </select>
               </td>
               <td>
-					    <label for="country">Country</label>
-					    <select id="country" name="country">
+					    <label for="country" style="color: black;">Country</label>
+					    <select id="country" name="country" required="True">
 					      <option value="australia">Japan</option>
 					      <option value="canada">India</option>
 					      <option value="usa">USA</option>

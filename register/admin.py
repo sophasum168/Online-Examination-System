@@ -9,7 +9,7 @@ class CandidateProfile(admin.ModelAdmin):
 	
 	def get_queryset(self, request):
 		queryset=super(CandidateProfile, self).get_queryset(request)
-		queryset=queryset.order_by('firstname')
+		queryset=queryset.order_by('created_at')
 		return queryset
 		
 # class ProfileImagesInline(admin.TabularInline):
@@ -22,7 +22,6 @@ class CandidateProfile(admin.ModelAdmin):
 # class RegisterAdmin(admin.ModelAdmin):
 # 	list_display = ["__unicode__","timestamp","updated"]
 # 	class Meta:
-# 		model = Register
-					
+# 		model = Register					
 admin.site.register(Register, CandidateProfile)
 admin.site.register(Image)

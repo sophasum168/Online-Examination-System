@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from register.views import (register,upload_file,candidate)
+from register.views import (register,upload_file,candidate,existemail)
 from django.conf import settings
 from django.conf.urls.static import static
-from candidate.views import cour
+from candidate.views import (cour,index)
 from test_management.views import (test_list, subject_list, topic_list, question_list, import_question)
 
 urlpatterns = [
@@ -39,5 +39,7 @@ urlpatterns = [
     url(r'^test-management/import_question/', import_question, name='import_question'),
     url(r'^candidate/', candidate, name="candidate"),
     url(r'^cour/', cour, name="cour"),
+    url(r'^index/', index, name="index"),
+    url(r'^existemail/', existemail, name="existemail"),
     # url(r'^',include('example.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
