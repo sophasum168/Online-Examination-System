@@ -17560,5 +17560,16 @@ footer .pull-center {
     display: none !important;
   }
 }
+#inline-header{
+  display: inherit;
+  float: left;
+  padding-left: 25px 
+}
+#inline-toolbar{
+  display: inherit;
+  float: right;
+  padding-right: 25px 
+}
+
 
 /*# sourceMappingURL=kit-free.css.map */

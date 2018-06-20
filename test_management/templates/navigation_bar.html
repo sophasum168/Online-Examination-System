@@ -7,6 +7,8 @@
     <title>Online Examination System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-primary">
@@ -61,6 +63,36 @@
     <script src="{% static 'js/core/jquery.min.js' %}"></script>
     <script src="{% static 'js/core/popper.min.js' %}"></script>
     <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
-    
+    <script src="{% static 'js/core/jquery-1.11.0.min.js' %}"></script>
 </body>
+<script type='text/javascript'>
+  $(document).ready(function(){
+    // Check or Uncheck All checkboxes
+    $("#checkall").change(function(){
+      var checked = $(this).is(':checked');
+      if(checked){
+        $(".check-ele").each(function(){
+          $(this).prop("checked",true);
+        });
+      }else{
+        $(".check-ele").each(function(){
+          $(this).prop("checked",false);
+        });
+      }
+    });
+  
+   // Changing state of CheckAll checkbox 
+   $(".check-ele").click(function(){
+  
+     if($(".check-ele").length == $(".check-ele:checked").length) {
+       $("#checkall").prop("checked", true);
+     } else {
+       $("#checkall").removeAttr("checked");
+     }
+   });
+ });
+
+
+</script>
+
 </html>

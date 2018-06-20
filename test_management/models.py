@@ -9,9 +9,8 @@ class Test(models.Model):
     # admin_id = models.OneToOneField('Admin', on_delete=models.CASCADE)
     test_name = models.TextField(max_length=45)
     test_type = models.TextField(max_length=45)
-    create_test = models.DateField()
+    test_date = models.DateField()
     create_date = models.DateTimeField(auto_now_add=True)
-    update_date = models.DateTimeField()
 
     def __str__(self): 
         return self.test_name

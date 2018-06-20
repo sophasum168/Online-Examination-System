@@ -1,14 +1,29 @@
 {% extends 'navigation_bar.html'%}
 {% block test_list %}
-<div class="container"><h1>Test List</h1></div>
+
+
+<div class="container">
+  <h1>Test List</h1>
+</div>
+
+<div id="inline-toolbar">
+<button class="btn btn-round" data-toggle="modal" data-target="#addModal">
+  <i class="material-icons" >add_circle</i>   Add
+</button>
+<button class="btn btn-round" data-toggle="modal" data-target="#deleteModal">
+  <i class="material-icons" >delete</i>   Delete
+</button> 
+</div>
+
+
 <div class="table-container">
-            <table class="table table-striped">
+            <table id="fresh-table" class="table table-striped">
                     <thead class="thead-table-list">
                       <tr>
                         <th scope="col">
                           <div class="form-check">
                               <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="">
+                                <input class="form-check-input" id="checkall" type="checkbox" value="">
                                 <span class="form-check-sign">
                                   <span class="check"></span>
                                 </span>
@@ -27,7 +42,7 @@
                             <td>
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input " type="checkbox" value="">
+                                        <input class="form-check-input check-ele" type="checkbox" value="">
                                         <span class="form-check-sign">
                                           <span class="check"></span>
                                         </span>
@@ -42,5 +57,45 @@
                         {% endfor %}
                     </tbody>
                   </table>
+</div>
+<div class="modal fade" id="addModal" tabindex="-1" role="">
+    <div class="modal-dialog modal-login" role="document">
+        <div class="modal-content">
+            <div class="card card-signup card-plain">
+                <div class="modal-body">
+                    <form class="form" method="POST" action="{% url 'add_test' %}">
+                        {% csrf_token %}
+                        <h2>Add Test</h2>
+                        <div class="card-body">
+                            <div class="form-group bmd-form-group">
+                                <div class="input-group">
+                                    <p>Name :</p>
+                                    <input type="text" class="form-control" name="test_name" placeholder="Test Name...">
+                                </div>
+                            </div>
+                            <div class="form-group bmd-form-group">
+                              <div class="input-group">
+                                  <p>Type :</p>
+                                  <input type="text" class="form-control" name="test_type" placeholder="Test Type...">
+                              </div>
+                            </div>
+                            <div class="form-group bmd-form-group">
+                                <div class="input-group">
+                                    <p>Date :</p>
+                                    <input type="date" class="form-control" name="test_date" placeholder="Test Date...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-right">
+                            <input type="submit" value="Add">
+                            <!-- <a href="." class="btn btn-primary btn-link btn-wd btn-lg" id="close">Close</a>
+                            <a href="#pablo" class="btn btn-primary btn-link btn-wd btn-lg" id="add_new">Add & New</a>
+                            <a href="." class="btn btn-primary btn-link btn-wd btn-lg" id="add">Add</a> -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
