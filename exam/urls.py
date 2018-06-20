@@ -18,13 +18,8 @@ from django.contrib import admin
 from register.views import (register,upload_file,candidate,existemail)
 from django.conf import settings
 from django.conf.urls.static import static
-<<<<<<< HEAD
-from candidate.views import cour
-from test_management.views import (test_list, subject_list, topic_list, question_list, import_question, add_test)
-=======
 from candidate.views import (cour,index)
-from test_management.views import (test_list, subject_list, topic_list, question_list, import_question)
->>>>>>> 6d71ff660963ef5f22957f5d764d098e6e908c71
+from test_management.views import (test_list, subject_list, topic_list, question_list, import_question, add_test)
 
 urlpatterns = [
 
