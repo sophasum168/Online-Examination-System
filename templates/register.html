@@ -1,8 +1,19 @@
-<h1>{{ title }}</h1>
-{{ user }}
-{{ request.user }}
 
-	<form method="post">
-	{{ form }}
-	<input type="submit" name="" value="Register"/>
-	</form>
+{% load staticfiles %}
+
+{% block title_block %}
+    Register
+{% endblock %}
+
+{% block head_block %}
+{% endblock %}
+
+{% block body_block %}    
+    <form id="user_form" method="post" action="/index/" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+
+        <input type="submit" name="submit" value="Register" />
+    </form>
+{% endblock %}
