@@ -22,15 +22,15 @@ class course(models.Model):
 
 class MyUsers(models.Model):
     user=models.OneToOneField(User)
-    created_at = models.DateTimeField(auto_now_add=True)
+    #created_at = models.DateTimeField(auto_now_add=True)
     # updated_at = models.DateTimeField(auto_now=True)
     email = models.EmailField(max_length=120, blank=False, null=False)
     firstname= models.CharField(max_length=120, blank=False, null=False)
     lastname = models.CharField(max_length=120, blank=False, null=False)
     phonenumber = models.CharField(max_length=120, blank=True, null=True)
     country = models.CharField(max_length=120, blank=False, null=False)
-    file = models.ImageField(upload_to='profile_image',blank=False)
-    image = models.ImageField(upload_to='card_image',blank=False)
+    # file = models.ImageField(upload_to='profile_image',blank=False)
+    # image = models.ImageField(upload_to='card_image',blank=False)
     birthday = models.DateField(blank=False, null=False)
     address = models.CharField(max_length=200, blank=False, null=False)
     sname = models.CharField(max_length=300, blank=False, null=False)

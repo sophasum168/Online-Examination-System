@@ -33,9 +33,9 @@ def index(request):
             profile.email = user.email
             profile.save()
 
-            user.first_name = profile.first_name
-            user.last_name = profile.last_name
-            user.save()
+            # user.firstname = profile.firstname
+            # user.lastname = profile.lastname
+            # user.save()
 
             registered = True
             return HttpResponseRedirect('/register/')
