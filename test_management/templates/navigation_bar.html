@@ -92,6 +92,32 @@
    });
  });
 
+//Delete Button
+ $(".delete-btn").click(function(){
+
+  var selected_rows=[];
+
+  $('.test-list').find('tr').each(function(){
+    console.log("Deeeeeeee");
+    console.log(this);
+    var row=$(this);
+    console.log(row.find('input[type="checkbox"]').is(':checked'));
+    if (row.find('input[type="checkbox"]').is(':checked')) {
+        console.log("HHHHHHHH");
+        // selected_rows.push(row.find('span').text());
+        console.log(row.attr('data-id'));
+        selected_rows.push(row.attr('data-id'));
+        };
+    });
+    // slected_values=stringify
+    var selected_rows = JSON.stringify(selected_rows);
+    $.ajax({
+        url: "{% url 'delete_test' %}",
+        type: 'POST',
+        data: {'test_list_ids': selected_rows},
+    })
+});
+
 
 </script>
 

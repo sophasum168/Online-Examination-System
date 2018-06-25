@@ -18,6 +18,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.test_list),
+    url(r'^$', views.add_test),
     url(r'^$', views.subject_list),
     url(r'^$', views.topic_list),
     url(r'^$', views.question_list),

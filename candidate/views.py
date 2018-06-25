@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import course
 from .models import MyUsers
-from .forms import *
+# from .forms import *
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 # Create your views here.

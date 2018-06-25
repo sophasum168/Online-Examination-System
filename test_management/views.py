@@ -2,8 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Test
 
 
@@ -31,5 +30,18 @@ def add_test(request):
         test_date = request.POST.get('test_date')
         test_obj = Test(test_name = test_name, test_type = test_type, test_date = test_date)
         test_obj.save()
-        tests = Test.objects.all()
-    return render(request, 'test_list.html', {'tests' : tests})
+        return HttpResponseRedirect('/test-management/test/')
+
+        #tests = Test.objects.all()
+    # return render(request, 'test_list.html')
+
+def delete_test(request):
+    print 'helllllllllllllllllllloooooooooooooo'
+    if request.is_ajax():
+        selected_tests = request.POST['test_list_ids']
+        selected_tests = json.loads(selected_tests)
+        for i, test in enumerate(selected_tests):
+            if test != '':
+                Test.objects.filter(id=test).delete()
+        return HttpResponseRedirect('/test-management/test/')
+    
