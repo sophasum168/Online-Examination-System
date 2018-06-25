@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Test
+from .forms import TestUpload
 
 
 # Create your views here.

@@ -2056,8 +2056,8 @@ pre code {
 }
 
 .table .thead-table-list th {
-  color: #495057;
-  background-color: #cec3eb;
+  color: white;
+  background-color: rgb(60, 72, 88)
   border-color: rgba(0, 0, 0, 0.06);
 }
 

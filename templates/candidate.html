@@ -31,10 +31,11 @@
 <body>
 	
 	{% block content %}
+
 	<nav class="navbar navbar-expand-lg bg-rose">
     <div class="container">
         <div class="navbar-translate">
-            <button type="button" class="btn btn-danger" href="/presentation.html" style="margin-left: -142px; margin-top: -22px;margin-bottom: -17px"><h5><b>Online Examination System</b></h5></button>
+            <button type="button" class="btn btn-danger" href="{% url 'register' %}" style="margin-left: -142px; margin-top: -22px;margin-bottom: -17px"><h5><b>Online Examination System</b></h5></button>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 <span class="navbar-toggler-icon"></span>
@@ -45,7 +46,7 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav" style="margin-left: 50px">
                 <li class="nav-item">
-                    <a href="#Dashboard" class="nav-link"><b>Dashboard</b></a>
+                    <a href="{% url 'register' %}" class="nav-link"><b>Dashboard</b></a>
                 </li>
                 <li class="nav-item">
                     <a href="#Question" class="nav-link"><b>Question</b></a>
@@ -77,9 +78,29 @@
 </nav>
   <!-- <br> -->
   <center><h2><b><u>Candidate Information</u></b></h2></center>
+
   <div style="margin: 50px">
-  <table>
+    <div id="inline-toolbar">
+  <button class="btn btn-round" data-toggle="modal" data-target="#addModal">
+    <i class="material-icons" >add_circle</i>   Add
+  </button>
+  <button class="btn btn-round" data-toggle="modal" data-target="#deleteModal">
+    <i class="material-icons" >delete</i>   Delete
+  </button> 
+</div>
+  <table id="fresh-table" class="table table-striped">
+    <thead class="thead-table-list">
     <tr>
+         <th scope="col">
+          <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" id="checkall" type="checkbox" value="">
+                <span class="form-check-sign">
+                  <span class="check"></span>
+                </span>
+              </label>
+          </div>
+        </th>
         <th>Register Date</th>
         <th>Email</th>
         <th>First Name</th>
@@ -90,10 +111,24 @@
         <th>Address</th>
         <th>City</th>
         <th>Country</th>
+        <!-- <th>Profile Picture</th>
+        <th>ID Card</th> -->
       </tr>
+    </thead>
+    <tbody>
     
     {% for candidate in candidates %}
     <tr>
+      <td>
+      <div class="form-check">
+          <label class="form-check-label">
+              <input class="form-check-input check-ele" type="checkbox" value="">
+              <span class="form-check-sign">
+                <span class="check"></span>
+              </span>
+          </label>
+        </div>
+      </td>
       <td>{{ candidate.created_at}}</td>
       <td>{{ candidate.email }}</td>
       <td>{{ candidate.firstname }}</td>
@@ -104,9 +139,11 @@
       <td>{{ candidate.address }}</td>
       <td>{{ candidate.city }}</td>
       <td>{{ candidate.country }}</td>
+      <!-- <td>{{ candidate.file }}</td>
+      <td>{{ candidate.image }}</td> -->
     </tr>      
     {% endfor %}
-    
+    </tbody>
   </table>
 </div>  
 		<!-- <div style="margin: 50px">
