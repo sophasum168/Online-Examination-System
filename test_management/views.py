@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
-from django.shortcuts import render
+import json
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Test
-from .forms import TestUpload
+# from .forms import TestUpload
 
 
 # Create your views here.
@@ -37,12 +37,10 @@ def add_test(request):
     # return render(request, 'test_list.html')
 
 def delete_test(request):
-    print 'helllllllllllllllllllloooooooooooooo'
     if request.is_ajax():
         selected_tests = request.POST['test_list_ids']
         selected_tests = json.loads(selected_tests)
+        print request.method
         for i, test in enumerate(selected_tests):
-            if test != '':
-                Test.objects.filter(id=test).delete()
+            Test.objects.filter(id__in=selected_tests).delete()
         return HttpResponseRedirect('/test-management/test/')
-    
