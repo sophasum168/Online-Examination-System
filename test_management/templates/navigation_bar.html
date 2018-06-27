@@ -92,6 +92,26 @@
    });
  });
 
+//Delete Button
+$(".delete-btn").click(function(){
+  var selected_rows=[];
+
+  $('.test-list').find('tr').each(function(){
+    var row=$(this);
+    if (row.find('input[type="checkbox"]').is(':checked')) {
+        selected_rows.push(row.attr('data-id'));
+        };
+  });
+  var selected_rows = JSON.stringify(selected_rows);
+  $.ajax({
+    url: "{% url 'delete_test' %}",
+    type: 'POST',
+    data: {'test_list_ids': selected_rows, 'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
+    success: function(){
+      location.reload();
+    },
+  })
+});
 
 </script>
 

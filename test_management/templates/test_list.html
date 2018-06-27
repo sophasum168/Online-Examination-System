@@ -7,6 +7,7 @@
 <button class="btn btn-round" data-toggle="modal" data-target="#addModal">
   <i class="material-icons" >add_circle</i>   Add
 </button>
+<<<<<<< HEAD
 <form class="form" method="POST" action="{% url 'add_test' %}">
   {% csrf_token %}
 <button class="btn btn-round" data-toggle="modal" data-target="#deleteModal">
@@ -19,9 +20,14 @@
 </TR>
       {% endfor %}
 </button> 
+=======
+    <button class="btn btn-round delete-btn" data-toggle="modal">
+  <i class="material-icons" action >delete</i>   Delete
+</button>
+>>>>>>> 4642211ac1492a42b5d7b5d20b1912a8b801ecba
 </div>
 <div class="table-container">
-            <table id="fresh-table" class="table table-striped">
+            <table id="fresh-table" class="table table-striped test-list">
                     <thead class="thead-table-list">
                       <tr>
                         <th scope="col">
@@ -37,12 +43,12 @@
                         <th scope="col">#</th>
                         <th scope="col">Test</th>
                         <th scope="col">Type</th>
-                        <th scope="col">Created Date</th>
+                        <th scope="col">Test Date</th>
                       </tr>
                     </thead>
                     <tbody>
                         {% for test in tests %}
-                        <tr>
+                        <tr data-id="{{ test.id }}">
                             <td>
                                 <div class="form-check">
                                     <label class="form-check-label">
@@ -53,10 +59,10 @@
                                     </label>
                                   </div>
                             </td>
-                            <td>{{ test.id}}</td>
+                            <td>{{ forloop.counter }}</td>
                             <td>{{ test.test_name}}</td>
                             <td>{{ test.test_type}}</td>
-                            <td>{{ test.create_test}}</td>  
+                            <td>{{ test.test_date}}</td>  
                         </tr>      
                         {% endfor %}
                     </tbody>
@@ -74,19 +80,19 @@
                             <div class="form-group bmd-form-group">
                                 <div class="input-group">
                                     <p>Name :</p>
-                                    <input type="text" class="form-control" name="test_name" placeholder="Test Name...">
+                                    <input type="text" class="form-control" id="test_name" name="test_name" placeholder="Test Name...">
                                 </div>
                             </div>
                             <div class="form-group bmd-form-group">
                               <div class="input-group">
                                   <p>Type :</p>
-                                  <input type="text" class="form-control" name="test_type" placeholder="Test Type...">
+                                  <input type="text" class="form-control" id="test_type" name="test_type" placeholder="Test Type...">
                               </div>
                             </div>
                             <div class="form-group bmd-form-group">
                                 <div class="input-group">
                                     <p>Date :</p>
-                                    <input type="date" class="form-control" name="test_date" placeholder="Test Date...">
+                                    <input type="date" class="form-control" id="test_date" name="test_date" placeholder="Test Date...">
                                 </div>
                             </div>
                         </div>

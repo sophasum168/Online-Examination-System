@@ -20,7 +20,8 @@ from register.views import (register,upload_file,candidate,congratulation)
 from django.conf import settings
 from django.conf.urls.static import static
 from candidate.views import (cour,index)
-from test_management.views import (test_list, subject_list, topic_list, question_list, import_question, add_test)
+from test_management.views import (test_list, subject_list, topic_list, question_list, import_question, add_test
+                                    , delete_test)
 
 urlpatterns = [
 
@@ -34,7 +35,8 @@ urlpatterns = [
     url(r'^register',register,name="register"),
     url(r'^upload/', upload_file, name="upload"),
     url(r'^test-management/test/', test_list, name='test'),
-    url(r'^add_test/', add_test, name='add_test'),
+    url(r'^test-management/add_test/', add_test, name='add_test'),
+    url(r'^test-management/delete_test/', delete_test, name='delete_test'),
     url(r'^test-management/subject/', subject_list, name='subject'),
     url(r'^test-management/topic/', topic_list, name='topic'),
     url(r'^test-management/question/', question_list, name='question'),
