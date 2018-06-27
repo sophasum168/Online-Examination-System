@@ -37,4 +37,4 @@ class UploadFileForm(forms.ModelForm):
 class FileUpload(forms.ModelForm):
 	class Meta:
    		model = Register
-   		fields = ('email','lastname','phonenumber','country','image','file','sname','address','city','birthday')
+   		fields = ('email','firstname','lastname','phonenumber','country','image','file','sname','address','city','birthday')

@@ -4,8 +4,9 @@ from .models import *
 
 
 class CandidateProfile(admin.ModelAdmin):
-	list_filter= ('firstname','email','sname')
+	list_filter= ('created_at','firstname','email','sname','address')
 	list_display=('created_at','email','firstname','lastname','phonenumber','birthday','sname','address','city','country','file','image')
+	search_fields=('firstname','email','lastname')
 	
 	def get_queryset(self, request):
 		queryset=super(CandidateProfile, self).get_queryset(request)

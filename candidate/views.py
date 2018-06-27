@@ -44,6 +44,5 @@ def index(request):
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
-
     context = {'user_form': user_form, 'profile_form': profile_form, 'registered': registered}
     return render(request, 'register.html', context)
