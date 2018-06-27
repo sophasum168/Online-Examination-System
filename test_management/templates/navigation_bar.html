@@ -7,8 +7,7 @@
     <title>Online Examination System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-primary">
@@ -48,7 +47,6 @@
       </div>
     </div>
   </nav>
-
     {% block test_list %}
     {% endblock %}
     {% block subject_list %}
@@ -66,31 +64,60 @@
     <script src="{% static 'js/core/jquery-1.11.0.min.js' %}"></script>
 </body>
 <script type='text/javascript'>
-  $(document).ready(function(){
-    // Check or Uncheck All checkboxes
-    $("#checkall").change(function(){
-      var checked = $(this).is(':checked');
-      if(checked){
-        $(".check-ele").each(function(){
-          $(this).prop("checked",true);
-        });
-      }else{
-        $(".check-ele").each(function(){
-          $(this).prop("checked",false);
-        });
-      }
-    });
-  
-   // Changing state of CheckAll checkbox 
-   $(".check-ele").click(function(){
-  
-     if($(".check-ele").length == $(".check-ele:checked").length) {
-       $("#checkall").prop("checked", true);
-     } else {
-       $("#checkall").removeAttr("checked");
-     }
-   });
+
+// {% if button_pressed %}
+//   $(document).ready(function() {
+//     $(".add-btn").click();
+//   });
+// {% endif %}
+
+$(document).ready(function(){
+  // Check or Uncheck All checkboxes
+  $("#checkall").change(function(){
+    var checked = $(this).is(':checked');
+    if(checked){
+      $(".check-ele").each(function(){
+        $(this).prop("checked",true);
+      });
+    }else{
+      $(".check-ele").each(function(){
+        $(this).prop("checked",false);
+      });
+    }
+  });
+
+  // Changing state of CheckAll checkbox 
+  $(".check-ele").click(function(){
+
+    if($(".check-ele").length == $(".check-ele:checked").length) {
+      $("#checkall").prop("checked", true);
+    } else {
+      $("#checkall").removeAttr("checked");
+    }
+  });
  });
+
+//Add Button
+$(".submit-btn").click(function(){
+  var test_name = JSON.stringify($("#test_name").val());
+  var test_type = JSON.stringify($("#test_type").val());
+  var test_date = JSON.stringify($("#test_date").val());
+  var button_pressed = JSON.stringify($(this).attr('name'));
+  $.ajax({
+    url: "{% url 'add_test' %}",
+    type: 'POST',
+    data: {'button_pressed' : button_pressed, 'test_name' : test_name, 'test_type' : test_type,
+    'test_date' : test_date,'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
+  })
+  var button_pr = $(this).attr('name');
+  if (button_pr == 'add_new'){
+    $("#test_name").val("");
+    $("#test_type").val("");
+    $("#test_date").val("");
+  } else {
+    $(".cancel-btn").click();
+  }
+});
 
 //Delete Button
 $(".delete-btn").click(function(){
@@ -113,6 +140,11 @@ $(".delete-btn").click(function(){
   })
 });
 
-</script>
+//Edit OnClick
+$("tr").click(function(){
+  var row_id = $(this).closest('tr').attr('data-id');
 
+
+});
+</script>
 </html>
