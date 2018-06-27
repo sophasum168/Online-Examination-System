@@ -34,6 +34,8 @@ USE_L10N = False
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'photo_upload',
+    'ziplookup',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',

@@ -6,3 +6,4 @@ from .models import MyUsers
 # Register your models here.
 admin.site.register(course)
 admin.site.register(MyUsers)  
+admin.site.site_header= 'Online Examination System'

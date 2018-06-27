@@ -25,6 +25,11 @@ def question_list(request):
 def import_question(request):
     return render(request, 'import_question.html')
 
+def delete(request, pk):
+    query = Test.objects.get(pk=id)
+    query.delete()
+    return render(request, 'test_list.html')
+
 def add_test(request):
     if request.method == 'POST':
         test_name = json.loads(request.POST.get('test_name'))

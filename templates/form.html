@@ -82,8 +82,9 @@
             <td>
             <label for="uload" style="color: black;">Profile Picture</label>
             </br>
-            <input type="file" required="True" name="file"/>
-            <img id="blah" src="{{ Register.file.url }}" alt="Image" />
+            <img src="{{ register.image.url }}"  width="248" />
+            <input type="file" required="True" name="file" />
+            
             </td>
             <td>
             <label for="uload" style="color: black;">Student IDCard</label>
@@ -92,7 +93,6 @@
             <br/>
             </td>
             </tr>
-          
         </table>
         </br>
         <table>

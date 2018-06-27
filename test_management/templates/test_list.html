@@ -1,21 +1,36 @@
 {% extends 'navigation_bar.html'%}
 {% block test_list %}
-
-
 <div class="container">
   <h1>Test List</h1>
 </div>
-
 <div id="inline-toolbar">
 <button class="btn btn-round add-btn" data-toggle="modal" data-target="#addModal">
   <i class="material-icons" >add_circle</i>   Add
 </button>
+<<<<<<< HEAD
+<form class="form" method="POST" action="{% url 'add_test' %}">
+  {% csrf_token %}
+<button class="btn btn-round" data-toggle="modal" data-target="#deleteModal">
+  <i class="material-icons" >delete</i>   Delete
+  {% for delete in query %}
+<TR ALIGN="CENTER">
+      <td>{{ delete.test_name}}</td>
+      <td>{{ delete.test_type}}</td>
+      <td>{{ delete.create_test}}</td>  
+</TR>
+      {% endfor %}
+</button> 
+=======
     <button class="btn btn-round delete-btn" data-toggle="modal">
   <i class="material-icons" action >delete</i>   Delete
 </button>
+>>>>>>> 4642211ac1492a42b5d7b5d20b1912a8b801ecba
 </div>
+<<<<<<< HEAD
 {{addNew}}
 
+=======
+>>>>>>> 9ac316d4080087d5dd3030eedee9095ee101b8e2
 <div class="table-container">
     <div class="table-responsive">
         <table id="fresh-table" class="table table-striped test-list  table-hover table-sm">
