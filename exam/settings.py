@@ -34,8 +34,6 @@ USE_L10N = False
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    'photo_upload',
-    'ziplookup',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -44,6 +42,7 @@ INSTALLED_APPS = [
     'exam',
     'crispy_forms',
     'register',
+    'capture',
     'candidate',
     'test_management',
     'django.contrib.staticfiles',
