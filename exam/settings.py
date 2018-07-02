@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'exam',
     'crispy_forms',
     'register',
+    'test_management',
     # 'capture',
     'candidate',
     'django.contrib.staticfiles',
