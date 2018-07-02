@@ -34,8 +34,8 @@ USE_L10N = False
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    'photo_upload',
-    'ziplookup',
+    # 'photo_upload',
+    # 'ziplookup',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -123,7 +123,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/

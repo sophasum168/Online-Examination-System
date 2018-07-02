@@ -7,30 +7,10 @@
 <button class="btn btn-round add-btn" data-toggle="modal" data-target="#addModal">
   <i class="material-icons" >add_circle</i>   Add
 </button>
-<<<<<<< HEAD
-<form class="form" method="POST" action="{% url 'add_test' %}">
-  {% csrf_token %}
-<button class="btn btn-round" data-toggle="modal" data-target="#deleteModal">
-  <i class="material-icons" >delete</i>   Delete
-  {% for delete in query %}
-<TR ALIGN="CENTER">
-      <td>{{ delete.test_name}}</td>
-      <td>{{ delete.test_type}}</td>
-      <td>{{ delete.create_test}}</td>  
-</TR>
-      {% endfor %}
-</button> 
-=======
     <button class="btn btn-round delete-btn" data-toggle="modal">
   <i class="material-icons" action >delete</i>   Delete
 </button>
->>>>>>> 4642211ac1492a42b5d7b5d20b1912a8b801ecba
 </div>
-<<<<<<< HEAD
-{{addNew}}
-
-=======
->>>>>>> 9ac316d4080087d5dd3030eedee9095ee101b8e2
 <div class="table-container">
     <div class="table-responsive">
         <table id="fresh-table" class="table table-striped test-list  table-hover table-sm">
@@ -39,7 +19,7 @@
                     <th scope="col">
                         <div class="form-check">
                             <label class="form-check-label">
-                            <input class="form-check-input" id="checkall" type="checkbox" value="">
+                            <input class="form-check-input check-prevent" id="checkall" type="checkbox" value="">
                             <span class="form-check-sign">
                                 <span class="check"></span>
                             </span>
@@ -54,11 +34,11 @@
                 </thead>
                 <tbody>
                     {% for test in tests %}
-                    <tr data-id="{{ test.id }}" id="table-row">
-                        <td>
+                    <tr data-id="{{ test.id }}" class="table-row">
+                        <td class="form-check">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input check-ele" type="checkbox" value="">
+                                    <input class="form-check-input check-ele check-prevent" type="checkbox" value="">
                                     <span class="form-check-sign">
                                     <span class="check"></span>
                                     </span>
@@ -66,9 +46,9 @@
                             </div>
                         </td>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ test.test_name}}</td>
-                        <td>{{ test.test_type}}</td>
-                        <td>{{ test.test_date}}</td>  
+                        <td name="test_name">{{ test.test_name }}</td>
+                        <td name="test_type">{{ test.test_type }}</td>
+                        <td name="test_date">{{ test.test_date|date:"m/d/Y" }}</td>  
                     </tr>      
                     {% endfor %}
                 </tbody>
@@ -87,19 +67,19 @@
                             <div class="form-group bmd-form-group">
                                 <div class="input-group">
                                     <p>Name :</p>
-                                    <input type="text" class="form-control" id="test_name" name="test_name" placeholder="Test Name...">
+                                    <input type="text" class="form-control" id="add_test_name" name="add_test_name" placeholder="Test Name...">
                                 </div>
                             </div>
                             <div class="form-group bmd-form-group">
-                              <div class="input-group">
-                                  <p>Type :</p>
-                                  <input type="text" class="form-control" id="test_type" name="test_type" placeholder="Test Type...">
-                              </div>
+                                <div class="input-group">
+                                    <p>Type :</p>
+                                    <input type="text" class="form-control" id="add_test_type" name="add_test_type" placeholder="Test Type...">
+                                </div>
                             </div>
                             <div class="form-group bmd-form-group">
                                 <div class="input-group">
                                     <p>Date :</p>
-                                    <input type="date" class="form-control" id="test_date" name="test_date" placeholder="Test Date...">
+                                    <input type="date" class="form-control" id="add_test_date" name="add_test_date" placeholder="Test Date...">
                                 </div>
                             </div>
                         </div>
@@ -107,6 +87,44 @@
                             <button type="button" class="btn btn-primary btn-link btn-wd btn-lg cancel-btn" data-dismiss="modal">Cancel</button>
                             <button type="button" class="btn btn-primary btn-link btn-wd btn-lg submit-btn" name="add_new">Add & New</button>
                             <button type="button" class="btn btn-primary submit-btn" name="add">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" role="">
+    <div class="modal-dialog modal-login" role="document">
+        <div class="modal-content">
+            <div class="card card-signup card-plain">
+                <div class="modal-body">
+                    <form class="form" method="POST" action="{% url 'add_test' %}">
+                        {% csrf_token %}
+                        <h2>Edit Test</h2>
+                        <div class="card-body">
+                            <div class="form-group bmd-form-group">
+                                <div class="input-group">
+                                    <p>Name :</p>
+                                    <input type="text" class="form-control" id="edit_test_name" name="test_name">
+                                </div>
+                            </div>
+                            <div class="form-group bmd-form-group">
+                              <div class="input-group">
+                                  <p>Type :</p>
+                                  <input type="text" class="form-control" id="edit_test_type" name="test_type">
+                              </div>
+                            </div>
+                            <div class="form-group bmd-form-group">
+                                <div class="input-group">
+                                    <p>Date :</p>
+                                    <input type="date" class="form-control" id="edit_test_date" name="test_date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-right">
+                            <button type="button" class="btn btn-primary btn-link btn-wd btn-lg cancel-btn" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary save-btn" name="save">save</button>
                         </div>
                     </form>
                 </div>

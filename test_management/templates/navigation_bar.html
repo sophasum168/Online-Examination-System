@@ -18,21 +18,14 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Dashboard<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="{% url 'question' %}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Question
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="{% url 'import_question' %}">Import Question</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{% url 'subject' %}">Subject</a>
-            </div>
+          <li class="nav-item">
+            <a class="nav-link" href="#" name="Dashboard">Dashboard</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'test' %}" name="Test">Test</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'question' %}" name="Question">Question</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Candidate</a>
@@ -49,10 +42,6 @@
   </nav>
     {% block test_list %}
     {% endblock %}
-    {% block subject_list %}
-    {% endblock %}
-    {% block topic_list %}
-    {% endblock %}
     {% block question_list %}
     {% endblock %}
     {% block import_question %}
@@ -61,16 +50,8 @@
     <script src="{% static 'js/core/jquery.min.js' %}"></script>
     <script src="{% static 'js/core/popper.min.js' %}"></script>
     <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
-    <script src="{% static 'js/core/jquery-1.11.0.min.js' %}"></script>
 </body>
 <script type='text/javascript'>
-
-// {% if button_pressed %}
-//   $(document).ready(function() {
-//     $(".add-btn").click();
-//   });
-// {% endif %}
-
 $(document).ready(function(){
   // Check or Uncheck All checkboxes
   $("#checkall").change(function(){
@@ -95,13 +76,19 @@ $(document).ready(function(){
       $("#checkall").removeAttr("checked");
     }
   });
+
+  $(".add-btn").click(function(){
+    $("#add_test_name").val("");
+    $("#add_test_type").val("");
+    $("#add_test_date").val("");
+  });
  });
 
 //Add Button
 $(".submit-btn").click(function(){
-  var test_name = JSON.stringify($("#test_name").val());
-  var test_type = JSON.stringify($("#test_type").val());
-  var test_date = JSON.stringify($("#test_date").val());
+  var test_name = JSON.stringify($("#add_test_name").val());
+  var test_type = JSON.stringify($("#add_test_type").val());
+  var test_date = JSON.stringify($("#add_test_date").val());
   var button_pressed = JSON.stringify($(this).attr('name'));
   $.ajax({
     url: "{% url 'add_test' %}",
@@ -130,6 +117,7 @@ $(".delete-btn").click(function(){
         };
   });
   var selected_rows = JSON.stringify(selected_rows);
+  console.log(selected_rows);
   $.ajax({
     url: "{% url 'delete_test' %}",
     type: 'POST',
@@ -137,14 +125,42 @@ $(".delete-btn").click(function(){
     success: function(){
       location.reload();
     },
-  })
+  });
 });
 
 //Edit OnClick
-$("tr").click(function(){
-  var row_id = $(this).closest('tr').attr('data-id');
+$(".table-row td:not(:has(input))").click(function(){
+  $('#editModal').modal('show');
+  let rowId = $(this).closest('tr').attr('data-id');
+  const row = $(this).closest('tr');
+  var test_name = row.find('td[ name="test_name" ]').text();
+  var test_type = row.find('td[ name="test_type" ]').text();
+  var test_date = row.find('td[ name="test_date" ]').text();
+  console.log(rowId);
+  var date = new Date(test_date);
+  var day = ("0" + date.getDate()).slice(-2);
+  var month = ("0" + (date.getMonth() + 1)).slice(-2);
+  var test_date = date.getFullYear()+"-"+(month)+"-"+(day) ;
+  $('#edit_test_date').val(test_date);
+  $("#edit_test_name").val(test_name);
+  $("#edit_test_type").val(test_type);
 
-
+  //EDIT FORM- Save OnClick
+  $(".save-btn").click(function(){
+    var row_id = JSON.stringify(rowId);
+    var test_name = JSON.stringify($("#edit_test_name").val());
+    var test_type = JSON.stringify($("#edit_test_type").val());
+    var test_date = JSON.stringify($("#edit_test_date").val());
+    $.ajax({
+    url: "{% url 'edit_test' %}",
+    type: 'POST',
+    data: {'row_id' : row_id, 'test_name' : test_name, 'test_type' : test_type, 'test_date' : test_date,
+            'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val() },
+    success: function(){
+      location.reload();
+      },
+    });
+  });
 });
 </script>
 </html>
