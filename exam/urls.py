@@ -19,13 +19,13 @@ from django.contrib import admin
 from register.views import (register,upload_file,candidate,congratulation)
 from django.conf import settings
 from django.conf.urls.static import static
+# from capture.views import (PersonaCreateView, SaveImage, template)
 from candidate.views import (cour,index)
 from test_management.views import (test_list, add_test, edit_test, delete_test,
                                     question_list, add_question, edit_question, delete_question,
                                     import_question)
-
+                                    
 urlpatterns = [
-
 	# url(r'^$', views.HomePageView.as_view(), name='home'),
 	# url(r'^', views.AboutPageView.as_view(), name='about'),
 	# url(r'^$', views.index, name='index'),
@@ -48,6 +48,13 @@ urlpatterns = [
     url(r'^cour/', cour, name="cour"),
     # url(r'^photo/', include('photo_upload.urls')),
     url(r'^index/', index, name="index"),
+    # url(r'^template/', template, name="template"),
     url(r'^congratulation/', congratulation, name="congratulation"),
+    # url(r'^save_image/', save_image, name="save_image"),
+    # url(r'^upload_webcam/', upload_webcam, name="upload_webcam"),
+    # url(r'^save_filewc/', save_filewc, name="save_filewc"),
+    # url(r'^persona/', view= PersonaCreateView.as_view(), name='add_persona'),
+    # url(r'^save_image/', view=SaveImage.as_view(), name='salvar_imagen'),
+    # url(r'^save_image/(?P<cedula>\d+)/$', view=SaveImage.as_view(), name='salvar_imagen'),
     # url(r'^',include('example.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

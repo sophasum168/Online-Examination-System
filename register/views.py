@@ -9,7 +9,8 @@ from django.contrib.auth import (
 from django.shortcuts import render	
 #from .forms import UploadFileForm
 from .forms import FileUpload
-#from .forms import UserForm
+from django.views.decorators.csrf import csrf_exempt
+from .forms import ImageUploadWCForm
 from .models import Register
 from .models import Image
 from django.http import HttpResponse
@@ -41,7 +42,7 @@ def register(request):
 	return render(request,'form.html',{'book':book})
 
 def congratulation(request):
-    return render(request, 'congratulation.html')
+    return render(request, 'capture.html')
 	
 def candidate(request):
 	# c=Register.objects.all()
@@ -62,17 +63,37 @@ def upload_file(request):
 
 	return render(request, 'candidate.html', {'form': form})
 
-# def upload(request):
-#     if request.method == 'POST':
-#         handle_uploaded_file(request.FILES['file'], str(request.FILES['file']))
-#         return HttpResponse("Successful")
- 
-#     return HttpResponse("Failed")
- 
-# def handle_uploaded_file(file, filename):
-#     if not os.path.exists('upload/'):
-#         os.mkdir('upload/')
- 
-#     with open('upload/' + filename, 'wb+') as destination:
-#         for chunk in file.chunks():
-#             destination.write(chunk)
+# def save_image(request):
+# 	if request.POST:
+# 		# save it somewhere
+# 		f = open(settings.MEDIA_ROOT + '/webcamimages/someimage.jpg', 'wb')
+# 		f.write(request.raw_post_data)
+# 		f.close()
+# 		# return the URL
+# 		return HttpResponse('http://localhost:8080/site_media/webcamimages/someimage.jpg')
+# 	else:
+# 		return HttpResponse('no data')
+
+def upload_webcam(request):
+  print "in upload WBCAM "     
+  if request.method == 'POST':
+      form = ImageUploadWCForm(request.POST, request.FILES)
+      #print "FILES", request.FILES
+      if form.is_multipart():
+          uploadFile=save_filewc(request.FILES['imagewc'])
+          print('vALID iMAGE')
+      else:
+          print('Invalid image')
+  else:
+      form = ImageUploadWCForm()   
+  return render(request, 'capture_image.html')
+
+def save_filewc(file, path=''):
+  filename = "sopha.jpg"
+  fd = open('%s/%s' % (MEDIA_ROOT1, str(path) + str(filename)), 'wb')
+  print "fd", fd
+  print "str(path)",str(path)
+  print "str(filename)",str(filename)
+  for chunk in file.chunks():
+      fd.write(chunk)
+  fd.close()

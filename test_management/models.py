@@ -30,16 +30,16 @@ class Question(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.question
+        return self.question_name
 
 class Option(models.Model):
     question_id = models.ForeignKey('Question', on_delete=models.CASCADE)
-    option = models.TextField(max_length=100)
+    option_name = models.TextField(max_length=100)
     answer = models.CharField(max_length=1, choices=ANSWER, default='F')
     last_update_date = models.DateTimeField()
 
     def __str__(self):
-        return self.option
+        return self.option_name
 
 class Admin(models.Model):
     admin_name = models.TextField(max_length=45)
