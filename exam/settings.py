@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'register',
     'capture',
     'candidate',
-    'test_management',
     'django.contrib.staticfiles',
 ]
 

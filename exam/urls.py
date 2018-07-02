@@ -21,8 +21,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from capture.views import (PersonaCreateView, SaveImage, template)
 from candidate.views import (cour,index)
-from test_management.views import (test_list, subject_list, topic_list, question_list, import_question, add_test
-                                    , delete_test)
 
 urlpatterns = [
 
@@ -35,13 +33,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^register',register,name="register"),
     url(r'^upload/', upload_file, name="upload"),
-    url(r'^test-management/test/', test_list, name='test'),
-    url(r'^test-management/add_test/', add_test, name='add_test'),
-    url(r'^test-management/delete_test/', delete_test, name='delete_test'),
-    url(r'^test-management/subject/', subject_list, name='subject'),
-    url(r'^test-management/topic/', topic_list, name='topic'),
-    url(r'^test-management/question/', question_list, name='question'),
-    url(r'^test-management/import_question/', import_question, name='import_question'),
     url(r'^candidate/', candidate, name="candidate"),
     url(r'^cour/', cour, name="cour"),
     # url(r'^photo/', include('photo_upload.urls')),
