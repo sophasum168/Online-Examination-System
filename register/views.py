@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from django.views.generic import TemplateView, CreateView, DetailView, ListView
 from django.contrib.auth import (
 	authenticate,
 	get_user_model,
@@ -10,8 +10,8 @@ from django.shortcuts import render
 #from .forms import UploadFileForm
 from .forms import FileUpload
 from django.views.decorators.csrf import csrf_exempt
-from .forms import ImageUploadWCForm
 from .models import Register
+from django.views.decorators.csrf import csrf_exempt
 from .models import Image
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -37,8 +37,8 @@ def register(request):
         if book.is_valid():
 			# book = FileUpload(file=request.FILES['image'])
 			book.save()
-			return HttpResponseRedirect('/congratulation/')
-        
+			return HttpResponseRedirect('/candidate/')
+        	
 	return render(request,'form.html',{'book':book})
 
 def congratulation(request):
@@ -63,37 +63,22 @@ def upload_file(request):
 
 	return render(request, 'candidate.html', {'form': form})
 
-# def save_image(request):
-# 	if request.POST:
-# 		# save it somewhere
-# 		f = open(settings.MEDIA_ROOT + '/webcamimages/someimage.jpg', 'wb')
-# 		f.write(request.raw_post_data)
-# 		f.close()
-# 		# return the URL
-# 		return HttpResponse('http://localhost:8080/site_media/webcamimages/someimage.jpg')
-# 	else:
-# 		return HttpResponse('no data')
+class SaveImage(TemplateView):
 
-def upload_webcam(request):
-  print "in upload WBCAM "     
-  if request.method == 'POST':
-      form = ImageUploadWCForm(request.POST, request.FILES)
-      #print "FILES", request.FILES
-      if form.is_multipart():
-          uploadFile=save_filewc(request.FILES['imagewc'])
-          print('vALID iMAGE')
-      else:
-          print('Invalid image')
-  else:
-      form = ImageUploadWCForm()   
-  return render(request, 'capture_image.html')
+	@csrf_exempt
+	def dispatch(self, *args, **kwargs):
+		self.filename = self.kwargs['cedula']+'.jpg'
+		return super(SaveImage, self).dispatch(*args, **kwargs)
 
-def save_filewc(file, path=''):
-  filename = "sopha.jpg"
-  fd = open('%s/%s' % (MEDIA_ROOT1, str(path) + str(filename)), 'wb')
-  print "fd", fd
-  print "str(path)",str(path)
-  print "str(filename)",str(filename)
-  for chunk in file.chunks():
-      fd.write(chunk)
-  fd.close()
+	def post(self, request, *args, **kwargs):
+		
+		# save it somewhere
+		f = open(settings.MEDIA_ROOT + '/webcamimages/'+ self.filename, 'wb')
+		f.write(request.body)
+		f.close()
+		# return the URL
+		return HttpResponse("/media/webcamimages/" + self.filename)
+
+	def get(self, request, *args, **kwargs):
+		return HttpResponse('No esta pasando el POST')
+
