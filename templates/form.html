@@ -46,139 +46,126 @@
 
 <body class="signup-page sidebar-collapse">
 {% block content %}
-
- 
   <div class="page-header header-filter" filter-color="purple" >
-    
     <div class="container">
-      <!-- <div class="row"> -->
-
         <div class="col-md-9 mr-auto">
-          <!-- <div style="margin-left: 140px"> -->
           <div class="card card-signup">
-
             <h2 class="card-title text-center">Register</h2>
-            <!-- <div class="card-body">
-              <div class="row"> -->
-                
-                <!-- <div class="col-md-15 mr-auto"> -->
-                  <!-- <div class="social text-center">
-                    <button class="btn btn-just-icon btn-round btn-twitter">
-                      <i class="fa fa-twitter"></i>
-                    </button>
-                    <button class="btn btn-just-icon btn-round btn-dribbble">
-                      <i class="fa fa-dribbble"></i>
-                    </button>
-                    <button class="btn btn-just-icon btn-round btn-facebook">
-                      <i class="fa fa-facebook"> </i>
-                    </button>
-                  </div> -->
                   <form name="form" method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
-                  	{% csrf_token %}
-                
-					    <div>
-					    	
-            <h1>
-              {{what}}
-            </h1>
-            <table>
-              <tr>
-            <td>
-             <a href="#takephoto" role="button" data-toggle="modal frade" class="btn btn-warning">Take Photo</a>
-           </br>
-             <label for="uload" style="color: black;">Profile Picture</label>
-           </br>
-            <input type="file" required="True" name="file" />
-            </td>
-            <td>
-            <label for="uload" style="color: black;">Student IDCard</label>
-            </br>
-            <input type="file" required="True" name="image"/>
-            <br/>
-            </td>
-            </tr>
-        </table>
-        </br>
-        <table>
-            <tr>
-            <td>
-					    <label for="fname" style="color: black;">First Name</label>
-					    <input type="text" id="fname" name="firstname" required="True" placeholder="Your name..">
-            </td>
-           <!-- &nbsp; &nbsp;  &nbsp;  &nbsp;  --> 
-            <td>
-					    <label for="lname" style="color: black;">Last Name</label>
-					    <input class="required" type="text" id="lname" required="True" name="lastname" placeholder="Your last name..">
-					     </td>
-              </tr>
-            <tr>
-              <td>
-					    <label for="email" style="color: black;">Email</label>
-					    <input type="text" id="email" name="email" placeholder="Email" required="True">
-              </td>
-              <td>
-              <label for="phone" style="color: black;">Mobile Phone</label>
-              <input type="text" id="phone" name="phonenumber" required="True" placeholder="Phone Number">
-              </td>
-              </tr>
-              <tr>
-                <td>
-              
-              <label for="School" style="color: black;">School Name</label>
-              <input type="text" id="sname" name="sname" required="True" placeholder="School Name">
-              </td>
-              
-                <td>
-					    <label for="birthday" style="color: black; ">Birthday</label>
-            </br>
-              <input type="date" style="border: 2px solid gray;" id="birthday" name="birthday" required="True" placeholder="birthday">
-              </td>
-              </tr>
-              <tr>
-                <th>
-
-					    <label for="address" style="color: black;">Address</label>
-					    <input type="text" id="address" name="address" required="True" placeholder="Fill Your Address">
-              </th>
-              </tr>
-              <tr>
-                <td>
-					    <label for="city" style="color: black;">City</label>
-					    <select id="city" name="city" required="True">
-					      <option value="Kompot">Kompot</option>
-					      <option value="PP">PP</option>
-					      <option value="Koh Kong">Koh Kong</option>
-					    </select>
-              </td>
-              <td>
-					    <label for="country" style="color: black;">Country</label>
-					    <select id="country" name="country" required="True">
-					      <option value="australia">Japan</option>
-					      <option value="canada">India</option>
-					      <option value="usa">USA</option>
-					    </select>
-            </td>
-          </tr>
-              </table>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="" checked>
-                        <span class="form-check-sign">
-                          <span class="check"></span>
-                        </span>
-                        I agree to the
-                        <a href="#something">terms and conditions</a>.
-                      </label>
-                    </div>
-                    <input type="submit" name="" value="Register"/>
-                    
-                    </div>
-                  </form>
+                    {% csrf_token %}
+                        <h1>
+                          {{what}}
+                        </h1>
+                        <table>
+                          <tr>
+                        <td>
+                         <!-- <a href="#takephoto" role="button" data-toggle="modal frade" class="btn btn-warning">Take Photo</a> -->
+                         <button class="btn btn-round add-btn" data-toggle="modal" data-target="#takephoto">Take Photo</button>
+                       </br>  
+                        <input type="file" required="True" name="file" />
+                        </td>
+                        <td>
+                        <label for="uload" style="color: black;">Student IDCard</label>
+                        </br>
+                        <input type="file" required="True" name="image"/>
+                        <br/>
+                        </td>
+                        </tr>
+                    </table>
+                    </br>
+                    <table>
+                        <tr>
+                        <td>
+                          <label for="fname" style="color: black;">First Name</label>
+                          <input type="text" id="fname" name="firstname" required="True" placeholder="Your name..">
+                        </td>
+                       <!-- &nbsp; &nbsp;  &nbsp;  &nbsp;  --> 
+                        <td>
+                          <label for="lname" style="color: black;">Last Name</label>
+                          <input class="required" type="text" id="lname" required="True" name="lastname" placeholder="Your last name..">
+                           </td>
+                          </tr>
+                        <tr>
+                          <td>
+                          <label for="email" style="color: black;">Email</label>
+                          <input type="text" id="email" name="email" placeholder="Email" required="True">
+                          </td>
+                          <td>
+                          <label for="phone" style="color: black;">Mobile Phone</label>
+                          <input type="text" id="phone" name="phonenumber" required="True" placeholder="Phone Number">
+                          </td>
+                          </tr>
+                          <tr>
+                            <td>
+                          
+                          <label for="School" style="color: black;">School Name</label>
+                          <input type="text" id="sname" name="sname" required="True" placeholder="School Name">
+                          </td>
+                            <td>
+                          <label for="birthday" style="color: black; ">Birthday</label>
+                        </br>
+                          <input type="date" style="border: 2px solid gray;" id="birthday" name="birthday" required="True" placeholder="birthday">
+                          </td>
+                          </tr>
+                          <tr>
+                            <th>
+                          <label for="address" style="color: black;">Address</label>
+                          <input type="text" id="address" name="address" required="True" placeholder="Fill Your Address">
+                          </th>
+                          </tr>
+                      <tr>
+                            <td>
+                          <label for="city" style="color: black;">City</label>
+                          <select id="city" name="city" required="True">
+                            <option value="Kompot">Kompot</option>
+                            <option value="PP">PP</option>
+                            <option value="Koh Kong">Koh Kong</option>
+                          </select>
+                          </td>
+                          <td>
+                          <label for="country" style="color: black;">Country</label>
+                          <select id="country" name="country" required="True">
+                            <option value="australia">Japan</option>
+                            <option value="canada">India</option>
+                            <option value="usa">USA</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                      <div class="form-check">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" value="" checked>
+                                    <span class="form-check-sign">
+                                      <span class="check"></span>
+                                    </span>
+                                    I agree to the
+                                    <a href="#something">terms and conditions</a>.
+                                  </label>
+                                </div>
+                                </td>
+                              </tr>
+                          </table>
+                                
+                                <input type="submit" name="" value="Register"/>
+                                </form>
+          </div>
+        </div>
+      </div>
+    </div>
+            
+                  
                   <!-- Advanced Modal -->
-                          <div id="takephoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal fade" id="takephoto" tabindex="-1" role="">
+    <div class="modal-dialog modal-login" role="document">
+        <div class="modal-content">
+            <div class="card card-signup card-plain">
+                <div class="modal-body">
+                        <div class="card-body">
                             <div class="modal-header">
                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h3 id="myModalLabel">Camara</h3>
+                          </div>
+                                <h3 id="myModalLabel" style="text-align: center;">Camara</h3>
                             </div>
                             <div class="modal-body">
                               <!-- Configure a few settings -->
@@ -186,23 +173,23 @@
                                 document.write( webcam.get_html(350, 250) );
                               </script>
                             </div>
-                            <div class="modal-footer">
+                        </div>
+                       <div class="modal-footer">
                               <a href="#" class="btn">Close</a>
                               <button class="btn btn-primary" onClick="take_snapshot()">Capture Photo</button>
-                            </div>
-                          </div>
+                        </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-    </div>
-  </div>
+
+
 {% endblock content %}
 	{% block extra_js %}
   <!-- Code to handle the server response -->
+   <script src="{% static 'js/core/jquery.min.js' %}"></script>
+    <script src="{% static 'js/core/popper.min.js' %}"></script>
+    <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
   <script language="JavaScript">
     function take_snapshot() {    
       var cedula = document.getElementById('cedula').value;
