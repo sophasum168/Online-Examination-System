@@ -5,35 +5,35 @@
 <h1>Question List</h1>
 </div>
 <div id="inline-toolbar">
-    <button class="btn btn-round add-btn" data-toggle="modal" data-target="#addModal">
+    <button class="btn btn-round btn-primary import-btn-question" data-toggle="modal" data-target="#addModal">
     <i class="material-icons" >import_export</i>   Import
     </button>
-<button class="btn btn-round add-btn" data-toggle="modal" data-target="#addModal">
+<button class="btn btn-round btn-primary add-btn-question" data-toggle="modal" data-target="#addModal">
 <i class="material-icons" >add_circle</i>   Add
 </button>
-    <button class="btn btn-round delete-btn" data-toggle="modal">
+    <button class="btn btn-round btn-danger delete-btn-question" data-toggle="modal">
 <i class="material-icons" action >delete</i>   Delete
 </button>
 </div>
 <div class="table-container">
     <div class="table-responsive">
-        <table id="fresh-table" class="table table-striped test-list  table-hover table-sm">
+        <table id="fresh-table" class="table table-striped question-list table-hover table-sm">
                 <thead class="thead-table-list">
                     <tr>
-                    <th scope="col">
-                        <div class="form-check">
-                            <label class="form-check-label">
-                            <input class="form-check-input check-prevent" id="checkall" type="checkbox" value="">
-                            <span class="form-check-sign">
-                                <span class="check"></span>
-                            </span>
-                            </label>
-                        </div>
-                    </th>
-                    <th scope="col">#</th>
-                    <th scope="col">Question</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Test</th>
+                        <th scope="col">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                <input class="form-check-input check-prevent" id="checkall" type="checkbox" value="">
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                                </label>
+                            </div>
+                        </th>
+                        <th scope="col">#</th>
+                        <th scope="col">Question</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Test</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,11 +59,6 @@
         </table>
     </div>
 </div>
-<form action="/add_test/" method="post">
-    {% csrf_token %}
-    {{ NameForm }}
-    <input type="submit" value="Submit" />
-</form>
 <div class="modal fade" id="addModal" tabindex="-1" role="">
     <div class="modal-dialog modal-login" role="document">
         <div class="modal-content">
@@ -72,30 +67,59 @@
                     <form class="form" method="POST" action="{% url 'add_question' %}">
                         {% csrf_token %}
                         <h2>Add Question</h2>
+                        <!-- {{ optionForm }} -->
                         <div class="card-body">
-                            <div class="form-group bmd-form-group">
-                                <div class="input-group">
-                                    <p>Question :</p>
-                                    <input type="text" class="form-control" id="add_question" name="add_question" placeholder="Question...">
-                                </div>
-                            </div>
-                            <div class="form-group bmd-form-group">
-                                <div class="input-group">
-                                    <p>Type :</p>
-                                    <input type="text" class="form-control" id="add_question_type" name="add_question_type" placeholder="Question Type...">
-                                </div>
-                            </div>
-                            <div class="form-group bmd-form-group">
+                            <div class="form-group ">
                                 <div class="input-group">
                                     <p>Test :</p>
-                                    <input type="text" class="form-control" id="add_test_id" name="add_test_id" placeholder="Test...">
+                                    {{questionForm.test_id}}
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <p>Type :</p>
+                                    {{questionForm.question_type}}
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <p>Question :</p>
+                                    {{questionForm.question_name}}
                                 </div>
                             </div>
                         </div>
+                        <div>
+                            <table id="fresh-table" class="table table-striped question-list table-hover table-sm">
+                                <thead class="thead-table-list">
+                                    <tr>
+                                        <th scope="col">Option</th>
+                                        <th scope="col">Answer</th>
+                                    </tr>
+                                </thead>
+                                <tboy>
+                                    <tr>
+                                        <td><input type="text" class="form-control" value="Animal"></td>
+                                        <td><input type="text" class="form-control" value="F"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" class="form-control" value="Snake"></td>
+                                        <td><input type="text" class="form-control" value="T"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" class="form-control" value="Eagle"></td>
+                                        <td><input type="text" class="form-control" value="F"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" class="form-control" value="Turtle"></td>
+                                        <td><input type="text" class="form-control" value="F"></td>
+                                    </tr>
+                                </tboy>
+                            </table>
+                        </div>
                         <div class="modal-footer justify-content-right">
-                            <button type="button" class="btn btn-primary btn-link btn-wd btn-lg cancel-btn" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary btn-link btn-wd btn-lg submit-btn" name="add_new">Add & New</button>
-                            <button type="button" class="btn btn-primary submit-btn" name="add">Add</button>
+                            <button type="button" class="btn btn-primary btn-link btn-wd btn-lg cancel-btn-question" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary btn-link btn-wd btn-lg submit-btn-question" name="add_new">Add & New</button>
+                            <button type="button" class="btn btn-primary submit-btn-question" name="add">Add</button>
                         </div>
                     </form>
                 </div>
@@ -114,26 +138,26 @@
                         <div class="card-body">
                             <div class="form-group bmd-form-group">
                                 <div class="input-group">
-                                    <p>Question :</p>
-                                    <input type="text" class="form-control" id="edit_question" name="edit_question" placeholder="Question...">
+                                    <p>Test :</p>
+                                    {{questionForm.test_id}}
                                 </div>
                             </div>
                             <div class="form-group bmd-form-group">
                                 <div class="input-group">
                                     <p>Type :</p>
-                                    <input type="text" class="form-control" id="edit_question_type" name="edit_question_type" placeholder="Question Type...">
+                                    {{questionForm.question_type}}
                                 </div>
                             </div>
                             <div class="form-group bmd-form-group">
                                 <div class="input-group">
-                                    <p>Test :</p>
-                                    <input type="text" class="form-control" id="edit_test_id" name="edit_test_id" placeholder="Test...">
+                                    <p>Question :</p>
+                                    {{questionForm.question_name}}
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer justify-content-right">
-                            <button type="button" class="btn btn-primary btn-link btn-wd btn-lg cancel-btn" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary save-btn" name="save">save</button>
+                            <button type="button" class="btn btn-primary btn-link btn-wd btn-lg cancel-btn-question" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary save-btn-question" name="save">save</button>
                         </div>
                     </form>
                 </div>
