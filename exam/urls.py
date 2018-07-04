@@ -59,4 +59,6 @@ urlpatterns = [
     # url(r'^save_image/', view=SaveImage.as_view(), name='salvar_imagen'),
     # url(r'^save_image/(?P<cedula>\d+)/$', view=SaveImage.as_view(), name='salvar_imagen'),
     # url(r'^',include('example.urls')),
-]+ static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# urlpatterns = urlpatterns 
+# urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
