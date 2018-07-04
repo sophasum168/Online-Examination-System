@@ -38,7 +38,4 @@ class FileUpload(forms.ModelForm):
 	class Meta:
    		model = Register
    		fields = ('email','firstname','lastname','phonenumber','country','image','file','sname','address','city','birthday')
-class ImageUploadWCForm(forms.Form):
-    print("Image upload from WC form.")        
-    imagewc = forms.ImageField(label='Select a file')              
-    print "Hi in Webcam ", imagewc
+

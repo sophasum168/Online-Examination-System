@@ -2,6 +2,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+  {% block extra_css %}
+  <!-- Primero, incluir la libreria de JpegCam -->
+  <script src="/static/jpegcam/webcam.js"></script>
+  {% endblock extra_css %}
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Online Examination System</title>
