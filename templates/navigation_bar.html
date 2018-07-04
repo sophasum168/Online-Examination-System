@@ -1,0 +1,170 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  {% block extra_css %}
+  <!-- Primero, incluir la libreria de JpegCam -->
+  <script src="/static/jpegcam/webcam.js"></script>
+  {% endblock extra_css %}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Online Examination System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="#">Online Examination System</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#" name="Dashboard">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'test' %}" name="Test">Test</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'question' %}" name="Question">Question</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Candidate</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Live View</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Report</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+    {% block test_list %}
+    {% endblock %}
+    {% block question_list %}
+    {% endblock %}
+    {% block import_question %}
+    {% endblock %}
+
+    <script src="{% static 'js/core/jquery.min.js' %}"></script>
+    <script src="{% static 'js/core/popper.min.js' %}"></script>
+    <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
+</body>
+<script type='text/javascript'>
+$(document).ready(function(){
+  // Check or Uncheck All checkboxes
+  $("#checkall").change(function(){
+    var checked = $(this).is(':checked');
+    if(checked){
+      $(".check-ele").each(function(){
+        $(this).prop("checked",true);
+      });
+    }else{
+      $(".check-ele").each(function(){
+        $(this).prop("checked",false);
+      });
+    }
+  });
+
+  // Changing state of CheckAll checkbox 
+  $(".check-ele").click(function(){
+
+    if($(".check-ele").length == $(".check-ele:checked").length) {
+      $("#checkall").prop("checked", true);
+    } else {
+      $("#checkall").removeAttr("checked");
+    }
+  });
+
+  $(".add-btn").click(function(){
+    $("#add_test_name").val("");
+    $("#add_test_type").val("");
+    $("#add_test_date").val("");
+  });
+ });
+
+//Add Button
+$(".submit-btn").click(function(){
+  var test_name = JSON.stringify($("#add_test_name").val());
+  var test_type = JSON.stringify($("#add_test_type").val());
+  var test_date = JSON.stringify($("#add_test_date").val());
+  var button_pressed = JSON.stringify($(this).attr('name'));
+  $.ajax({
+    url: "{% url 'add_test' %}",
+    type: 'POST',
+    data: {'button_pressed' : button_pressed, 'test_name' : test_name, 'test_type' : test_type,
+    'test_date' : test_date,'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
+  })
+  var button_pr = $(this).attr('name');
+  if (button_pr == 'add_new'){
+    $("#test_name").val("");
+    $("#test_type").val("");
+    $("#test_date").val("");
+  } else {
+    $(".cancel-btn").click();
+  }
+});
+
+//Delete Button
+$(".delete-btn").click(function(){
+  var selected_rows=[];
+
+  $('.test-list').find('tr').each(function(){
+    var row=$(this);
+    if (row.find('input[type="checkbox"]').is(':checked')) {
+        selected_rows.push(row.attr('data-id'));
+        };
+  });
+  var selected_rows = JSON.stringify(selected_rows);
+  console.log(selected_rows);
+  $.ajax({
+    url: "{% url 'delete_test' %}",
+    type: 'POST',
+    data: {'test_list_ids': selected_rows, 'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
+    success: function(){
+      location.reload();
+    },
+  });
+});
+
+//Edit OnClick
+$(".table-row td:not(:has(input))").click(function(){
+  $('#editModal').modal('show');
+  let rowId = $(this).closest('tr').attr('data-id');
+  const row = $(this).closest('tr');
+  var test_name = row.find('td[ name="test_name" ]').text();
+  var test_type = row.find('td[ name="test_type" ]').text();
+  var test_date = row.find('td[ name="test_date" ]').text();
+  console.log(rowId);
+  var date = new Date(test_date);
+  var day = ("0" + date.getDate()).slice(-2);
+  var month = ("0" + (date.getMonth() + 1)).slice(-2);
+  var test_date = date.getFullYear()+"-"+(month)+"-"+(day) ;
+  $('#edit_test_date').val(test_date);
+  $("#edit_test_name").val(test_name);
+  $("#edit_test_type").val(test_type);
+
+  //EDIT FORM- Save OnClick
+  $(".save-btn").click(function(){
+    var row_id = JSON.stringify(rowId);
+    var test_name = JSON.stringify($("#edit_test_name").val());
+    var test_type = JSON.stringify($("#edit_test_type").val());
+    var test_date = JSON.stringify($("#edit_test_date").val());
+    $.ajax({
+    url: "{% url 'edit_test' %}",
+    type: 'POST',
+    data: {'row_id' : row_id, 'test_name' : test_name, 'test_type' : test_type, 'test_date' : test_date,
+            'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val() },
+    success: function(){
+      location.reload();
+      },
+    });
+  });
+});
+</script>
+</html>
