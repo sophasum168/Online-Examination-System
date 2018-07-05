@@ -50,8 +50,8 @@
                             </div>
                         </td>
                         <td>{{ forloop.counter }}</td>
-                        <td name="question">{{ question.question_name }}</td>
-                        <td name="question_type">{{ question.question_type }}</td>
+                        <td name="question">{{ question.question_name|truncatewords:10 }}</td>
+                        <td name="question_type">{{ question.get_question_type_display }}</td>
                         <td name="test_id">{{ question.test_id }}</td>  
                     </tr>      
                     {% endfor %}
@@ -70,48 +70,56 @@
                         <!-- {{ optionForm }} -->
                         <div class="card-body">
                             <div class="form-group ">
+                                <label>Test :</label>
                                 <div class="input-group">
-                                    <p>Test :</p>
                                     {{questionForm.test_id}}
                                 </div>
                             </div>
                             <div class="form-group ">
+                                <label>Type :</label>
                                 <div class="input-group">
-                                    <p>Type :</p>
                                     {{questionForm.question_type}}
                                 </div>
                             </div>
                             <div class="form-group ">
+                                <label>Question :</label>
                                 <div class="input-group">
-                                    <p>Question :</p>
                                     {{questionForm.question_name}}
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <table id="fresh-table" class="table table-striped question-list table-hover table-sm">
+                            <table id="fresh-table" class="table table-striped option-list table-hover table-sm">
                                 <thead class="thead-table-list">
                                     <tr>
                                         <th scope="col">Option</th>
                                         <th scope="col">Answer</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tboy>
-                                    <tr>
+                                    <tr class="option_row">
                                         <td><input type="text" class="form-control" value="Animal"></td>
                                         <td><input type="text" class="form-control" value="F"></td>
+                                        <td><i class="material-icons option-delete">delete</i></td>
                                     </tr>
-                                    <tr>
+                                    <tr class="option_row">
                                         <td><input type="text" class="form-control" value="Snake"></td>
                                         <td><input type="text" class="form-control" value="T"></td>
+                                        <td><i class="material-icons option-delete">delete</i></td>
                                     </tr>
-                                    <tr>
+                                    <tr class="option_row">
                                         <td><input type="text" class="form-control" value="Eagle"></td>
                                         <td><input type="text" class="form-control" value="F"></td>
+                                        <td><i class="material-icons option-delete">delete</i></td>
                                     </tr>
-                                    <tr>
+                                    <tr class="option_row">
                                         <td><input type="text" class="form-control" value="Turtle"></td>
                                         <td><input type="text" class="form-control" value="F"></td>
+                                        <td><i class="material-icons option-delete">delete</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><u id="add_option">Add New</u></td>
                                     </tr>
                                 </tboy>
                             </table>

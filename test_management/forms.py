@@ -37,7 +37,7 @@ class QuestionForm(ModelForm):
                 'id': "question_name",
                 'name': "question_name",
                 'class': 'form-control',
-                'placeholder': 'Question...',
+                'placeholder': 'Add question here...',
             }
         )
     )

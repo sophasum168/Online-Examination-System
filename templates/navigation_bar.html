@@ -105,6 +105,9 @@ $(".submit-btn-test").click(function(){
     $("#add_test_type").val("");
     $("#add_test_date").val("");
   } else {
+    $("#add_test_name").val("");
+    $("#add_test_type").val("");
+    $("#add_test_date").val("");
     $(".cancel-btn-test").click();
   }
 });
@@ -171,6 +174,9 @@ $(".submit-btn-question").click(function(){
   var question_type = JSON.stringify($("#question_type").val());
   var question_name = JSON.stringify($("#question_name").val());
   var button_pressed = JSON.stringify($(this).attr('name'));
+  var option_rows = $('.option-list tbody tr.option_row').length;
+  alert(option_rows);
+  
   $.ajax({
     url: "{% url 'add_question' %}",
     type: 'POST',
@@ -183,6 +189,9 @@ $(".submit-btn-question").click(function(){
     $("#question_type").val("");
     $("#question_name").val("");
   } else {
+    $("#test_id").val("");
+    $("#question_type").val("");
+    $("#question_name").val("");
     $(".cancel-btn-question").click();
   }
 });
@@ -237,5 +246,28 @@ $(".table-row td:not(:has(input))").click(function(){
     });
   });
 });
+
+//Add option row-- QCM
+$("#add_option").click(function(){
+  $('.option-list tr:nth-last-child(2)').after('<tr class="option_row"><td><input type="text" class="form-control" value="Turtle"></td><td><input type="text" class="form-control" value="F"></td><td><i class="material-icons option-delete">delete</i></td></tr>');
+});
+
+//OnChange if option = 'Essay', hide answer table
+$("#question_type").change(function(){
+  if($("#question_type").val() == 'ES'){
+    $(".option-list").hide();
+  }
+  else{
+    $(".option-list").show();
+  }
+});
+
+//Delete option_row onClick
+$('td i').on('click',function(e){
+   e.preventDefault();
+   $(this).parents('tr').remove();
+});
+
+
 </script>
 </html>
