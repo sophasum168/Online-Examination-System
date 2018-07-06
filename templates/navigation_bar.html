@@ -11,6 +11,7 @@
     <title>Online Examination System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-select.min.css' %}" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 </head>
 <body>
@@ -44,16 +45,19 @@
       </div>
     </div>
   </nav>
-    {% block test_list %}
-    {% endblock %}
-    {% block question_list %}
-    {% endblock %}
-    {% block import_question %}
-    {% endblock %}
+  {% block test_list %}
+  
+  {% endblock %}
+  {% block question_list %}
+  {% endblock %}
+  {% block import_question %}
+  {% endblock %}
 
-    <script src="{% static 'js/core/jquery.min.js' %}"></script>
-    <script src="{% static 'js/core/popper.min.js' %}"></script>
-    <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
+  <script src="{% static 'js/core/jquery.min.js' %}"></script>
+  <script src="{% static 'js/core/popper.min.js' %}"></script>
+  <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
+  <script src="{% static 'js/core/bootstrap-select.min.js' %}"></script>
+
 </body>
 <script type='text/javascript'>
 $(document).ready(function(){
@@ -80,16 +84,11 @@ $(document).ready(function(){
       $("#checkall").removeAttr("checked");
     }
   });
-
-  $(".add-btn").click(function(){
-    $("#add_test_name").val("");
-    $("#add_test_type").val("");
-    $("#add_test_date").val("");
-  });
  });
 
-//Add Button
-$(".submit-btn").click(function(){
+//**test_list.html SCRIPT**
+//Add Button- Test
+$(".submit-btn-test").click(function(){
   var test_name = JSON.stringify($("#add_test_name").val());
   var test_type = JSON.stringify($("#add_test_type").val());
   var test_date = JSON.stringify($("#add_test_date").val());
@@ -102,16 +101,19 @@ $(".submit-btn").click(function(){
   })
   var button_pr = $(this).attr('name');
   if (button_pr == 'add_new'){
-    $("#test_name").val("");
-    $("#test_type").val("");
-    $("#test_date").val("");
+    $("#add_test_name").val("");
+    $("#add_test_type").val("");
+    $("#add_test_date").val("");
   } else {
-    $(".cancel-btn").click();
+    $("#add_test_name").val("");
+    $("#add_test_type").val("");
+    $("#add_test_date").val("");
+    $(".cancel-btn-test").click();
   }
 });
 
-//Delete Button
-$(".delete-btn").click(function(){
+//Delete Button- Test
+$(".delete-btn-test").click(function(){
   var selected_rows=[];
 
   $('.test-list').find('tr').each(function(){
@@ -121,7 +123,6 @@ $(".delete-btn").click(function(){
         };
   });
   var selected_rows = JSON.stringify(selected_rows);
-  console.log(selected_rows);
   $.ajax({
     url: "{% url 'delete_test' %}",
     type: 'POST',
@@ -132,7 +133,7 @@ $(".delete-btn").click(function(){
   });
 });
 
-//Edit OnClick
+//Edit OnClick- Test
 $(".table-row td:not(:has(input))").click(function(){
   $('#editModal').modal('show');
   let rowId = $(this).closest('tr').attr('data-id');
@@ -140,7 +141,6 @@ $(".table-row td:not(:has(input))").click(function(){
   var test_name = row.find('td[ name="test_name" ]').text();
   var test_type = row.find('td[ name="test_type" ]').text();
   var test_date = row.find('td[ name="test_date" ]').text();
-  console.log(rowId);
   var date = new Date(test_date);
   var day = ("0" + date.getDate()).slice(-2);
   var month = ("0" + (date.getMonth() + 1)).slice(-2);
@@ -149,8 +149,8 @@ $(".table-row td:not(:has(input))").click(function(){
   $("#edit_test_name").val(test_name);
   $("#edit_test_type").val(test_type);
 
-  //EDIT FORM- Save OnClick
-  $(".save-btn").click(function(){
+  //EDIT FORM-- Save OnClick- Test
+  $(".save-btn-test").click(function(){
     var row_id = JSON.stringify(rowId);
     var test_name = JSON.stringify($("#edit_test_name").val());
     var test_type = JSON.stringify($("#edit_test_type").val());
@@ -166,5 +166,108 @@ $(".table-row td:not(:has(input))").click(function(){
     });
   });
 });
+
+//**question_list.html SCRIPT**
+//Add Button- Question
+$(".submit-btn-question").click(function(){
+  var test_id = JSON.stringify($("#test_id").val());
+  var question_type = JSON.stringify($("#question_type").val());
+  var question_name = JSON.stringify($("#question_name").val());
+  var button_pressed = JSON.stringify($(this).attr('name'));
+  var option_rows = $('.option-list tbody tr.option_row').length;
+  alert(option_rows);
+  
+  $.ajax({
+    url: "{% url 'add_question' %}",
+    type: 'POST',
+    data: {'button_pressed' : button_pressed, 'question_name' : question_name, 'question_type' : question_type,
+    'test_id' : test_id,'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
+  })
+  var button_pr = $(this).attr('name');
+  if (button_pr == 'add_new'){
+    $("#test_id").val("");
+    $("#question_type").val("");
+    $("#question_name").val("");
+  } else {
+    $("#test_id").val("");
+    $("#question_type").val("");
+    $("#question_name").val("");
+    $(".cancel-btn-question").click();
+  }
+});
+
+//Delete Button- Question
+$(".delete-btn-question").click(function(){
+  var selected_rows=[];
+
+  $('.question-list').find('tr').each(function(){
+    var row=$(this);
+    if (row.find('input[type="checkbox"]').is(':checked')) {
+        selected_rows.push(row.attr('data-id'));
+        };
+  });
+  var selected_rows = JSON.stringify(selected_rows);
+  $.ajax({
+    url: "{% url 'delete_question' %}",
+    type: 'POST',
+    data: {'question_list_ids': selected_rows, 'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
+    success: function(){
+      location.reload();
+    },
+  });
+});
+
+//Edit OnClick- Question
+$(".table-row td:not(:has(input))").click(function(){
+  $('#editModal').modal('show');
+  let rowId = $(this).closest('tr').attr('data-id');
+  const row = $(this).closest('tr');
+  var test_id = row.find('td[ name="test_id" ]').text();
+  var question_type = row.find('td[ name="question_type" ]').text();
+  var question_name = row.find('td[ name="question_name" ]').text();
+  $('#test_id').val(test_id);
+  $("#question_type").val(question_type);
+  $("#question_name").val(question_name);
+
+  //EDIT FORM-- Save OnClick- Question
+  $(".save-btn-question").click(function(){
+    var row_id = JSON.stringify(rowId);
+    var test_id = JSON.stringify($("#test_id").val());
+    var question_type = JSON.stringify($("#question_type").val());
+    var question_name = JSON.stringify($("#question_name").val());
+    $.ajax({
+    url: "{% url 'edit_question' %}",
+    type: 'POST',
+    data: {'row_id' : row_id, 'test_id' : test_id, 'question_type' : question_type, 'question_name' : question_name,
+            'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val() },
+    success: function(){
+      location.reload();
+      },
+    });
+  });
+});
+
+//Add option row-- QCM
+$("#add_option").click(function(){
+  $('.option-list tr:nth-last-child(2)').after('<tr class="option_row"><td><input type="text" class="form-control" value="Turtle"></td><td><input type="text" class="form-control" value="F"></td><td><i class="material-icons option-delete">delete</i></td></tr>');
+});
+
+//OnChange if option = 'Essay', hide answer table
+$("#question_type").change(function(){
+  if($("#question_type").val() == 'ES'){
+    $(".option-list").hide();
+  }
+  else{
+    $(".option-list").show();
+  }
+});
+
+//Delete option_row onClick
+$('td i').on('click',function(e){
+   e.preventDefault();
+   $(this).parents('tr').remove();
+});
+
+
 </script>
 </html>

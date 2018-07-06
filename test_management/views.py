@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Test, Question
 # from .forms import TestUpload
-from .forms import NameForm
+from .forms import QuestionForm, OptionForm
 
 
 # Create your views here.
@@ -46,7 +46,6 @@ def edit_test(request):
 def delete_test(request):
     if request.is_ajax():
         selected_tests = request.POST['test_list_ids']
-        print selected_tests
         selected_tests = json.loads(selected_tests)
         for i, test in enumerate(selected_tests):
             Test.objects.filter(id__in=selected_tests).delete()
@@ -54,15 +53,16 @@ def delete_test(request):
     
 def question_list(request):
     questions = Question.objects.all()
-    form = NameForm()
-    return render(request, 'question_list.html', {'questions' : questions, 'form' : form})
+    questionForm = QuestionForm()
+    optionForm = OptionForm()
+    return render(request, 'question_list.html', {'questions' : questions, 'questionForm' : questionForm, 'optionForm' : optionForm })
 
 def add_question(request):
     if request.method == 'POST':
         question_name = json.loads(request.POST.get('question_name'))
         question_type = json.loads(request.POST.get('question_type'))
         test_id = json.loads(request.POST.get('test_id'))
-        question_obj = Question(question_name = question_name, question_type = question_type, test_id = test_id)
+        question_obj = Question(question_name = question_name, question_type = question_type, test_id = Test.objects.get(id=test_id))
         question_obj.save()
         return HttpResponseRedirect('/test-management/question/')
 
@@ -70,26 +70,13 @@ def edit_question(request):
     return render(request, 'import_question.html')
 
 def delete_question(request):
-    return render(request, 'import_question.html')
+    if request.is_ajax():
+        selected_questions = request.POST['question_list_ids']
+        selected_questions = json.loads(selected_questions)
+        for i, test in enumerate(selected_questions):
+            Question.objects.filter(id__in=selected_questions).delete()
+        return HttpResponseRedirect('/test-management/question/')
+    
 
 def import_question(request):
     return render(request, 'import_question.html')
-
-
-def get_name(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/question_list/')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = NameForm()
-
-    return render(request, 'question_list.html', {'form': form})
