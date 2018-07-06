@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 # from django.contrib import photo_upload
 from django.views.generic import TemplateView
-from register.views import (register,upload_file,candidate,congratulation,SaveImage)
+from register.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 # from capture.views import (PersonaCreateView, SaveImage, template)
@@ -34,13 +34,13 @@ urlpatterns = [
     #url(r'^login/$',contrib.auth_views.login, name='login'),
     # url(r'^users/login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
     url(r'^admin/', admin.site.urls),
-    url(r'^register/',register,name="register"),
+    url(r'^register/$',register,name="register"),
     url(r'^upload/', upload_file, name="upload"),
-    url(r'^save_image/(?P<cedula>\d+)/$',view=SaveImage.as_view(),name='salvar_imagen'),
+    url(r'^save_image/(?P<firstname>\d+)/',view=SaveImage.as_view(),name='salvar_imagen'),
     url(r'^test-management/test/', test_list, name='test'),
     url(r'^test-management/add_test/', add_test, name='add_test'),
     url(r'^test-management/edit_test/', edit_test, name='edit_test'),
-    url(r'^test-management/delete_test/', delete_test, name='delete_test'),
+    url(r'^test-management/delete_test/', delete_test, name='delete_test'), 
     url(r'^test-management/question/', question_list, name='question'),
     url(r'^test-management/add_question/', add_question, name='add_question'),
     url(r'^test-management/edit_question/', edit_question, name='edit_question'),
@@ -59,6 +59,6 @@ urlpatterns = [
     # url(r'^save_image/', view=SaveImage.as_view(), name='salvar_imagen'),
     # url(r'^save_image/(?P<cedula>\d+)/$', view=SaveImage.as_view(), name='salvar_imagen'),
     # url(r'^',include('example.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # urlpatterns = urlpatterns 
-# urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# urlpatterns = urlpatterns 

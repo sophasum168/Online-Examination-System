@@ -9,6 +9,7 @@ from django.contrib.auth import (
 from django.shortcuts import render	
 #from .forms import UploadFileForm
 from .forms import FileUpload
+from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from .models import Register
 from django.views.decorators.csrf import csrf_exempt
@@ -31,15 +32,15 @@ def register(request):
 		address =request.POST.get('address')
 		register_obj=Register(email = email,city=city,sname=sname,birthday=birthday,address=address, firstname = firstname, lastname = lastname, phonenumber = phonenumber, country = country)
 		register_obj.save()
-        for email in Register.objects.values_list('email', flat=True).distinct():
-			Register.objects.filter(pk__in=Register.objects.filter(email=email).values_list('id', flat=True)[0:]).delete()
-        book = FileUpload(request.POST, request.FILES)
-        if book.is_valid():
-			# book = FileUpload(file=request.FILES['image'])
-			book.save()
-			return HttpResponseRedirect('/candidate/')
+   #      for email in Register.objects.values_list('email', flat=True).distinct():
+			# Register.objects.filter(pk__in=Register.objects.filter(email=email).values_list('id', flat=True)[0:]).delete()
+   #      book = FileUpload(request.POST, request.FILES)
+   #      if book.is_valid():
+			# # book = FileUpload(file=request.FILES['image'])
+			# book.save()
+			# return HttpResponseRedirect('/candidate/')
         	
-	return render(request,'form.html',{'book':book})
+	return render(request,'form.html')
 
 def congratulation(request):
     return render(request, 'capture.html')
@@ -67,7 +68,7 @@ class SaveImage(TemplateView):
 
 	@csrf_exempt
 	def dispatch(self, *args, **kwargs):
-		self.filename = self.kwargs['cedula']+'.jpg'
+		self.filename = self.kwargs['firstname']+'.jpg'
 		return super(SaveImage, self).dispatch(*args, **kwargs)
 
 	def post(self, request, *args, **kwargs):
@@ -80,5 +81,18 @@ class SaveImage(TemplateView):
 		return HttpResponse("/media/webcamimages/" + self.filename)
 
 	def get(self, request, *args, **kwargs):
-		return HttpResponse('No esta pasando el POST')
+		return HttpResponse('No Data POST')
 
+# @csrf_exempt
+# def save_image(self, *args, **kwargs):
+# 	self.filename = self.kwargs['firstname']+'.jpg'
+# 	# return dispatch(*args, **kwargs)
+# 	f = open(settings.MEDIA_ROOT + '/webcamimages/'+ self.filename, 'wb')
+# 	f.write(request.body)
+# 	f.close()
+# 	# f.save()
+# 	# return the URL
+# 	return HttpResponse("/media/webcamimages/" + self.filename)
+
+	# else:
+	# 	return HttpResponse('no data')

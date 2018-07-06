@@ -5,7 +5,7 @@ import os
 
 def get_image_name(instance, filename):
 	f, ext = os.path.splitext(filename)
-	archivo = '%s%s' % (instance.cedula, ext)
+	archivo = '%s%s' % (instance.firstname, ext)
 	return os.path.join('webcamimages', archivo)
 # Create your models here.
 
@@ -25,7 +25,7 @@ class Register(models.Model):
 	sname = models.CharField(max_length=300, blank=False, null=False)
 	city = models.CharField(max_length=120, blank=False, null=False)
 
-	def __str__(self):
+	def __unicode__(self):
 		return self.firstname
 	@models.permalink
 	def get_absolute_url(self):
