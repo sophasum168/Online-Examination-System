@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'exam',
     'crispy_forms',
     'register',
+    'Landingpage',
     'test_management',
     # 'capture',
     'candidate',

@@ -18,6 +18,7 @@ from django.contrib import admin
 # from django.contrib import photo_upload
 from django.views.generic import TemplateView
 from register.views import *
+from Landingpage.views import (landingpage)
 from django.conf import settings
 from django.conf.urls.static import static
 # from capture.views import (PersonaCreateView, SaveImage, template)
@@ -52,6 +53,7 @@ urlpatterns = [
     url(r'^index/', index, name="index"),
     # url(r'^template/', template, name="template"),
     url(r'^congratulation/', congratulation, name="congratulation"),
+    url(r'^landingpage/', landingpage, name="landingpage"),
     # url(r'^save_image/', save_image, name="save_image"),
     # url(r'^upload_webcam/', upload_webcam, name="upload_webcam"),
     # url(r'^save_filewc/', save_filewc, name="save_filewc"),

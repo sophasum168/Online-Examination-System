@@ -5971,6 +5971,7 @@ button.close {
 
 .carousel {
   position: relative;
+  /*padding-bottom: 2500px;*/
 }
 
 .carousel-inner {
@@ -5984,7 +5985,8 @@ button.close {
   display: none;
   align-items: center;
   width: 100%;
-  transition: transform 0.6s ease;
+  /*padding-bottom: 200px;*/
+  transition: transform 0.5s ease;
   backface-visibility: hidden;
   perspective: 1000px;
 }
