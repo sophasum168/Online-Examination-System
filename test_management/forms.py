@@ -11,9 +11,8 @@ class QuestionForm(ModelForm):
             widget=forms.Select(
                 attrs={
                     'id': "test_id",
-                    'name': "test_id",
                     'title': 'Select a Test',
-                    'class': 'selectpicker form-control',
+                    'class': 'selectpicker form-control test_id',
                     'data-style': 'btn btn-primary btn-sm',
                     'data-size': '7',
                 }
@@ -23,9 +22,8 @@ class QuestionForm(ModelForm):
             widget=forms.Select(
                 attrs={
                     'id': "question_type",
-                    'name': "question_type",
                     'title': 'Select a Test',
-                    'class': 'selectpicker form-control',
+                    'class': 'selectpicker form-control question_type',
                     'data-style': 'btn btn-primary btn-sm',
                     'data-size': '7',
                 }
@@ -35,8 +33,7 @@ class QuestionForm(ModelForm):
         widget=forms.TextInput(
             attrs={
                 'id': "question_name",
-                'name': "question_name",
-                'class': 'form-control',
+                'class': 'form-control question_name',
                 'placeholder': 'Add question here...',
             }
         )
@@ -50,7 +47,6 @@ class OptionForm(ModelForm):
     option_name = forms.CharField(label='Option', 
         widget=forms.TextInput(
             attrs={
-                'id': 'option_id',
                 'class': 'form-control',
                 'placeholder': 'Option...',
             }
