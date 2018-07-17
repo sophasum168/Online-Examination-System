@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 # from django.contrib import photo_upload
 from django.views.generic import TemplateView
@@ -23,10 +23,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 # from capture.views import (PersonaCreateView, SaveImage, template)
 from candidate.views import (cour,index)
-from test_management.views import (test_list, add_test, edit_test, delete_test,
-                                    question_list, add_question, edit_question, delete_question,
-                                    import_question)
-                                    
+from test_management import urls as test_management_urls
+
 urlpatterns = [
 	# url(r'^$', views.HomePageView.as_view(), name='home'),
 	# url(r'^', views.AboutPageView.as_view(), name='about'),
@@ -37,16 +35,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^register/$',register,name="register"),
     url(r'^upload/', upload_file, name="upload"),
-    url(r'^save_image/(?P<firstname>\d+)/',view=SaveImage.as_view(),name='salvar_imagen'),
-    url(r'^test-management/test/', test_list, name='test'),
-    url(r'^test-management/add_test/', add_test, name='add_test'),
-    url(r'^test-management/edit_test/', edit_test, name='edit_test'),
-    url(r'^test-management/delete_test/', delete_test, name='delete_test'), 
-    url(r'^test-management/question/', question_list, name='question'),
-    url(r'^test-management/add_question/', add_question, name='add_question'),
-    url(r'^test-management/edit_question/', edit_question, name='edit_question'),
-    url(r'^test-management/delete_question/', delete_question, name='delete_question'),
-    url(r'^test-management/import_question/', import_question, name='import_question'),
+
+    url(r'^save_image/(?P<cedula>\d+)/$',view=SaveImage.as_view(),name='salvar_imagen'),
     url(r'^candidate/', candidate, name="candidate"),
     url(r'^cour/', cour, name="cour"),
     # url(r'^photo/', include('photo_upload.urls')),
@@ -61,6 +51,7 @@ urlpatterns = [
     # url(r'^save_image/', view=SaveImage.as_view(), name='salvar_imagen'),
     # url(r'^save_image/(?P<cedula>\d+)/$', view=SaveImage.as_view(), name='salvar_imagen'),
     # url(r'^',include('example.urls')),
+    url(r'^', include(test_management_urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # urlpatterns = urlpatterns 
 # urlpatterns = urlpatterns 

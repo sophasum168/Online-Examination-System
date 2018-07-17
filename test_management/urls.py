@@ -13,14 +13,19 @@
 #     1. Import the include() function: from django.conf.urls import url, include
 #     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 # """
-# from django.conf.urls import url
-# from . import views
+from django.conf.urls import url
+from test_management import views
 
 urlpatterns = [
-    url(r'^$', views.test_list),
-    url(r'^$', views.add_test),
-    url(r'^$', views.subject_list),
-    url(r'^$', views.topic_list),
-    url(r'^$', views.question_list),
-    url(r'^$', views.import_question),
+    url(r'^test-management/test/', views.test_list, name='test'),
+    url(r'^test-management/add_test/', views.add_test, name='add_test'),
+    url(r'^test-management/edit_test/', views.edit_test, name='edit_test'),
+    url(r'^test-management/delete_test/', views.delete_test, name='delete_test'),
+    url(r'^test-management/question/', views.question_list, name='question'),
+    url(r'^test-management/add_question/', views.add_question, name='add_question'),
+    url(r'^test-management/edit_question/', views.edit_question, name='edit_question'),
+    url(r'^test-management/delete_question/', views.delete_question, name='delete_question'),
+    url(r'^test-management/import_question/', views.import_question, name='import_question'),
+    url(r'^test-management/add_option_row/', views.add_option_row, name='add_option_row'),
+    url(r'^get_question_lists/$', views.get_test_questions, name='get_question_lists'),
 ]
