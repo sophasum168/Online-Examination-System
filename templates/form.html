@@ -32,7 +32,7 @@
     }
     input[type=submit] {
     width: 45%;
-    background-color: #9c27b0;
+    background-color: #04043E;
     color: white;
     padding: 11px 0px;
     margin-bottom: 30px;
@@ -44,7 +44,7 @@
 }
 
 input[type=submit]:hover {
-    background-color: #45a049;
+    background-color: green;
 }
   </style>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -67,20 +67,19 @@ input[type=submit]:hover {
     <div class="center">
         <h3 style="margin-left: 360px;"><b>ONLINE EXAMINATION SYSTEM</b></h3>
         </div>
-       
     </div>
 </nav>
 
 <div class="page-header header-filter" filter-color="purple" style="background-image: url('../static/img/kit.jpg')">
   <div class="page-header header-filter" filter-color="purple" >
     <div class="container">
-        <div class="col-md-10 mr-auto">
-          <div class="card card-signup">
+        <div class="center">
+          <div class="card card-signup center">
             <h2 class="card-title text-center">Register</h2>
-                  <form name="form" method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
+                  <form style="width: 100%;" name="form" method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <form class="form" method="" action="">
-                    <table>
+                    <!-- <form class="form" method="" action=""> -->
+                    <table class="center">
                         <tr>
                         <td>
                           <div class="form-group">
@@ -227,6 +226,7 @@ input[type=submit]:hover {
         </div>
       </div>
     </div>
+  </div>
             
                   
                   <!-- Advanced Modal -->
