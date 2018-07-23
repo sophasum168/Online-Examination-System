@@ -45,6 +45,17 @@ class Question(models.Model):
             return question, option
         else:
             return question, None
+    
+    def edit_question_save(self, row_id, *args, **kwargs):
+        test_id = Test.objects.get(id = int(kwargs['test_id']))
+        question_obj = Question.objects.get(id = row_id)
+        question_obj.test_id = test_id
+        question_obj.question_type = kwargs['question_type']
+        question_obj.question_name = kwargs['question_name']
+        options = kwargs['option_rows']
+        option_obj = Option()
+        option_obj.edit_option_save(row_id, options)
+        return None   
 
     def __str__(self):
         return self.question_name
@@ -64,6 +75,17 @@ class Option(models.Model):
             return option
         else:
             return None
+    
+    def edit_option_save(self, question_id, options):
+        Option.objects.filter(question_id = question_id).delete()
+        for (option, answer) in options.iteritems():
+            option_name = option
+            option = Option()
+            option.question_id = Question.objects.get(id = question_id)
+            option.option_name = option_name
+            option.answer = answer
+            option.save()
+        return None
 
     def __str__(self):
         return self.option_name

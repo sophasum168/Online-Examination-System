@@ -35,20 +35,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^register/$',register,name="register"),
     url(r'^upload/', upload_file, name="upload"),
-<<<<<<< HEAD
     url(r'^save_image/(?P<cedula>\d+)/$',view=SaveImage.as_view(),name='salvar_imagen'),
-=======
-    url(r'^save_image/(?P<firstname>\d+)/',view=SaveImage.as_view(),name='salvar_imagen'),
-    url(r'^test-management/test/', test_list, name='test'),
-    url(r'^test-management/add_test/', add_test, name='add_test'),
-    url(r'^test-management/edit_test/', edit_test, name='edit_test'),
-    url(r'^test-management/delete_test/', delete_test, name='delete_test'), 
-    url(r'^test-management/question/', question_list, name='question'),
-    url(r'^test-management/add_question/', add_question, name='add_question'),
-    url(r'^test-management/edit_question/', edit_question, name='edit_question'),
-    url(r'^test-management/delete_question/', delete_question, name='delete_question'),
-    url(r'^test-management/import_question/', import_question, name='import_question'),
->>>>>>> 9127f3843b3611a72a2914886ba5fa002938b198
     url(r'^candidate/', candidate, name="candidate"),
     url(r'^cour/', cour, name="cour"),
     # url(r'^photo/', include('photo_upload.urls')),
@@ -63,11 +50,7 @@ urlpatterns = [
     # url(r'^save_image/', view=SaveImage.as_view(), name='salvar_imagen'),
     # url(r'^save_image/(?P<cedula>\d+)/$', view=SaveImage.as_view(), name='salvar_imagen'),
     # url(r'^',include('example.urls')),
-<<<<<<< HEAD
     url(r'^', include(test_management_urls)),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-=======
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
->>>>>>> 9127f3843b3611a72a2914886ba5fa002938b198
 # urlpatterns = urlpatterns 
 # urlpatterns = urlpatterns 

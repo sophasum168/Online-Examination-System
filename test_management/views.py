@@ -11,6 +11,7 @@ from .models import *
 from .forms import QuestionForm, OptionForm
 from .serializers import QuestionSerializer
 from django.views.decorators.csrf import csrf_exempt
+from django.template.loader import render_to_string
 # from .forms import TestUpload
 
 
@@ -80,13 +81,39 @@ def add_question(request):
         return HttpResponseRedirect('/test-management/question/')
 
 def edit_question(request):
+    context = dict()
     if request.method == 'GET':
-        row_id = request.GET.get('rowId')
+        row_id = request.GET.get('row_id')
         question_obj = Question()
         question = question_obj.edit_question(row_id)
-        return JsonResponse({'question': question})
+        question_form = QuestionForm(initial={'question_name': question[0]['question_name'],
+                                            'question_type': question[0]['question_type'],
+                                            'test_id': question[0]['test_id']}, auto_id=False).__str__()
+        option_form = ""
+        if question[1]:
+            cont = dict()
+            options_form = []
+            for option in question[1]:
+                option_form = OptionForm(initial={'option_name': option['option_name'],
+                                                    'answer': option['answer']})
+                options_form.append(option_form)
+            cont.update({'options': options_form})
+            option_form = render_to_string('include/question_option_row.html', cont)
+        context.update({
+            'question_form': question_form,
+            'option_form': option_form,
+        })          
+        return JsonResponse(context)
     elif request.method == 'POST':
-        return render(request, 'question_list.html')
+        row_id = json.loads(request.POST.get('row_id'))
+        test_id = json.loads(request.POST.get('test_id'))
+        question_type = json.loads(request.POST.get('question_type'))
+        question_name = json.loads(request.POST.get('question_name'))
+        option_rows = json.loads(request.POST.get('option_rows'))
+        kwargs = {"test_id":test_id, "question_type":question_type, "question_name":question_name, "option_rows":option_rows}
+        question_obj = Question()
+        question = question_obj.edit_question_save(row_id, **kwargs)
+        return HttpResponseRedirect('/test-management/question/')
 
 def delete_question(request):
     if request.is_ajax():
@@ -95,15 +122,9 @@ def delete_question(request):
         for i, test in enumerate(selected_questions):
             Question.objects.filter(id__in=selected_questions).delete()
         return HttpResponseRedirect('/test-management/question/')
-    
 
 def import_question(request):
     return render(request, 'import_question.html')
-
-def add_option_row(request):
-    if request.method == 'GET':
-        option = OptionForm()
-        return HttpResponse(option) 
 
 @csrf_exempt
 def get_test_questions(request):
@@ -120,4 +141,4 @@ def get_test_questions(request):
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400) 
+        return JsonResponse(serializer.errors, status=400)

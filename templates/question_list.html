@@ -87,8 +87,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <table id="fresh-table" class="table table-striped option-list table-hover table-sm">
+                        <div class="option-list">
+                            <table id="fresh-table" class="table table-striped table-hover table-sm option-list-add">
                                 <thead class="thead-table-list">
                                     <tr>
                                         <th scope="col">Option</th>
@@ -97,31 +97,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="option_row">
+                                    <tr class="option_row rowRecord">
                                         <td>{{optionForm.option_name}}</td>
                                         <td>{{optionForm.answer}}</td>
                                         <td><i class="material-icons option-delete">delete</i></td>
                                     </tr>
-                                    <tr class="option_row">
+                                    <tr class="option_row rowRecord">
                                         <td>{{optionForm.option_name}}</td>
                                         <td>{{optionForm.answer}}</td>
                                         <td><i class="material-icons option-delete">delete</i></td>
                                     </tr>
-                                    <tr class="option_row">
+                                    <tr class="option_row rowRecord">
                                         <td>{{optionForm.option_name}}</td>
                                         <td>{{optionForm.answer}}</td>
                                         <td><i class="material-icons option-delete">delete</i></td>
                                     </tr>
-                                    <tr class="option_row">
+                                    <tr class="option_row rowRecord">
                                         <td>{{optionForm.option_name}}</td>
                                         <td>{{optionForm.answer}}</td>
                                         <td><i class="material-icons option-delete">delete</i></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3"><u id="add_option">Add New</u></td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <u id="add_option" class="add_option">Add New</u>
                         </div>
                         <div class="modal-footer justify-content-right">
                             <button type="button" class="btn btn-primary btn-link btn-wd btn-lg cancel-btn-question" data-dismiss="modal">Cancel</button>
@@ -142,61 +140,23 @@
                     <form class="form" method="POST" action="{% url 'edit_test' %}">
                         {% csrf_token %}
                         <h2>Edit Question</h2>
-                        <div class="card-body">
-                            <div class="form-group ">
-                                <label>Test :</label>
-                                <div class="input-group">
-                                    {{questionForm.test_id}}
-                                </div>
-                            </div>
-                            <div class="form-group ">
-                                <label>Type :</label>
-                                <div class="input-group">
-                                    {{questionForm.question_type}}
-                                </div>
-                            </div>
-                            <div class="form-group ">
-                                <label>Question :</label>
-                                <div class="input-group">
-                                    {{questionForm.question_name}}
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <table id="fresh-table" class="table table-striped option-list table-hover table-sm">
-                                <thead class="thead-table-list">
-                                    <tr>
-                                        <th scope="col">Option</th>
-                                        <th scope="col">Answer</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="option_row">
-                                        <td>{{optionForm.option_name}}</td>
-                                        <td>{{optionForm.answer}}</td>
-                                        <td><i class="material-icons option-delete">delete</i></td>
-                                    </tr>
-                                    <tr class="option_row">
-                                        <td>{{optionForm.option_name}}</td>
-                                        <td>{{optionForm.answer}}</td>
-                                        <td><i class="material-icons option-delete">delete</i></td>
-                                    </tr>
-                                    <tr class="option_row">
-                                        <td>{{optionForm.option_name}}</td>
-                                        <td>{{optionForm.answer}}</td>
-                                        <td><i class="material-icons option-delete">delete</i></td>
-                                    </tr>
-                                    <tr class="option_row">
-                                        <td>{{optionForm.option_name}}</td>
-                                        <td>{{optionForm.answer}}</td>
-                                        <td><i class="material-icons option-delete">delete</i></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3"><u id="add_option">Add New</u></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div id="edit_form" class="card-body">
+                        </br>
+                            <div class="option-list">
+                                <table id="fresh-table" class="table table-striped table-hover table-sm option-list-add">
+                                    <thead class="thead-table-list">
+                                        <tr>
+                                            <th scope="col">Option</th>
+                                            <th scope="col">Answer</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="option-list-edit-body">
+                                    
+                                    </tbody>    
+                                </table>
+                                <u id="add_option" class="add_option">Add New</u>
+                            </div>  
                         </div>
                         <div class="modal-footer justify-content-right">
                             <button type="button" class="btn btn-primary btn-link btn-wd btn-lg cancel-btn-question" data-dismiss="modal">Cancel</button>

@@ -26,6 +26,5 @@ urlpatterns = [
     url(r'^test-management/edit_question/', views.edit_question, name='edit_question'),
     url(r'^test-management/delete_question/', views.delete_question, name='delete_question'),
     url(r'^test-management/import_question/', views.import_question, name='import_question'),
-    url(r'^test-management/add_option_row/', views.add_option_row, name='add_option_row'),
     url(r'^get_question_lists/$', views.get_test_questions, name='get_question_lists'),
 ]
