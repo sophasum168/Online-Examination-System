@@ -15,7 +15,7 @@
 # """
 from django.conf.urls import url
 from test_management import views
-
+from django.conf import settings
 urlpatterns = [
     url(r'^test-management/test/', views.test_list, name='test'),
     url(r'^test-management/add_test/', views.add_test, name='add_test'),
