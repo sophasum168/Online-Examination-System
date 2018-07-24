@@ -35,7 +35,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^register/$',register,name="register"),
     url(r'^upload/', upload_file, name="upload"),
-
     url(r'^save_image/(?P<cedula>\d+)/$',view=SaveImage.as_view(),name='salvar_imagen'),
     url(r'^candidate/', candidate, name="candidate"),
     url(r'^cour/', cour, name="cour"),

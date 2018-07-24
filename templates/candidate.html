@@ -44,13 +44,13 @@
                     <a href="{% url 'register' %}" class="nav-link"><b>Dashboard</b></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#Question" class="nav-link"><b>Question</b></a>
+                    <a href="{% url 'question' %}" class="nav-link"><b>Question</b></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#Test" class="nav-link"><b>Test</b></a>
+                    <a href="{% url 'test' %}" class="nav-link"><b>Test</b></a>
                 </li>
                 <li class="nav-item active">
-                    <a href="#Candidate" class="nav-link"><b>Candidate</b></a>
+                    <a href="{% url 'candidate' %}" class="nav-link"><b>Candidate</b></a>
                 </li>
                 <li class="nav-item">
                     <a href="#Live View" class="nav-link"><b>Live View</b></a>
@@ -74,17 +74,19 @@
   <!-- <br> -->
   <center><h2><b><u>Candidate Information</u></b></h2></center>
 
-  <div style="margin: 50px">
+  <!-- <div style="margin: 50px"> -->
     <div id="inline-toolbar">
-  <button class="btn btn-round" data-toggle="modal" data-target="#deleteModal">
-    <i class="material-icons" >delete</i>   Delete
-  </button> 
+  </button>
+    <button class="btn btn-round btn-danger delete-btn-question" data-toggle="modal">
+<i class="material-icons" action >delete</i>   Delete
+</button>
 </div>
-<div class="table-responsive">
+<div class="table-container">
+    <div class="table-responsive">
   <table id="fresh-table" class="table table-striped">
     <thead class="thead-table-list">
     <tr>
-         <th scope="col">
+         <th scope="col-2">
           <div class="form-check">
               <label class="form-check-label">
                 <input class="form-check-input" id="checkall" type="checkbox" value="">
@@ -94,6 +96,7 @@
               </label>
           </div>
         </th>
+        <th>#</th>
         <th>Register Date</th>
         <th>Email</th>
         <th>First Name</th>
@@ -122,6 +125,7 @@
           </label>
       </div>
     </td>
+      <td>{{ forloop.counter }}</td>
       <td>{{ candidate.created_at}}</td>
       <td>{{ candidate.email }}</td>
       <td>{{ candidate.firstname }}</td>

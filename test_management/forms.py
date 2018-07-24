@@ -44,20 +44,20 @@ class OptionForm(ModelForm):
         model = Option
         fields = ['option_name','answer']
     
-    option_name = forms.CharField(label='Option', 
+    option_name = forms.CharField(label='', 
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control',
+                'class': 'form-control option-name',
                 'placeholder': 'Option...',
             }
         )
     )
 
-    answer = forms.ChoiceField(choices = ANSWER, initial='F',
+    answer = forms.ChoiceField(choices = ANSWER, initial='F', label='',
             widget=forms.Select(
                 attrs={
                     'title': 'Select an Answer',
-                    'class': 'selectpicker ',
+                    'class': 'selectpicker answer',
                     'data-style': 'btn btn-primary btn-sm',
                     'data-size': '7',
                 }
