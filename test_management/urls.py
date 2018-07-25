@@ -14,14 +14,15 @@
 #     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 # """
 from django.conf.urls import url
+from django.conf import settings
 from test_management import views
 
 urlpatterns = [
-    url(r'^test-management/test/', views.test_list, name='test'),
+    url(r'^test/', views.test_list, name='test'),
     url(r'^test-management/add_test/', views.add_test, name='add_test'),
     url(r'^test-management/edit_test/', views.edit_test, name='edit_test'),
     url(r'^test-management/delete_test/', views.delete_test, name='delete_test'),
-    url(r'^test-management/question/', views.question_list, name='question'),
+    url(r'^question/', views.question_list, name='question'),
     url(r'^test-management/add_question/', views.add_question, name='add_question'),
     url(r'^test-management/edit_question/', views.edit_question, name='edit_question'),
     url(r'^test-management/delete_question/', views.delete_question, name='delete_question'),
