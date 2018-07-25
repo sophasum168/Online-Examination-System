@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from datetime import datetime
 
 # # Create your models here.
 ANSWER = (
@@ -21,6 +22,16 @@ class Test(models.Model):
     test_type = models.TextField(max_length=45)
     test_date = models.DateField()
     create_date = models.DateTimeField(auto_now_add=True)
+
+    def add_test(self, **kwargs):
+        test_obj = Test()
+        test_date = datetime.strptime(kwargs["test_date"], '%m/%d/%Y').date()
+        test_obj.test_name = kwargs["test_name"]
+        test_obj.test_type = kwargs["test_type"]
+        test_obj.test_date = test_date
+        test_obj.save()
+        test_id = test_obj.id
+        return test_id
     
     def __str__(self):
         return self.test_name
@@ -31,6 +42,23 @@ class Question(models.Model):
     question_type = models.CharField(max_length=3, choices=QUESTION_TYPE, default='QCM')
     question_name = models.TextField(max_length=250)
     create_date = models.DateTimeField(auto_now_add=True)
+
+    def add_question(self, test_id, **kwargs):
+        question_obj = Question()
+        question_obj.test_id = Test.objects.get(id = test_id)
+        question_obj.question_type = kwargs['question_type']
+        question_obj.question_name = kwargs['question_name']
+        question_obj.save()
+
+        question_id = question_obj.id
+        option_context = {
+                    "option":kwargs['option'],
+                    "answer":kwargs['answer']
+                }
+        if kwargs['question_type'] == "QCM":
+            option = Option()
+            option.add_option(question_id, **option_context)
+        return question_id
 
     def edit_question(self, row_id):
         question_obj = Question.objects.get(id = row_id)
@@ -52,6 +80,7 @@ class Question(models.Model):
         question_obj.test_id = test_id
         question_obj.question_type = kwargs['question_type']
         question_obj.question_name = kwargs['question_name']
+        ###Add condition for type 'QCM'
         options = kwargs['option_rows']
         option_obj = Option()
         option_obj.edit_option_save(row_id, options)
@@ -65,6 +94,19 @@ class Option(models.Model):
     option_name = models.TextField(max_length=150)
     answer = models.CharField(max_length=1, choices=ANSWER, default='F')
     last_update_date = models.DateTimeField(auto_now_add=True)
+
+    def add_option(self, question_id, **kwargs):
+        if kwargs['answer'] == 't' or kwargs['answer'] == 'T':
+            choice = 'T'
+        else:
+            choice = 'F'
+        option_obj = Option()
+        option_obj.question_id = Question.objects.get(id = question_id)
+        option_obj.option_name = kwargs['option']
+        option_obj.answer = choice
+        option_obj.save()
+        return None
+
 
     def edit_option(self, question_id):
         options = Option.objects.filter(question_id = question_id).values('option_name', 'answer')

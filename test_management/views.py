@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import json
+import json, csv, logging
 from datetime import datetime
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.http.response import JsonResponse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -124,7 +125,91 @@ def delete_question(request):
         return HttpResponseRedirect('/test-management/question/')
 
 def import_question(request):
-    return render(request, 'import_question.html')
+    if request.POST:
+        # if not GET, then proceed
+        try:
+            csv_file = request.FILES["csv_file"]
+            if not csv_file.name.endswith('.csv'):
+                messages.error(request,'File is not CSV type')
+                return None
+                # return HttpResponseRedirect(reverse("myapp:upload_csv"))
+            #if file is too large, return
+            if csv_file.multiple_chunks():
+                messages.error(request,"Uploaded file is too big (%.2f MB)." % (csv_file.size/(1000*1000),))
+                return None
+                # return HttpResponseRedirect(reverse("myapp:upload_csv"))
+            csv_file.open()
+            file_data = csv_file.read().decode("utf-8")
+            data_lines = file_data.split("\n")
+            last_test_id = None
+            last_question_id = None  
+
+            for line in range(1, len(data_lines)):
+                fields = data_lines[line].split(",")
+
+                test_id = fields[0]
+                test_name = fields[1]
+                test_type = fields[2]
+                test_date = fields[3]
+                question_type = fields[4]
+                question_name = fields[5]
+                option = fields[6]
+                answer = fields[7]
+
+                test_context = {
+                    "test_name": test_name,
+                    "test_type": test_type,
+                    "test_date": test_date
+                }
+                question_context = {
+                    "question_type": question_type,
+                    "question_name": question_name,
+                    "option": option,
+                    "answer": answer
+                }
+                           
+                if not test_id:
+                    if not(test_name and test_type and test_date):
+                        if not(question_type and question_name):
+                            #if `question` fields are empty, add option of the same question
+                            question_id = last_question_id
+                            Option().add_option(question_id, **question_context)
+                        #if `test` fields are empty, add question of the same test
+                        else:   
+                            test_id = last_test_id
+                            Question().add_question(test_id, **question_context)
+                    #if `test_id` field is empty, add new test
+                    else:
+                        test = Test()
+                        test_id = test.add_test(**test_context)
+                        question_id = Question().add_question(test_id, **question_context)
+                        last_test_id = test_id
+                        last_question_id = question_id
+                #`test_id` field has value, check if value match any `Test` object
+                else:
+                    try:
+                        test_obj = Test.objects.get(id = test_id)
+                    except:
+                        test_obj = None
+                    if test_obj:
+                        question_id = Question().add_question(test_id, **question_context)
+                        last_test_id = test_id
+                        last_question_id = question_id
+                    #`test_id` field has value, not in any `Test` object
+                    else:
+                        test = Test()
+                        test_id = test.add_test(**test_context)
+                        question_id = Question().add_question(test_id, **question_context)
+                        last_test_id = test_id
+                        last_question_id = question_id
+                        
+
+        except Exception as e:
+                messages.error(request,"Unable to upload file. "+repr(e))
+            
+        # return None
+        return HttpResponseRedirect('/test-management/question/')
+    return None
 
 @csrf_exempt
 def get_test_questions(request):

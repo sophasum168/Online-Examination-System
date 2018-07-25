@@ -145,6 +145,7 @@ $(document).ready(function(){
     var day = ("0" + date.getDate()).slice(-2);
     var month = ("0" + (date.getMonth() + 1)).slice(-2);
     var test_date = date.getFullYear()+"-"+(month)+"-"+(day) ;
+    $('#edit_test_id').text(rowId);
     $('#edit_test_date').val(test_date);
     $("#edit_test_name").val(test_name);
     $("#edit_test_type").val(test_type);
