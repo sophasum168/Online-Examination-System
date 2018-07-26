@@ -319,6 +319,14 @@ $(document).ready(function(){
   
   //Delete option_row onClick
   $('.option-delete').on('click', bindClickOnDeleteBtn);
+
+  //Import Question Sample
+  $("#import_question_sample").click(function(){
+    $.ajax({
+      url: "{% url 'import_question' %}",
+      type: "GET",
+    });
+  });
 });
 
 

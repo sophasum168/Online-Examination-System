@@ -125,7 +125,13 @@ def delete_question(request):
         return HttpResponseRedirect('/question/')
 
 def import_question(request):
-    if request.POST:
+    if request.GET:
+        with open('include/import_question_sample.csv', 'rb') as csv_file:
+            response = HttpResponse(csv_file.read())
+            response['content_type'] ='text/csv'
+            response['Content-Disposition'] = 'attachment; filename="import_question_sample.csv"'
+            return response
+    elif request.POST:
         # if not GET, then proceed
         try:
             csv_file = request.FILES["csv_file"]
