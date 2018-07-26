@@ -29,7 +29,7 @@ def add_test(request):
         test_date = datetime.strptime(test_date, '%Y-%m-%d').date()
         test_obj = Test(test_name = test_name, test_type = test_type, test_date = test_date)
         test_obj.save()
-        return HttpResponseRedirect('/test-management/test/')
+        return HttpResponseRedirect('/test/')
 
 def edit_test(request):
     if request.method == 'POST':
@@ -48,7 +48,7 @@ def edit_test(request):
                 test_obj.test_type = test_type
                 test_obj.test_date = test_date
                 test_obj.save()
-                return HttpResponseRedirect('/test-management/test/')
+                return HttpResponseRedirect('/test/')
 
 def delete_test(request):
     if request.is_ajax():
@@ -56,7 +56,7 @@ def delete_test(request):
         selected_tests = json.loads(selected_tests)
         for i, test in enumerate(selected_tests):
             Test.objects.filter(id__in=selected_tests).delete()
-        return HttpResponseRedirect('/test-management/test/')
+        return HttpResponseRedirect('/test/')
     
 def question_list(request):
     questions = Question.objects.all()
@@ -79,7 +79,7 @@ def add_question(request):
             option_obj.option_name = option
             option_obj.answer = option_rows[option]
             option_obj.save()
-        return HttpResponseRedirect('/test-management/question/')
+        return HttpResponseRedirect('/question/')
 
 def edit_question(request):
     context = dict()
@@ -114,7 +114,7 @@ def edit_question(request):
         kwargs = {"test_id":test_id, "question_type":question_type, "question_name":question_name, "option_rows":option_rows}
         question_obj = Question()
         question = question_obj.edit_question_save(row_id, **kwargs)
-        return HttpResponseRedirect('/test-management/question/')
+        return HttpResponseRedirect('/question/')
 
 def delete_question(request):
     if request.is_ajax():
@@ -122,7 +122,7 @@ def delete_question(request):
         selected_questions = json.loads(selected_questions)
         for i, test in enumerate(selected_questions):
             Question.objects.filter(id__in=selected_questions).delete()
-        return HttpResponseRedirect('/test-management/question/')
+        return HttpResponseRedirect('/question/')
 
 def import_question(request):
     if request.POST:
@@ -207,8 +207,7 @@ def import_question(request):
         except Exception as e:
                 messages.error(request,"Unable to upload file. "+repr(e))
             
-        # return None
-        return HttpResponseRedirect('/test-management/question/')
+        return HttpResponseRedirect('/question/')
     return None
 
 @csrf_exempt
