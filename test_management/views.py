@@ -125,13 +125,15 @@ def delete_question(request):
         return HttpResponseRedirect('/question/')
 
 def import_question(request):
-    if request.GET:
-        with open('include/import_question_sample.csv', 'rb') as csv_file:
+    if request.method == 'GET':
+        with open('static/sample/import_question_sample.csv', 'rb') as csv_file:
             response = HttpResponse(csv_file.read())
+            csv_file.close()
             response['content_type'] ='text/csv'
             response['Content-Disposition'] = 'attachment; filename="import_question_sample.csv"'
+            print response
             return response
-    elif request.POST:
+    elif request.method == 'POST':
         # if not GET, then proceed
         try:
             csv_file = request.FILES["csv_file"]
@@ -214,14 +216,15 @@ def import_question(request):
                 messages.error(request,"Unable to upload file. "+repr(e))
             
         return HttpResponseRedirect('/question/')
-    return None
+    return HttpResponse('/question/')
 
 @csrf_exempt
-def get_test_questions(request):
+def get_question_lists(request):
     """
     API to get a list of questions
     """
     if request.method == 'GET':
+        print request.body
         questions = Question.objects.all()
         serializer = QuestionSerializer(questions, many=True)
         return JsonResponse(serializer.data, safe=False)
