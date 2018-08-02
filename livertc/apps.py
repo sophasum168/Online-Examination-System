@@ -4,5 +4,5 @@ from __future__ import unicode_literals
 from django.apps import AppConfig
 
 
-class CandidateConfig(AppConfig):
-    name = 'candidate'
+class LivertcConfig(AppConfig):
+    name = 'livertc'

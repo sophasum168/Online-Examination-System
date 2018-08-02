@@ -12,7 +12,8 @@ from .forms import FileUpload
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from .models import Register
-from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+from rest_framework.renderers import JSONRenderer
 from .models import Image
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -32,14 +33,14 @@ def register(request):
 		address =request.POST.get('address')
 		register_obj=Register(email = email,city=city,sname=sname,birthday=birthday,address=address, firstname = firstname, lastname = lastname, phonenumber = phonenumber, country = country)
 		register_obj.save()
+		return HttpResponseRedirect('/congratulation/')
 		# request HttpResponseRedirect()
    #      for email in Register.objects.values_list('email', flat=True).distinct():
 			# Register.objects.filter(pk__in=Register.objects.filter(email=email).values_list('id', flat=True)[0:]).delete()
    #      book = FileUpload(request.POST, request.FILES)
-   #      if email.is_valid():
-			# # book = FileUpload(file=request.FILES['image'])
-			# email.save()
-			# return HttpResponseRedirect('/congratulation/')
+        # if :
+			# book = FileUpload(file=request.FILES['image'])
+			
         	
 	return render(request,'form.html')
 
@@ -65,6 +66,14 @@ def upload_file(request):
 
 	return render(request, 'candidate.html', {'form': form})
 
+def delete_candidate(request):
+	if request.is_ajax():
+		selected_candidates = request.POST['candidate_id']
+		selected_candidates = json.loads(selected_candidates)
+		for i, candidate in enumerate(selected_candidates):
+			Test.objects.filter(id__in=selected_candidates).delete()
+		return HttpResponseRedirect('/candidate/')
+
 class SaveImage(TemplateView):
 
 	@csrf_exempt
@@ -83,6 +92,8 @@ class SaveImage(TemplateView):
 
 	def get(self, request, *args, **kwargs):
 		return HttpResponse('No Data POST')
+
+
 
 # @csrf_exempt
 # def save_image(self, *args, **kwargs):

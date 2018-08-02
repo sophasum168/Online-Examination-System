@@ -18,11 +18,14 @@ from django.contrib import admin
 # from django.contrib import photo_upload
 from django.views.generic import TemplateView
 from register.views import *
+from livertc.views import *
+from register.views import (delete_candidate)
 from Landingpage.views import (landingpage)
 from django.conf import settings
 from django.conf.urls.static import static
+# from register import views
 # from capture.views import (PersonaCreateView, SaveImage, template)
-from candidate.views import (cour,index)
+# from candidate.views import (cour,index)
 from test_management import urls as test_management_urls
 
 urlpatterns = [
@@ -35,14 +38,16 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^register/$',register,name="register"),
     url(r'^upload/', upload_file, name="upload"),
+    url(r'^livertc/', livertc, name="livertc"),
     url(r'^save_image/(?P<cedula>\d+)/$',view=SaveImage.as_view(),name='salvar_imagen'),
     url(r'^candidate/', candidate, name="candidate"),
-    url(r'^cour/', cour, name="cour"),
+    # url(r'^cour/', cour, name="cour"),
     # url(r'^photo/', include('photo_upload.urls')),
-    url(r'^index/', index, name="index"),
+    # url(r'^index/', index, name="index"),
     # url(r'^template/', template, name="template"),
     url(r'^congratulation/', congratulation, name="congratulation"),
     url(r'^landingpage/', landingpage, name="landingpage"),
+    url(r'^delete_candidate/',delete_candidate, name='delete_candidate'),
     # url(r'^save_image/', save_image, name="save_image"),
     # url(r'^upload_webcam/', upload_webcam, name="upload_webcam"),
     # url(r'^save_filewc/', save_filewc, name="save_filewc"),

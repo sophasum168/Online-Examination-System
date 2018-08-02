@@ -3,10 +3,11 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="icon" type="image/png" href="../static/img/kit-11.png"> 
   <title>
     {% block title %}
-    Online Examination System
+    KIT Online Exam
     {% endblock title %}
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -15,18 +16,28 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
-    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-select.min.css' %}" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-select.min.css' %}" />
   <!-- <link rel='stylesheet' href="{% static 'css/material-kit.css' %}"> -->
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link rel='stylesheet' href="{% static 'demo/demo.css' %}">
   <link rel='stylesheet' href="{% static 'css/candidate.css' %}">
   <!-- <link href="../assets/demo/demo.css" rel="stylesheet" /> -->
+  <style>
+  .sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+  </style>
 </head>
 
 <body>
 	
 	{% block content %}
-
 	<nav class="navbar navbar-expand-lg bg-rose">
     <img src="../static/img/kit-11.png" style="width: 8%; margin-left: 25px;">
     <div class="container">
@@ -53,7 +64,7 @@
                     <a href="{% url 'candidate' %}" class="nav-link"><b>Candidate</b></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#Live View" class="nav-link"><b>Live View</b></a>
+                    <a href="{% url 'livertc' %}" class="nav-link"><b>Live View</b></a>
                 </li>
                 <li class="nav-item">
                     <a href="#report" class="nav-link"><b>Reporting</b></a>
@@ -77,14 +88,14 @@
   <!-- <div style="margin: 50px"> -->
     <div id="inline-toolbar">
   </button>
-    <button class="btn btn-round btn-danger delete-btn-question" data-toggle="modal">
+    <button class="btn btn-round btn-danger delete-btn-candidate" data-toggle="modal">
 <i class="material-icons" action >delete</i>   Delete
 </button>
 </div>
-<div class="table-container">
+<div class="table-container" >
     <div class="table-responsive">
   <table id="fresh-table" class="table table-striped">
-    <thead class="thead-table-list">
+    <thead  class="thead-table-list">
     <tr>
          <th scope="col-2">
           <div class="form-check">
@@ -149,8 +160,22 @@
   <script src="{% static 'js/core/popper.min.js' %}"></script>
   <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
   <script src="{% static 'js/core/bootstrap-select.min.js' %}"></script>
+<script>
+window.onscroll = function() {myFunction()};
 
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
 </body>
+
 <script type='text/javascript'>
 $(document).ready(function(){
   // Check or Uncheck All checkboxes
@@ -203,6 +228,26 @@ $(".submit-btn-test").click(function(){
     $(".cancel-btn-test").click();
   }
 });
+
+$(".delete-btn-candidate").click(function(){
+    var selected_rows=[];
+
+    $('.candidate').find('tr').each(function(){
+      var row=$(this);
+      if (row.find('input[type="checkbox"]').is(':checked')) {
+          selected_rows.push(row.attr('data-id'));
+          };
+    });
+    var selected_rows = JSON.stringify(selected_rows);
+    $.ajax({
+      url: "{% url 'delete_candidate' %}",
+      type: 'POST',
+      data: {'candidate_id': selected_rows, 'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
+      success: function(){
+        location.reload();
+      },
+    });
+  });
 
 //Delete Button- Test
 $(".delete-btn-test").click(function(){
