@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import json, csv, logging
+import json, csv, logging, ast
 from datetime import datetime
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.http.response import JsonResponse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.template.loader import render_to_string
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from .models import *
 from .forms import QuestionForm, OptionForm
 from .serializers import QuestionSerializer
-from django.views.decorators.csrf import csrf_exempt
-from django.template.loader import render_to_string
+from register.models import Register
 # from .forms import TestUpload
 
 
@@ -224,10 +225,17 @@ def get_question_lists(request):
     API to get a list of questions
     """
     if request.method == 'GET':
-        print request.body
-        questions = Question.objects.all()
-        serializer = QuestionSerializer(questions, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        credential = ast.literal_eval(request.body)
+        email = credential['email']
+        password = credential['password']
+        status = Register().login_authentication(email, password)
+        if status == True:
+            questions = Question.objects.all()
+            serializer = QuestionSerializer(questions, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return messages.error(request, "Login credential mismatched!")
+        
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = QuestionSerializer(data=data)
