@@ -222,7 +222,7 @@
                     <form class="form" method="POST" action="{% url 'import_question' %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <h2>Import Question</h2>
-                        <label ><a id="import_question_sample">Get Example file</a></label>
+                        <label id="import_question_sample">Get Example file</label>
                         <hr>
                         <label for="exampleFormControlFile1">Upload question file (*.csv)</label>
                         <input type="file" class="form-control-file" id="exampleFormControlFile1" name="csv_file">

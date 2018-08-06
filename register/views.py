@@ -21,7 +21,9 @@ from django.http import HttpResponseRedirect
 
 # Create your views here.
 def register(request):
-	if request.method == 'POST':
+	if request.method == 'GET':
+		return render(request,'form.html')
+	elif request.method == 'POST':
 		email = request.POST.get('email')
 		firstname = request.POST.get('firstname')
 		lastname = request.POST.get('lastname')
@@ -45,7 +47,9 @@ def register(request):
 	return render(request,'form.html')
 
 def congratulation(request):
-    return render(request, 'congratulation.html')
+	context = register_obj.save(request)
+	return render(request, 'congratulation.html', {'context' : context})
+
 	
 def candidate(request):
 	# c=Register.objects.all()

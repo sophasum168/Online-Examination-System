@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.contrib import messages
 from django.contrib.auth.models import User
-import os
+import os, string, random
 
 def get_image_name(instance, filename):
 	f, ext = os.path.splitext(filename)
@@ -11,9 +12,9 @@ def get_image_name(instance, filename):
 
 class Register(models.Model):
 	# user=models.OneToOneField(User)
-	created_at = models.DateTimeField(auto_now_add=True)
     # updated_at = models.DateTimeField(auto_now=True)
 	email = models.EmailField(max_length=120, blank=False, null=False)
+	password = models.TextField(blank=True, null=True)
 	firstname= models.CharField(max_length=120, blank=False, null=False)
 	lastname = models.CharField(max_length=120, blank=False, null=False)
 	phonenumber = models.CharField(max_length=120, blank=True, null=True)
@@ -24,9 +25,36 @@ class Register(models.Model):
 	address = models.CharField(max_length=200, blank=False, null=False)
 	sname = models.CharField(max_length=300, blank=False, null=False)
 	city = models.CharField(max_length=120, blank=False, null=False)
+	created_at = models.DateTimeField(auto_now_add=True)
+	
+	#Override save method for Register model for auto generating random login password
+	def save(self, request, *args, **kwargs):
+		if not Register.objects.filter(email = self.email):
+			if self.password is None:
+				self.password = self.password_generator()
+				super(Register, self).save(*args, **kwargs)
+				context = {
+					'email' : self.email,
+					'password' : self.password,
+					}
+				messages.add_message(request, messages.SUCCESS, "Successfully registered!")
+				return context
+		else:
+			return messages.add_message(request, messages.ERROR, "Your email is already registered. You can only register for the exam once!")
+
+    #Authenticate user login credential from Desktop application
+	def login_authentication(self, email, password):
+		if Register.objects.filter(email = email, password = password):
+			return True
+		return False
+
+    #Generate random login password for candidate
+	def password_generator(self, size=30, chars=string.ascii_letters + string.digits):
+		return ''.join(random.choice(chars) for i in range(size))
 
 	def __unicode__(self):
 		return self.firstname
+		
 	@models.permalink
 	def get_absolute_url(self):
 		return ('Register', [str(self.id)])

@@ -25,7 +25,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 # from register import views
 # from capture.views import (PersonaCreateView, SaveImage, template)
-# from candidate.views import (cour,index)
 from test_management import urls as test_management_urls
 
 urlpatterns = [
@@ -41,11 +40,7 @@ urlpatterns = [
     url(r'^livertc/', livertc, name="livertc"),
     url(r'^save_image/(?P<cedula>\d+)/$',view=SaveImage.as_view(),name='salvar_imagen'),
     url(r'^candidate/', candidate, name="candidate"),
-    # url(r'^cour/', cour, name="cour"),
-    # url(r'^photo/', include('photo_upload.urls')),
-    # url(r'^index/', index, name="index"),
     # url(r'^template/', template, name="template"),
-    url(r'^congratulation/', congratulation, name="congratulation"),
     url(r'^landingpage/', landingpage, name="landingpage"),
     url(r'^delete_candidate/',delete_candidate, name='delete_candidate'),
     # url(r'^save_image/', save_image, name="save_image"),
