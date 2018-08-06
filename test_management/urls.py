@@ -14,8 +14,9 @@
 #     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 # """
 from django.conf.urls import url
-from test_management import views
 from django.conf import settings
+from test_management import views
+
 urlpatterns = [
     url(r'^test/', views.test_list, name='test'),
     url(r'^test-management/add_test/', views.add_test, name='add_test'),

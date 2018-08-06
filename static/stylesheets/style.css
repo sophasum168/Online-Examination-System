@@ -138,10 +138,12 @@
 /* Video Box */
 
 #vid-box video{
-	width: 100%;
+	/*width: 100%;*/
 	height: auto;
-    max-height: 50vh;
+    max-height: 30vh;
+    transform: scale(-1, 1);
     max-width: auto;
+    margin-right: 20px;
     
 }
 body{
@@ -151,16 +153,16 @@ body{
     text-align: center;
 }
 
-.video2{
+/*.video2{
     width: 33%;
 }
 
 video{
     width: 25%;
     
-}
+}*/
 
-@media only screen 
+/*@media only screen 
 and (min-width : 320px) 
 and (max-width : 800px){   
     #vid-box video{
@@ -168,7 +170,7 @@ and (max-width : 800px){
         height: auto;
     }
     body{background-color: yellow:}
-}
+}*/
 
 
 

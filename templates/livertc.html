@@ -80,7 +80,7 @@
 </div> 
 
     
-<form name="streamForm" id="stream" action="#" onsubmit="return errWrap(stream,this);">
+<!-- <form name="streamForm" id="stream" action="#" onsubmit="return errWrap(stream,this);">
     <span class="input input--nao">
         <input class="input__field input__field--nao" type="text" name="streamname" placeholder="Enter Stream Name" id="streamname"/>
                 <label class="input__label input__label--nao" for="streamname">
@@ -95,7 +95,7 @@
       <button class="cbutton cbutton--effect-radomir" type="submit" value="Stream" name="stream_submit" style="margin-top: 40px; margin-left:-10px">
             <i class="cbutton__icon fa fa-fw fa fa fa-video-camera"></i>
         </button>
-</form>
+</form> -->
     
 
 <form name="watchForm" id="watch" action="#" onsubmit="return errWrap(watch,this);">
@@ -116,7 +116,7 @@
 </form>  
     
 <div id="inStream" class="ptext">
-	Embed Style: <button onclick="genEmbed(400,600)">Tall</button><button onclick="genEmbed(600,400)">Wide</button><button onclick="genEmbed(500,500)">Square</button><br>
+	<!-- Embed Style: <button onclick="genEmbed(400,600)">Tall</button><button onclick="genEmbed(600,400)">Wide</button><button onclick="genEmbed(500,500)">Square</button><br> -->
 	<div id="embed-code"></div>
 	<div id="embed-demo"></div>
 </div>
@@ -153,8 +153,8 @@ function stream(form) {
 	streamName = form.streamname.value || Math.floor(Math.random()*100)+'';
 	var phone = window.phone = PHONE({
 	    number        : streamName, // listen on username line else random
-	    publish_key   : 'pub-c-561a7378-fa06-4c50-a331-5c0056d0163c', // Your Pub Key
-	    subscribe_key : 'sub-c-17b7db8a-3915-11e4-9868-02ee2ddab7fe', // Your Sub Key
+	    publishKey: 'pub-c-99c32c59-0220-4d18-90eb-b6c5acc49e63',
+        subscribeKey: 'sub-c-b1d59faa-998c-11e8-9a7c-62794ce13da1',
 	    oneway        : true,
 	    broadcast     : true
 	});
@@ -167,7 +167,7 @@ function stream(form) {
 		ctrl.addLocalStream(video_out);
 		ctrl.stream();
         stream_info.hidden=false;
-        end_stream.hidden =false;
+        end_stream.hidden =true;
 		addLog("Streaming to " + streamName); 
 	});
 	ctrl.receive(function(session){
@@ -185,8 +185,8 @@ function watch(form){
 	var num = form.number.value;
 	var phone = window.phone = PHONE({
 	    number        : "Viewer" + Math.floor(Math.random()*100), // listen on username line else random
-	    publish_key   : 'pub-c-561a7378-fa06-4c50-a331-5c0056d0163c', // Your Pub Key
-	    subscribe_key : 'sub-c-17b7db8a-3915-11e4-9868-02ee2ddab7fe', // Your Sub Key
+	    publishKey: 'pub-c-99c32c59-0220-4d18-90eb-b6c5acc49e63',
+        subscribeKey: 'sub-c-b1d59faa-998c-11e8-9a7c-62794ce13da1',
 	    oneway        : true
 	});
 	var ctrl = window.ctrl = CONTROLLER(phone);
