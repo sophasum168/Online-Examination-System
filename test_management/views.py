@@ -229,13 +229,19 @@ def get_question_lists(request):
         email = credential['email']
         password = credential['password']
         status = Register().login_authentication(email, password)
-        if status == True:
+        print status
+        if status is True:
             questions = Question.objects.all()
             serializer = QuestionSerializer(questions, many=True)
+            messages.add_message(request, messages.SUCCESS, "Succesfully login!")
+            print serializer.data   
             return JsonResponse(serializer.data, safe=False)
-        else:
-            return messages.error(request, "Login credential mismatched!")
-        
+        context = {
+            "status": "500",
+            "message": "Error"
+        }
+        return JsonResponse(context, safe=False)
+        #return messages.add_message(request, messages.ERROR,"Login credential mismatched!")
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = QuestionSerializer(data=data)
