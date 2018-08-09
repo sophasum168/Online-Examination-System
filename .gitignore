@@ -8,5 +8,10 @@ db.sqlite3
 *.sqlite3
 *.sqlite3
 db.sqlite3
+<<<<<<< HEAD
 *.sqlite3
 *.sqlite3
+=======
+db.sqlite3
+>>>>>>> Sokunthaneth
+db.sqlite3

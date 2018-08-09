@@ -12,7 +12,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from .models import *
 from .forms import QuestionForm, OptionForm
-from .serializers import QuestionSerializer
+from .serializers import QuestionSerializer, OptionSerializer
 from register.models import Register
 # from .forms import TestUpload
 
@@ -229,19 +229,31 @@ def get_question_lists(request):
         email = credential['email']
         password = credential['password']
         status = Register().login_authentication(email, password)
-        print status
         if status is True:
+            # Adapt logic to how many questions should retrieve each time
             questions = Question.objects.all()
-            serializer = QuestionSerializer(questions, many=True)
+            question_id = list()
+            for question in questions:
+                if question.question_type == 'QCM':
+                    if Option.objects.filter(question_id = question.id):
+                        question_id.append(question.id)
+            options = Option.objects.filter(question_id__in = question_id)
+            option_serializer = OptionSerializer(options, many = True)
+            print option_serializer
+            question_serializer = QuestionSerializer(questions, many = True)
+            context = {
+                "status": "200",
+                "message": "Success",
+                "question" : question_serializer.data,
+                "option" : option_serializer.data,
+            }
             messages.add_message(request, messages.SUCCESS, "Succesfully login!")
-            print serializer.data   
-            return JsonResponse(serializer.data, safe=False)
+            return JsonResponse(context, safe=False)
         context = {
             "status": "500",
             "message": "Error"
         }
         return JsonResponse(context, safe=False)
-        #return messages.add_message(request, messages.ERROR,"Login credential mismatched!")
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = QuestionSerializer(data=data)
