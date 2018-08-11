@@ -132,7 +132,6 @@ def import_question(request):
             csv_file.close()
             response['content_type'] ='text/csv'
             response['Content-Disposition'] = 'attachment; filename="import_question_sample.csv"'
-            print response
             return response
     elif request.method == 'POST':
         # if not GET, then proceed
@@ -239,7 +238,6 @@ def get_question_lists(request):
                         question_id.append(question.id)
             options = Option.objects.filter(question_id__in = question_id)
             option_serializer = OptionSerializer(options, many = True)
-            print option_serializer
             question_serializer = QuestionSerializer(questions, many = True)
             context = {
                 "status": "200",
