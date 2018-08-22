@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import logging, ast
 from django.views.generic import TemplateView, CreateView, DetailView, ListView
 from django.contrib.auth import (
 	authenticate,
@@ -6,15 +7,16 @@ from django.contrib.auth import (
 	login,
 	logout,
 	)
+from django.core.files.base import File
 from django.shortcuts import render	
 #from .forms import UploadFileForm
-from .forms import FileUpload
+from .forms import *
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from .models import Register
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
-from .models import Image
+from .models import *
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 #from .forms import SignUpForm
@@ -78,8 +80,33 @@ def delete_candidate(request):
 			Test.objects.filter(id__in=selected_candidates).delete()
 		return HttpResponseRedirect('/candidate/')
 
-class SaveImage(TemplateView):
+@csrf_exempt
+def video_upload(request):
+	if request.method == 'POST':
+		form = VideoUploadForm(request.POST, request.FILES)
+		if form.is_valid():
+			newform = form.save(commit=False)
+			djfile = File(request.FILES['data_blob'])
+			newform.file.save(request.FILES['data_blob'].name, djfile)
+			newform.save()
 
+			# convert to fix the duration of video
+			file_path = newform.file.path
+			os.system(
+				"/usr/bin/mv %s %s" % (
+					file_path, (file_path + '.original'))
+			)
+			os.system(
+				"/usr/bin/ffmpeg -i %s -c copy -fflags +genpts %s" % (
+					(file_path + '.original'), file_path)
+			)
+
+			return HttpResponse({"status":"ok"})
+		else:
+			form = UploadFileForm()
+		return HttpResponse({"status":"ok"})
+
+class SaveImage(TemplateView):
 	@csrf_exempt
 	def dispatch(self, *args, **kwargs):
 		self.filename = self.kwargs['firstname']+'.jpg'

@@ -1,9 +1,6 @@
-from django import forms
-
-from .models import Image
-from .models import Register
-from .models import *
 from django.contrib.auth.models import User
+from django import forms
+from .models import *
 
 # # class RegisterForm(forms.ModelForm):
 # # 	class Meta:
@@ -39,3 +36,8 @@ class FileUpload(forms.ModelForm):
    		model = Register
    		fields = ('email','firstname','lastname','phonenumber','country','image','file','sname','address','city','birthday')
 
+class VideoUploadForm(forms.ModelForm):
+    class Meta:
+        model = VideoUpload
+        fields = ('file',)
+        widgets = {'file': forms.HiddenInput()}

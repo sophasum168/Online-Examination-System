@@ -246,6 +246,7 @@ def get_question_lists(request):
                 "message": "Success",
                 "question" : question_serializer.data,
                 "option" : option_serializer.data,
+                "email" : email,
             }
             messages.add_message(request, messages.SUCCESS, "Succesfully login!")
             return JsonResponse(context, safe=False)

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+import os, string, random
 from django.db import models
 from django.contrib import messages
 from django.contrib.auth.models import User
-import os, string, random
+from django.utils.encoding import python_2_unicode_compatible
 
 def get_image_name(instance, filename):
 	f, ext = os.path.splitext(filename)
@@ -77,3 +78,15 @@ class Image(models.Model):
 
    	def __str__(self):
    		return str(self.file)
+
+@python_2_unicode_compatible
+class VideoUpload(models.Model):
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    file = models.FileField(
+        upload_to='temp_videos',
+        blank=True,
+        null=True,
+        verbose_name=u'File')
+
+    def __str__(self):
+        return self.uploaded_at

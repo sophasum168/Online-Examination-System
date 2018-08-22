@@ -20,6 +20,7 @@ from django.views.generic import TemplateView
 from register.views import *
 from livertc.views import *
 from register.views import (delete_candidate)
+from register.views import video_upload
 from Landingpage.views import (landingpage)
 from django.conf import settings
 from django.conf.urls.static import static
@@ -43,6 +44,7 @@ urlpatterns = [
     # url(r'^template/', template, name="template"),
     url(r'^landingpage/', landingpage, name="landingpage"),
     url(r'^delete_candidate/',delete_candidate, name='delete_candidate'),
+    url(r'^video_upload/',video_upload, name='video_upload'),
     # url(r'^save_image/', save_image, name="save_image"),
     # url(r'^upload_webcam/', upload_webcam, name="upload_webcam"),
     # url(r'^save_filewc/', save_filewc, name="save_filewc"),
