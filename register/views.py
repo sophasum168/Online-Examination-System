@@ -36,22 +36,8 @@ def register(request):
 		birthday = request.POST.get('birthday')
 		address =request.POST.get('address')
 		register_obj=Register(email = email,city=city,sname=sname,birthday=birthday,address=address, firstname = firstname, lastname = lastname, phonenumber = phonenumber, country = country)
-		register_obj.save()
-		return HttpResponseRedirect('/congratulation/')
-		# request HttpResponseRedirect()
-   #      for email in Register.objects.values_list('email', flat=True).distinct():
-			# Register.objects.filter(pk__in=Register.objects.filter(email=email).values_list('id', flat=True)[0:]).delete()
-   #      book = FileUpload(request.POST, request.FILES)
-        # if :
-			# book = FileUpload(file=request.FILES['image'])
-			
-        	
-	return render(request,'form.html')
-
-def congratulation(request):
-	context = register_obj.save(request)
-	return render(request, 'congratulation.html', {'context' : context})
-
+		context = register_obj.save(request)
+		return render(request, 'congratulation.html', {'context' : context})
 	
 def candidate(request):
 	# c=Register.objects.all()

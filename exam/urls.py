@@ -19,8 +19,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from register.views import *
 from livertc.views import *
-from register.views import (delete_candidate)
-from register.views import video_upload
+from register.views import *
 from Landingpage.views import (landingpage)
 from django.conf import settings
 from django.conf.urls.static import static
@@ -36,7 +35,7 @@ urlpatterns = [
     #url(r'^login/$',contrib.auth_views.login, name='login'),
     # url(r'^users/login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
     url(r'^admin/', admin.site.urls),
-    url(r'^register/$',register,name="register"),
+    url(r'^register/',register,name="register"),
     url(r'^upload/', upload_file, name="upload"),
     url(r'^livertc/', livertc, name="livertc"),
     url(r'^save_image/(?P<cedula>\d+)/$',view=SaveImage.as_view(),name='salvar_imagen'),

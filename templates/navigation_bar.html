@@ -297,7 +297,6 @@ $(document).ready(function(){
     var add_option_row = $.parseHTML('<tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"></td><td><div class="btn-group bootstrap-select answer"><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option>/select></div></td><td><i class="material-icons option-delete">delete</i></td></tr>');
     $('#addModal .option_row:last-child').after(add_option_row);
     $(add_option_row).find(".selectpicker").selectpicker("render");
-
     $(add_option_row).find(".option-delete").on("click", bindClickOnDeleteBtn);
   });
 
