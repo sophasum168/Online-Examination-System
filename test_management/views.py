@@ -239,7 +239,6 @@ def get_question_lists(request):
                         question_id.append(question.id)
             options = Option.objects.filter(question_id__in = question_id)
             option_serializer = OptionSerializer(options, many = True)
-            print option_serializer
             question_serializer = QuestionSerializer(questions, many = True)
             context = {
                 "status": "200",
@@ -257,8 +256,12 @@ def get_question_lists(request):
         return JsonResponse(context, safe=False)
     elif request.method == 'POST':
         data = JSONParser().parse(request)
-        serializer = QuestionSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+        print data
+        print data['email']
+        print data['answer']
+        return None
+        # serializer = QuestionSerializer(data=data)
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return JsonResponse(serializer.data, status=201)
+        # return JsonResponse(serializer.errors, status=400)
