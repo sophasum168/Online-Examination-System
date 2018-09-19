@@ -254,14 +254,3 @@ def get_question_lists(request):
             "message": "Error"
         }
         return JsonResponse(context, safe=False)
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        print data
-        print data['email']
-        print data['answer']
-        return None
-        # serializer = QuestionSerializer(data=data)
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     return JsonResponse(serializer.data, status=201)
-        # return JsonResponse(serializer.errors, status=400)

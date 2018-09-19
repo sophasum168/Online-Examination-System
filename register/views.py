@@ -19,6 +19,7 @@ from rest_framework.renderers import JSONRenderer
 from .models import *
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from test_management.models import *
 #from .forms import SignUpForm
 
 # Create your views here.
@@ -110,7 +111,39 @@ class SaveImage(TemplateView):
 	def get(self, request, *args, **kwargs):
 		return HttpResponse('No Data POST')
 
-
+@csrf_exempt
+def submit_answer(request):
+	"""
+	API to get the input answers from desktop application
+	"""
+	if request.method == 'POST':
+		data = JSONParser().parse(request)
+		question_data  = data['answer']
+		if Register.objects.get(email = data['email']):
+			user_id = Register.objects.get(email = data['email'])
+			for question in question_data:
+				question_id = Question.objects.get(id = question['id'])
+				answer = CandidateAnswer()
+				if question['question_type'] == 'QCM':
+					answer.candidate_id = user_id
+					answer.question_id = question_id
+					if question['selected_option']:
+						answer.selected_option = question['selected_option']
+						correct_answer = Option.objects.get(question_id = question_id, answer='T').id
+						if int(answer.selected_option) == int(correct_answer):
+							user_id.score += 1
+						answer.save()
+				else:
+					if question['essay_answer']:
+						answer.candidate_id = user_id
+						answer.question_id = question_id
+						answer.essay_answer = question['essay_answer']
+						answer.save()
+			user_id.taken_test = True
+			request.update=True
+			user_id.save(request)
+		return HttpResponse({"status":"ok"})
+	return HttpResponse({"status":"ok"})
 
 # @csrf_exempt
 # def save_image(self, *args, **kwargs):

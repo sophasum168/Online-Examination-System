@@ -11,17 +11,20 @@
     {% endblock title %}
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+      <!-- Fonts and icons     -->
+  <!-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"> -->
   <!-- CSS Files -->
-  <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
-  <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-select.min.css' %}" />
+  <!-- <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-select.min.css' %}" /> -->
   <!-- <link rel='stylesheet' href="{% static 'css/material-kit.css' %}"> -->
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link rel='stylesheet' href="{% static 'demo/demo.css' %}">
-  <link rel='stylesheet' href="{% static 'css/candidate.css' %}">
+  <!-- <link rel='stylesheet' href="{% static 'demo/demo.css' %}">
+  <link rel='stylesheet' href="{% static 'css/candidate.css' %}"> -->
   <!-- <link href="../assets/demo/demo.css" rel="stylesheet" /> -->
+  <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
+  <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-select.min.css' %}" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
   <style>
   .sticky {
   position: fixed;
@@ -112,10 +115,8 @@
         <th>Email</th>
         <th>First Name</th>
         <th>Last Name</th>
-        <th>Birthday</th>
         <th>Phone Number</th>
         <th>School Name</th>
-        <th>Address</th>
         <th>City</th>
         <th>Country</th>
         <!-- <th>Profile Picture</th>
@@ -141,10 +142,8 @@
       <td>{{ candidate.email }}</td>
       <td>{{ candidate.firstname }}</td>
       <td>{{ candidate.lastname }}</td>
-      <td>{{ candidate.birthday }}</td>
       <td>{{ candidate.phonenumber }}</td>
       <td>{{ candidate.sname }}</td>
-      <td>{{ candidate.address }}</td>
       <td>{{ candidate.city }}</td>
       <td>{{ candidate.country }}</td>
       <!-- <td>{{ candidate.file }}</td>

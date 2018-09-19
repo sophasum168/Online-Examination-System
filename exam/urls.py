@@ -44,6 +44,7 @@ urlpatterns = [
     url(r'^landingpage/', landingpage, name="landingpage"),
     url(r'^delete_candidate/',delete_candidate, name='delete_candidate'),
     url(r'^video_upload/',video_upload, name='video_upload'),
+    url(r'^submit_answer/',submit_answer, name='submit_answer'),
     # url(r'^save_image/', save_image, name="save_image"),
     # url(r'^upload_webcam/', upload_webcam, name="upload_webcam"),
     # url(r'^save_filewc/', save_filewc, name="save_filewc"),

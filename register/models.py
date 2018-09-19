@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
+from test_management.models import *
 
 def get_image_name(instance, filename):
 	f, ext = os.path.splitext(filename)
@@ -26,7 +27,9 @@ class Register(models.Model):
 	address = models.CharField(max_length=200, blank=False, null=False)
 	sname = models.CharField(max_length=300, blank=False, null=False)
 	city = models.CharField(max_length=120, blank=False, null=False)
+	score = models.IntegerField(default=0)
 	created_at = models.DateTimeField(auto_now_add=True)
+	taken_test = models.BooleanField(default=False)
 	
 	#Override save method for Register model for auto generating random login password
 	def save(self, request, *args, **kwargs):
@@ -41,6 +44,9 @@ class Register(models.Model):
 				messages.add_message(request, messages.SUCCESS, "Successfully registered!")
 				return context
 		else:
+			if request.update == True:
+				super(Register, self).save(*args, **kwargs)
+				return messages.add_message(request, messages.SUCCESS, "Successfully updated!")
 			return messages.add_message(request, messages.ERROR, "Your email is already registered. You can only register for the exam once!")
 
     #Authenticate user login credential from Desktop application
@@ -90,3 +96,9 @@ class VideoUpload(models.Model):
 
     def __str__(self):
         return self.uploaded_at
+
+class CandidateAnswer(models.Model):
+	candidate_id = models.ForeignKey('Register', on_delete=models.CASCADE)
+	question_id = models.ForeignKey('test_management.Question', on_delete=models.CASCADE)
+	essay_answer = models.TextField(blank=True, null=True)
+	selected_option = models.TextField(blank=True, null=True)

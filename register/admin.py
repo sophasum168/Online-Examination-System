@@ -26,3 +26,4 @@ class CandidateProfile(admin.ModelAdmin):
 # 		model = Register					
 admin.site.register(Register, CandidateProfile)
 admin.site.register(Image)
+admin.site.register(CandidateAnswer)
