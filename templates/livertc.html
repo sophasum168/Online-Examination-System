@@ -8,14 +8,13 @@
     <link rel="icon" type="image/png" href="../static/img/kit-11.png">
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/style.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.3.0/css/font-awesome.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <script src="{% static 'js/modernizr.custom.js' %}"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
-  	<!-- <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-select.min.css' %}" /> -->
-  	<link rel='stylesheet' href="{% static 'demo/demo.css' %}">
-  <link rel='stylesheet' href="{% static 'css/candidate.css' %}">	
-	<!-- <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/normalize.css' %}"/> -->
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-select.min.css' %}" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+    <script src="{% static 'js/modernizr.custom.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 </head>
 <body>
 {% block content %}
@@ -45,7 +44,7 @@
                     <a href="{% url 'candidate' %}" class="nav-link"><b>Candidate</b></a>
                 </li>
                 <li class="nav-item active">
-                    <a href="{% url 'livertc' %}" class="nav-link"><b>Live View</b></a>
+                    <a href="{% url 'livertc' %}" class="nav-link"><b>Live Streaming</b></a>
                 </li>
                 <li class="nav-item">
                     <a href="#report" class="nav-link"><b>Reporting</b></a>
@@ -97,7 +96,7 @@
         </button>
 </form> -->
     
-
+<center><h2><b><u>Live Streaming</u></b></h2></center>
 <form name="watchForm" id="watch" action="#" onsubmit="return errWrap(watch,this);">
     <span class="input input--nao">
         <input class="input__field input__field--nao" type="text" name="number" placeholder="Enter Stream To Watch!"/>
@@ -193,7 +192,7 @@ function watch(form){
 	ctrl.ready(function(){
 		ctrl.isStreaming(num, function(isOn){
 			if (isOn) ctrl.joinStream(num);
-			else alert("User is not streaming!");
+			else alert("No student is taking the exam now!");
 		});
 		addLog("Joining stream  " + num); 
 	});
@@ -226,7 +225,7 @@ function end(){
     video_out.innerHTML = "";
 //	phone.pubnub.unsubscribe(); // unsubscribe all?
 }
-
+    
 function genEmbed(w,h){
 	if (!streamName) return;
 	var url = "http://kevingleason.me/SimpleRTC/embed.html?stream=" + streamName;

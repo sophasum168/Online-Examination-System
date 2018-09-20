@@ -11,17 +11,6 @@
     {% endblock title %}
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-      <!-- Fonts and icons     -->
-  <!-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"> -->
-  <!-- CSS Files -->
-  <!-- <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
-  <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-select.min.css' %}" /> -->
-  <!-- <link rel='stylesheet' href="{% static 'css/material-kit.css' %}"> -->
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <!-- <link rel='stylesheet' href="{% static 'demo/demo.css' %}">
-  <link rel='stylesheet' href="{% static 'css/candidate.css' %}"> -->
-  <!-- <link href="../assets/demo/demo.css" rel="stylesheet" /> -->
   <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
   <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-select.min.css' %}" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
@@ -40,7 +29,7 @@
 
 <body>
 	
-	{% block content %}
+{% block content %}
 	<nav class="navbar navbar-expand-lg bg-rose">
     <img src="../static/img/kit-11.png" style="width: 8%; margin-left: 25px;">
     <div class="container">
@@ -67,7 +56,7 @@
                     <a href="{% url 'candidate' %}" class="nav-link"><b>Candidate</b></a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'livertc' %}" class="nav-link"><b>Live View</b></a>
+                    <a href="{% url 'livertc' %}" class="nav-link"><b>Live Streaming</b></a>
                 </li>
                 <li class="nav-item">
                     <a href="#report" class="nav-link"><b>Reporting</b></a>
@@ -97,7 +86,7 @@
 </div>
 <div class="table-container" >
     <div class="table-responsive">
-  <table id="fresh-table" class="table table-striped">
+  <table id="fresh-table" class="table table-striped candidate">
     <thead  class="thead-table-list">
     <tr>
          <th scope="col-2">
@@ -111,20 +100,20 @@
           </div>
         </th>
         <th>#</th>
-        <th>Register Date</th>
         <th>Email</th>
         <th>First Name</th>
         <th>Last Name</th>
+        <th>Score</th>
         <th>Phone Number</th>
         <th>School Name</th>
-        <th>City</th>
         <th>Country</th>
+        <th>Register Date</th>
         <!-- <th>Profile Picture</th>
         <th>ID Card</th> -->
       </tr>
     </thead>
     <tbody>
-    
+    {% csrf_token %}
     {% for candidate in candidates %}
     <tr data-id="{{ candidate.id }}" class="table-row">
       <td class="form-check">
@@ -138,14 +127,14 @@
       </div>
     </td>
       <td>{{ forloop.counter }}</td>
-      <td>{{ candidate.created_at}}</td>
       <td>{{ candidate.email }}</td>
       <td>{{ candidate.firstname }}</td>
       <td>{{ candidate.lastname }}</td>
+      <td>{{ candidate.score }}</td>
       <td>{{ candidate.phonenumber }}</td>
       <td>{{ candidate.sname }}</td>
-      <td>{{ candidate.city }}</td>
       <td>{{ candidate.country }}</td>
+      <td>{{ candidate.created_at}}</td>
       <!-- <td>{{ candidate.file }}</td>
       <td>{{ candidate.image }}</td> -->
     </tr>      
@@ -153,7 +142,26 @@
     </tbody>
   </table>
 </div>
-</div>  
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" role="">
+  <div class="modal-dialog modal-login" role="document">
+      <div class="modal-content">
+          <div class="card card-signup card-plain">
+              <div class="modal-body">
+                  <form class="form" method="POST" action="{% url 'edit_test' %}">
+                      {% csrf_token %}
+                      <h2>Candidate Information</h2>
+                      <div id="candidate_info"></div>
+                      <div class="modal-footer justify-content-right">
+                          <button type="button" class="btn btn-primary btn-link btn-wd btn-lg cancel-btn-question" data-dismiss="modal">Cancel</button>
+                          <button type="button" class="btn btn-primary save-btn-question" name="save">Save</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div> 
 {% endblock content %}
 <script src="{% static 'js/core/jquery.min.js' %}"></script>
   <script src="{% static 'js/core/popper.min.js' %}"></script>
@@ -174,7 +182,6 @@ function myFunction() {
 }
 </script>
 </body>
-
 <script type='text/javascript'>
 $(document).ready(function(){
   // Check or Uncheck All checkboxes
@@ -202,32 +209,6 @@ $(document).ready(function(){
   });
  });
 
-//**test_list.html SCRIPT**
-//Add Button- Test
-$(".submit-btn-test").click(function(){
-  var test_name = JSON.stringify($("#add_test_name").val());
-  var test_type = JSON.stringify($("#add_test_type").val());
-  var test_date = JSON.stringify($("#add_test_date").val());
-  var button_pressed = JSON.stringify($(this).attr('name'));
-  $.ajax({
-    url: "{% url 'add_test' %}",
-    type: 'POST',
-    data: {'button_pressed' : button_pressed, 'test_name' : test_name, 'test_type' : test_type,
-    'test_date' : test_date,'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
-  })
-  var button_pr = $(this).attr('name');
-  if (button_pr == 'add_new'){
-    $("#add_test_name").val("");
-    $("#add_test_type").val("");
-    $("#add_test_date").val("");
-  } else {
-    $("#add_test_name").val("");
-    $("#add_test_type").val("");
-    $("#add_test_date").val("");
-    $(".cancel-btn-test").click();
-  }
-});
-
 $(".delete-btn-candidate").click(function(){
     var selected_rows=[];
 
@@ -235,176 +216,52 @@ $(".delete-btn-candidate").click(function(){
       var row=$(this);
       if (row.find('input[type="checkbox"]').is(':checked')) {
           selected_rows.push(row.attr('data-id'));
+          console.log(selected_rows);
           };
     });
     var selected_rows = JSON.stringify(selected_rows);
     $.ajax({
       url: "{% url 'delete_candidate' %}",
       type: 'POST',
-      data: {'candidate_id': selected_rows, 'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
+      data: {'candidate_id': selected_rows,'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
       success: function(){
         location.reload();
       },
     });
   });
 
-//Delete Button- Test
-$(".delete-btn-test").click(function(){
-  var selected_rows=[];
+  //Edit OnClick- Candidate
+  $(".table-row td:not(:has(input))").on("click", function(){
+    $('#editModal').modal('show');
+    let rowId = $(this).closest('tr').attr('data-id');
 
-  $('.test-list').find('tr').each(function(){
-    var row=$(this);
-    if (row.find('input[type="checkbox"]').is(':checked')) {
-        selected_rows.push(row.attr('data-id'));
-        };
-  });
-  var selected_rows = JSON.stringify(selected_rows);
-  $.ajax({
-    url: "{% url 'delete_test' %}",
-    type: 'POST',
-    data: {'test_list_ids': selected_rows, 'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
-    success: function(){
-      location.reload();
-    },
-  });
-});
-
-//Edit OnClick- Test
-$(".table-row td:not(:has(input))").click(function(){
-  $('#editModal').modal('show');
-  let rowId = $(this).closest('tr').attr('data-id');
-  const row = $(this).closest('tr');
-  var test_name = row.find('td[ name="test_name" ]').text();
-  var test_type = row.find('td[ name="test_type" ]').text();
-  var test_date = row.find('td[ name="test_date" ]').text();
-  var date = new Date(test_date);
-  var day = ("0" + date.getDate()).slice(-2);
-  var month = ("0" + (date.getMonth() + 1)).slice(-2);
-  var test_date = date.getFullYear()+"-"+(month)+"-"+(day) ;
-  $('#edit_test_date').val(test_date);
-  $("#edit_test_name").val(test_name);
-  $("#edit_test_type").val(test_type);
-
-  //EDIT FORM-- Save OnClick- Test
-  $(".save-btn-test").click(function(){
-    var row_id = JSON.stringify(rowId);
-    var test_name = JSON.stringify($("#edit_test_name").val());
-    var test_type = JSON.stringify($("#edit_test_type").val());
-    var test_date = JSON.stringify($("#edit_test_date").val());
     $.ajax({
-    url: "{% url 'edit_test' %}",
-    type: 'POST',
-    data: {'row_id' : row_id, 'test_name' : test_name, 'test_type' : test_type, 'test_date' : test_date,
-            'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val() },
-    success: function(){
-      location.reload();
-      },
-    });
+      url: "{% url 'edit_candidate' %}",
+      type: 'GET',
+      data: {"row_id" : rowId},
+      dataType: 'json',
+      success: function(data){
+          var $firstname = data['first_name'];
+          var $lastname = data['last_name'];
+          var $email = data['email'];
+          var $score = data['score'];
+          var $phonenumber = data['phonenumber'];
+          var $city = data['city'];
+          var $country = data['country'];
+          var $birthday = data['birthday'];
+          var $address = data['address'];
+          var $created_at = data['created_at']
+          $("#candidate_info").append($.parseHTML('<div id="edit_form" class="card-body"></div>'))
+          var $candidate_information = $.parseHTML('<div><label>Firstname :</label>'+$firstname+'</div></br><div><label>Lastname :</label>'+$lastname+'</div></br><div><label>Email :</label>'+$email+'</div></br><div><label>Score :</label>'+$score+'</div></br><div><label>Phone number :</label>'+$phonenumber+'</div></br><div><label>Date of birth :</label>'+$birthday+'</div></br><div><label>City :</label>'+$city+'</div></br><div><label>Country :</label>'+$country+'</div></br><div><label>Address :</label>'+$address+'</div></br><div><label>Registered Date :</label>'+$created_at+'</div>');
+          $("#edit_form").append($candidate_information);
+        },
+      });
+
+      $("#editModal").on('hidden.bs.modal', function () {
+        $('#edit_form').remove();
+      });
+      
   });
-});
-
-//**question_list.html SCRIPT**
-//Add Button- Question
-$(".submit-btn-question").click(function(){
-  var test_id = JSON.stringify($("#test_id").val());
-  var question_type = JSON.stringify($("#question_type").val());
-  var question_name = JSON.stringify($("#question_name").val());
-  var button_pressed = JSON.stringify($(this).attr('name'));
-  var option_rows = $('.option-list tbody tr.option_row').length;
-  alert(option_rows);
-  
-  $.ajax({
-    url: "{% url 'add_question' %}",
-    type: 'POST',
-    data: {'button_pressed' : button_pressed, 'question_name' : question_name, 'question_type' : question_type,
-    'test_id' : test_id,'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
-  })
-  var button_pr = $(this).attr('name');
-  if (button_pr == 'add_new'){
-    $("#test_id").val("");
-    $("#question_type").val("");
-    $("#question_name").val("");
-  } else {
-    $("#test_id").val("");
-    $("#question_type").val("");
-    $("#question_name").val("");
-    $(".cancel-btn-question").click();
-  }
-});
-
-//Delete Button- Question
-$(".delete-btn-question").click(function(){
-  var selected_rows=[];
-
-  $('.question-list').find('tr').each(function(){
-    var row=$(this);
-    if (row.find('input[type="checkbox"]').is(':checked')) {
-        selected_rows.push(row.attr('data-id'));
-        };
-  });
-  var selected_rows = JSON.stringify(selected_rows);
-  $.ajax({
-    url: "{% url 'delete_question' %}",
-    type: 'POST',
-    data: {'question_list_ids': selected_rows, 'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
-    success: function(){
-      location.reload();
-    },
-  });
-});
-
-//Edit OnClick- Question
-$(".table-row td:not(:has(input))").click(function(){
-  $('#editModal').modal('show');
-  let rowId = $(this).closest('tr').attr('data-id');
-  const row = $(this).closest('tr');
-  var test_id = row.find('td[ name="test_id" ]').text();
-  var question_type = row.find('td[ name="question_type" ]').text();
-  var question_name = row.find('td[ name="question_name" ]').text();
-  $('#test_id').val(test_id);
-  $("#question_type").val(question_type);
-  $("#question_name").val(question_name);
-
-  //EDIT FORM-- Save OnClick- Question
-  $(".save-btn-question").click(function(){
-    var row_id = JSON.stringify(rowId);
-    var test_id = JSON.stringify($("#test_id").val());
-    var question_type = JSON.stringify($("#question_type").val());
-    var question_name = JSON.stringify($("#question_name").val());
-    $.ajax({
-    url: "{% url 'edit_question' %}",
-    type: 'POST',
-    data: {'row_id' : row_id, 'test_id' : test_id, 'question_type' : question_type, 'question_name' : question_name,
-            'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val() },
-    success: function(){
-      location.reload();
-      },
-    });
-  });
-});
-
-//Add option row-- QCM
-$("#add_option").click(function(){
-  $('.option-list tr:nth-last-child(2)').after('<tr class="option_row"><td><input type="text" class="form-control" value="Turtle"></td><td><input type="text" class="form-control" value="F"></td><td><i class="material-icons option-delete">delete</i></td></tr>');
-});
-
-//OnChange if option = 'Essay', hide answer table
-$("#question_type").change(function(){
-  if($("#question_type").val() == 'ES'){
-    $(".option-list").hide();
-  }
-  else{
-    $(".option-list").show();
-  }
-});
-
-//Delete option_row onClick
-$('td i').on('click',function(e){
-   e.preventDefault();
-   $(this).parents('tr').remove();
-});
-
-
 </script>
 </body>
 </html>

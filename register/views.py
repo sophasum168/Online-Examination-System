@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import logging, ast
+import logging, ast, json
 from django.views.generic import TemplateView, CreateView, DetailView, ListView
 from django.contrib.auth import (
 	authenticate,
@@ -9,18 +9,15 @@ from django.contrib.auth import (
 	)
 from django.core.files.base import File
 from django.shortcuts import render	
-#from .forms import UploadFileForm
-from .forms import *
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
-from .models import Register
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from .models import *
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
+from .forms import *
 from test_management.models import *
-#from .forms import SignUpForm
 
 # Create your views here.
 def register(request):
@@ -46,6 +43,33 @@ def candidate(request):
 	candidates = Register.objects.all()
 	# return HttpResponse(output)
 	return render(request,'candidate.html',{'candidates':candidates})
+	
+def edit_candidate(request):
+    context = dict()
+    if request.method == 'GET':
+        row_id = request.GET.get('row_id')
+        candidate_obj = Register.objects.get(id = row_id)
+        context.update({
+            'first_name': candidate_obj.firstname,
+            'last_name': candidate_obj.lastname,
+			'email': candidate_obj.email,
+			'phonenumber': candidate_obj.phonenumber,
+			'city': candidate_obj.city,
+			'country': candidate_obj.country,
+			'birthday': candidate_obj.birthday,
+			'address': candidate_obj.address,
+			'score': candidate_obj.score,
+			'created_at': candidate_obj.created_at,
+        })          
+        return JsonResponse(context)
+
+def delete_candidate(request):
+    if request.is_ajax():
+        selected_candidates = request.POST['candidate_id']
+        selected_candidates = json.loads(selected_candidates)
+        for i, test in enumerate(selected_candidates):
+            Register.objects.filter(id__in=selected_candidates).delete()
+        return HttpResponseRedirect('/candidate/')
 
 def upload_file(request):
 	if request.method == 'POST':
@@ -58,14 +82,6 @@ def upload_file(request):
 	    form = UploadFileForm()
 
 	return render(request, 'candidate.html', {'form': form})
-
-def delete_candidate(request):
-	if request.is_ajax():
-		selected_candidates = request.POST['candidate_id']
-		selected_candidates = json.loads(selected_candidates)
-		for i, candidate in enumerate(selected_candidates):
-			Test.objects.filter(id__in=selected_candidates).delete()
-		return HttpResponseRedirect('/candidate/')
 
 @csrf_exempt
 def video_upload(request):

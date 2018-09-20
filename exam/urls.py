@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^candidate/', candidate, name="candidate"),
     # url(r'^template/', template, name="template"),
     url(r'^landingpage/', landingpage, name="landingpage"),
+    url(r'^edit_candidate/',edit_candidate, name='edit_candidate'),
     url(r'^delete_candidate/',delete_candidate, name='delete_candidate'),
     url(r'^video_upload/',video_upload, name='video_upload'),
     url(r'^submit_answer/',submit_answer, name='submit_answer'),
