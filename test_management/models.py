@@ -29,12 +29,12 @@ class Test(models.Model):
         test_obj.test_name = kwargs["test_name"]
         test_obj.test_type = kwargs["test_type"]
         test_obj.test_date = test_date
-        test_obj.save()
+        test_obj.save() 
         test_id = test_obj.id
         return test_id
     
     def __str__(self):
-        return self.test_name
+        return self.test_name.encode('utf8')
 
 class Question(models.Model):
     
@@ -87,7 +87,7 @@ class Question(models.Model):
         return None   
 
     def __str__(self):
-        return self.question_name
+        return self.question_name.encode('utf8')
 
 class Option(models.Model):
     question_id = models.ForeignKey('Question', on_delete=models.CASCADE)
@@ -130,7 +130,7 @@ class Option(models.Model):
         return None
 
     def __str__(self):
-        return self.option_name
+        return self.option_name.encode('utf8')
 
 class Admin(models.Model):
     admin_name = models.TextField(max_length=45)

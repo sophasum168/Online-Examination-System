@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from openpyxl import Workbook, load_workbook
 import json, csv, logging, ast
 from datetime import datetime
 from django.contrib import messages
@@ -14,6 +15,7 @@ from .models import *
 from .forms import QuestionForm, OptionForm
 from .serializers import QuestionSerializer, OptionSerializer
 from register.models import Register
+from datetime import datetime
 # from .forms import TestUpload
 
 
@@ -137,38 +139,37 @@ def import_question(request):
     elif request.method == 'POST':
         # if not GET, then proceed
         try:
-            csv_file = request.FILES["csv_file"]
-            if not csv_file.name.endswith('.csv'):
-                messages.error(request,'File is not CSV type')
-                return None
-                # return HttpResponseRedirect(reverse("myapp:upload_csv"))
+            spreadsheet_file = request.FILES["spreadsheet_file"]
+            if not spreadsheet_file.name.endswith('.xlsx'):
+                messages.error(request,'File is not XLSX type')
+                return messages
             #if file is too large, return
-            if csv_file.multiple_chunks():
-                messages.error(request,"Uploaded file is too big (%.2f MB)." % (csv_file.size/(1000*1000),))
-                return None
-                # return HttpResponseRedirect(reverse("myapp:upload_csv"))
-            csv_file.open()
-            file_data = csv_file.read().decode("utf-8")
-            data_lines = file_data.split("\n")
+            if spreadsheet_file.multiple_chunks():
+                messages.error(request,"Uploaded file is too big (%.2f MB)." % (spreadsheet_file.size/(1000*1000),))
+                return messages
+
             last_test_id = None
-            last_question_id = None  
-
-            for line in range(1, len(data_lines)):
-                fields = data_lines[line].split(",")
-
-                test_id = fields[0]
-                test_name = fields[1]
-                test_type = fields[2]
-                test_date = fields[3]
-                question_type = fields[4]
-                question_name = fields[5]
-                option = fields[6]
-                answer = fields[7]
-
+            last_question_id = None 
+            workbook = load_workbook(spreadsheet_file)
+            worksheet = workbook['IQ']
+            
+            for row in worksheet.iter_rows(row_offset=1):
+                test_id = unicode(row[0].value)
+                test_name = unicode(row[1].value)
+                test_type = unicode(row[2].value)
+                test_date = row[3].value
+                question_type = unicode(row[4].value)
+                question_name = unicode(row[5].value)
+                option = unicode(row[6].value)
+                answer = unicode(row[7].value)
+                if test_date:
+                    test_date = test_date.strftime("%m/%d/%Y")
+                else:
+                    test_date = "None"
                 test_context = {
                     "test_name": test_name,
                     "test_type": test_type,
-                    "test_date": test_date
+                    "test_date": str(test_date)
                 }
                 question_context = {
                     "question_type": question_type,
@@ -176,17 +177,17 @@ def import_question(request):
                     "option": option,
                     "answer": answer
                 }
-                           
-                if not test_id:
-                    if not(test_name and test_type and test_date):
-                        if not(question_type and question_name):
+                if test_id == "None":
+                    if (test_name and test_type and test_date) == "None":
+                        if (question_type and question_name) == "None":
                             #if `question` fields are empty, add option of the same question
                             question_id = last_question_id
                             Option().add_option(question_id, **question_context)
                         #if `test` fields are empty, add question of the same test
-                        else:   
+                        else:
                             test_id = last_test_id
-                            Question().add_question(test_id, **question_context)
+                            question_id = Question().add_question(test_id, **question_context)
+                            last_question_id = question_id
                     #if `test_id` field is empty, add new test
                     else:
                         test = Test()
@@ -212,7 +213,6 @@ def import_question(request):
                         last_test_id = test_id
                         last_question_id = question_id
                         
-
         except Exception as e:
                 messages.error(request,"Unable to upload file. "+repr(e))
             
