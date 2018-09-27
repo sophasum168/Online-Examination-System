@@ -247,7 +247,8 @@ $(document).ready(function(){
               $("#editModal .option-list").remove();
             }
             else{
-              $($renderQuestion).find('#question_form_edit').append($optionTable);
+              $('#question_form_edit').append($optionTable);
+              console.log("hi");
             }
           });
 
