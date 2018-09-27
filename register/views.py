@@ -8,6 +8,8 @@ from django.contrib.auth import (
 	logout,
 	)
 from django.core.files.base import File
+import subprocess
+import os
 from django.shortcuts import render	
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
@@ -103,6 +105,7 @@ def video_upload(request):
 				"/usr/bin/ffmpeg -i %s -c copy -fflags +genpts %s" % (
 					(file_path + '.original'), file_path)
 			)
+			os.system('/usr/bin/ffmpeg -i concat:"/home/sopha/Pictures/Online-Examination-System/media/temp_videos/sophasum_1.webm|/home/sopha/Pictures/Online-Examination-System/media/temp_videos/sophasum_2.webm|/home/sopha/Pictures/Online-Examination-System/media/temp_videos/sophasum_3.webm" -c copy haha.webm')
 
 			return HttpResponse({"status":"ok"})
 		else:
