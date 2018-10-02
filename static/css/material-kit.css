@@ -8863,9 +8863,9 @@ button:focus {
 
 .btn {
   position: relative;
-  padding: 12px 30px;
-  margin: 0.3125rem 35px;
-  font-size: .75rem;
+  padding: 10px 15px;
+  margin: 0.3125rem 6px;
+  font-size: .60rem;
   font-weight: 400;
   line-height: 1.428571;
   text-decoration: none;
@@ -10736,7 +10736,7 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 }
 
 .btn.btn-round {
-  border-radius: 30px;
+  /*border-radius: 30px;*/
 }
 
 .btn.btn-fab,

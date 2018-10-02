@@ -19,6 +19,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from .models import *
 from .forms import *
+# from .forms import FileUpload
 from test_management.models import *
 
 # Create your views here.
@@ -32,13 +33,30 @@ def register(request):
 		phonenumber = request.POST.get('phonenumber')
 		country = request.POST.get('country')
 		city = request.POST.get('city')
+		# file =request.POST.get('file')
 		sname = request.POST.get('sname')
 		birthday = request.POST.get('birthday')
 		address =request.POST.get('address')
-		register_obj=Register(email = email,city=city,sname=sname,birthday=birthday,address=address, firstname = firstname, lastname = lastname, phonenumber = phonenumber, country = country)
+		card_id = request.FILES['card_id']
+		student_profile = request.FILES['student_profile']
+		register_obj=Register(student_profile= student_profile ,card_id= card_id,email = email,city=city,sname=sname,birthday=birthday,address=address, firstname = firstname, lastname = lastname, phonenumber = phonenumber, country = country)
 		context = register_obj.save(request)
-		return render(request, 'congratulation.html', {'context' : context})
-	
+		# form = FileUpload(request.POST, request.FILES or None)
+		# if form.is_valid():
+		# 	form.save()
+        return render(request, 'congratulation.html', {'context' : context})
+
+
+def model_form_upload(request):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES or None)
+        if form.is_valid():
+            form.save()
+            # return HttpResponseRedirect('/congratulation/')
+    return render(request, 'form.html', {
+        'form': form
+    })	
+
 def candidate(request):
 	# c=Register.objects.all()
 	# lastSeenId = float('-Inf')

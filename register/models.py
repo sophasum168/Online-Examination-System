@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 from test_management.models import *
+# from regi.models import *
 
 def get_image_name(instance, filename):
 	f, ext = os.path.splitext(filename)
@@ -12,17 +13,21 @@ def get_image_name(instance, filename):
 	return os.path.join('webcamimages', archivo)
 # Create your models here.
 
+# class CandiateImage(models.Model):
+# 	card_id = models.ImageField(upload_to='card_id')
+# 	student_profile = models.ImageField(upload_to='student_profile')
+	
+	
 class Register(models.Model):
-	# user=models.OneToOneField(User)
-    # updated_at = models.DateTimeField(auto_now=True)
+	
 	email = models.EmailField(max_length=120, blank=False, null=False)
 	password = models.TextField(blank=True, null=True)
 	firstname= models.CharField(max_length=120, blank=False, null=False)
 	lastname = models.CharField(max_length=120, blank=False, null=False)
 	phonenumber = models.CharField(max_length=120, blank=True, null=True)
 	country = models.CharField(max_length=120, blank=False, null=False)
-	file = models.ImageField(upload_to=get_image_name, blank=True, null=True)
-	image = models.ImageField(upload_to='card_image',blank=False)
+	card_id = models.FileField(upload_to='card_id')
+	student_profile = models.FileField(upload_to='student_profile')
 	birthday = models.DateField(blank=False, null=False)
 	address = models.CharField(max_length=200, blank=False, null=False)
 	sname = models.CharField(max_length=300, blank=False, null=False)
@@ -30,6 +35,8 @@ class Register(models.Model):
 	score = models.IntegerField(default=0)
 	created_at = models.DateTimeField(auto_now_add=True)
 	taken_test = models.BooleanField(default=False)
+	
+	
 	
 	#Override save method for Register model for auto generating random login password
 	def save(self, request, *args, **kwargs):
@@ -71,15 +78,8 @@ class Register(models.Model):
 		return '%s %s' % (self.city, self.address)
 
 	full_name = property(_get_full_name)
-		#return str(('FirstName={0}, LastName={1},Email={2},Phone={3},Country={4},Profile={5},Birthday={6},Address={7},SchoolName={8},City={9},IdCard={10}'.format(self.firstname, self.lastname,self.email,self.phonenumber,self.country,self.file,self.birthday,self.address,self.sname,self.city,self.image))
-		# return self.firstname
-		# return self.lastname
-		# return self.phonenumber
-		# return self.country	
 		
 class Image(models.Model):
-	# imageid = models.AutoField()
-   	# title = models.CharField(max_length=100)
    	file = models.ImageField(upload_to='images/%Y/%m/%d/')
 
    	def __str__(self):
