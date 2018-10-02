@@ -6,7 +6,7 @@ class QuestionForm(ModelForm):
     class Meta:
         model = Question
         fields = ['test_id','question_type','question_name']
-
+  
     test_id = forms.ModelChoiceField(queryset=Test.objects.all(), empty_label=None, label='Test',
             widget=forms.Select(
                 attrs={

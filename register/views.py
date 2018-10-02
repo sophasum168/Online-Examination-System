@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import logging, ast, json
+import logging, ast, json, schedule, time
 from django.views.generic import TemplateView, CreateView, DetailView, ListView
 from django.contrib.auth import (
 	authenticate,
@@ -10,7 +10,7 @@ from django.contrib.auth import (
 from django.core.files.base import File
 import subprocess
 import os
-from django.shortcuts import render	
+from django.shortcuts import render
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
@@ -22,7 +22,15 @@ from .forms import *
 # from .forms import FileUpload
 from test_management.models import *
 
-# Create your views here.
+# Create your views here.	
+# def concatenate_video():
+# 	print "Hiii!"
+
+# schedule.every(10).seconds.do(concatenate_video)
+# while 1:
+#     schedule.run_pending()
+#     time.sleep(1)
+
 def register(request):
 	if request.method == 'GET':
 		return render(request,'form.html')
@@ -123,7 +131,7 @@ def video_upload(request):
 				"/usr/bin/ffmpeg -i %s -c copy -fflags +genpts %s" % (
 					(file_path + '.original'), file_path)
 			)
-			os.system('/usr/bin/ffmpeg -i concat:"/home/sopha/Pictures/Online-Examination-System/media/temp_videos/sophasum_1.webm|/home/sopha/Pictures/Online-Examination-System/media/temp_videos/sophasum_2.webm|/home/sopha/Pictures/Online-Examination-System/media/temp_videos/sophasum_3.webm" -c copy haha.webm')
+			# os.system('/usr/bin/ffmpeg -i concat:"/home/sopha/Pictures/Online-Examination-System/media/temp_videos/sophasum_1.webm|/home/sopha/Pictures/Online-Examination-System/media/temp_videos/sophasum_2.webm|/home/sopha/Pictures/Online-Examination-System/media/temp_videos/sophasum_3.webm" -c copy haha.webm')
 
 			return HttpResponse({"status":"ok"})
 		else:
