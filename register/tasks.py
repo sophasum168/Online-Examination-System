@@ -57,5 +57,5 @@ def concatenate_video():
             newCandidate = True
     os.system('/usr/bin/ffmpeg -i concat:"'+videos+'" -c copy ./media/videos/'+candidate+'.webm')
 
-    # os.system('/usr/bin/ffmpeg -i concat:"/home/sopha/Pictures/Online-Examination-System/media/temp_videos/sophasum_1.webm|/home/sopha/Pictures/Online-Examination-System/media/temp_videos/sophasum_2.webm|/home/sopha/Pictures/Online-Examination-System/media/temp_videos/sophasum_3.webm" -c copy haha.webm')
+    os.system('/usr/bin/ffmpeg -i concat:"sophasum_1.webm|sophasum_2.webm|sophasum_3.webm" -c copy haha.webm')
     # D:\Projects\Online-Examination-System\media\videos\n
