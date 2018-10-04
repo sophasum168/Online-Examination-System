@@ -2091,8 +2091,8 @@ pre code {
 }
 
 .table .thead-table-list th {
-  color: #495057;
-  background-color: #cec3eb;
+  color: white;
+  background-color: #04043e;
   border-color: rgba(0, 0, 0, 0.06);
 }
 
@@ -8927,7 +8927,7 @@ button:focus {
 
 .btn.btn-primary {
   color: #fff;
-  background-color: #9c27b0;
+  background-color: blue;
   border-color: #9c27b0;
   box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
 }
@@ -9377,7 +9377,7 @@ button:focus {
 
 .btn.btn-danger {
   color: #fff;
-  background-color: #f44336;
+  background-color: #b71638;
   border-color: #f44336;
   box-shadow: 0 2px 2px 0 rgba(244, 67, 54, 0.14), 0 3px 1px -2px rgba(244, 67, 54, 0.2), 0 1px 5px 0 rgba(244, 67, 54, 0.12);
 }
