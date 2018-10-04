@@ -1,4 +1,4 @@
-import os, glob
+import os, glob, shutil
 from celery.schedules import crontab
 from celery.task import periodic_task
 from celery.utils.log import get_task_logger
@@ -12,6 +12,11 @@ Need to install celery, redis. When Run, start redis-server. Open two terminals.
 `celery -A exam beat -l info`
 Tutorial: https://realpython.com/asynchronous-tasks-with-django-and-celery/
 After clone the project repository, you maynot be able to run celery beat. This is solved by deleting `celerybeat.pid` in project directory.
+Setting Up:
+$ pip install celery==3.1.18
+$ pip freeze > requirements.txt
+$ pip install redis==2.10.3
+$ pip freeze > requirements.txt
 @Sokunthaneth
 """
 
@@ -25,37 +30,41 @@ def concatenate_video():
     """
     Concatenate pieces of videos uploaded by candidates during examination
     """
+    # Change videos path according to the system
+    # Add environment variable for ffmpeg
     candidates = []
-    os.chdir("./media/temp_videos")
+    os.chdir("D:/Project/Online-Examination-System/media/temp_videos/")
     for file in glob.glob("*.webm"):
         candidate = file.split("_")[0]
         candidates.append(candidate)
-    print "Candidate list: ", candidates
 
     videos = ""
     previousCandidate = None
     initial = True
     count = 0
     newCandidate = True
+    os.chdir("D:/Project/Online-Examination-System/ffmpeg/bin/")
     for candidate in candidates:
         if candidate == previousCandidate:
-            print "Previous candidate: " + previousCandidate
+            # print "Previous candidate: " + previousCandidate
             count += 1
-            videos += "./media/temp_videos/"+candidate+"_"+str(count)+".webm|"
+            videos += "D:/Project/Online-Examination-System/media/temp_videos/"+candidate+"_"+str(count)+".webm|"
         elif newCandidate is True:
-            print "New Candidate: "+candidate
             if initial is False:
-                os.system('/usr/bin/ffmpeg -i concat:"'+videos+'" -c copy ./media/videos/'+candidate+'.webm')
+                # print "New Candidate: "+candidate
+                # Remove `|` at the end of videos list for concatenation
+                os.system('ffmpeg -i concat:"'+videos[:-1]+'" -c copy D:/Project/Online-Examination-System/media/videos/'+previousCandidate+'.webm')
             initial = False
             videos = ""
-            videos += "./media/temp_videos/"+candidate+"_1.webm|"
+            videos += "D:/Project/Online-Examination-System/media/temp_videos/"+candidate+"_1.webm|"
             newCandidate = False
         else:
-            print "+++Reset to new candidate+++"
+            # print "+++Reset to new candidate+++"
             previousCandidate = candidate
             count = 0
             newCandidate = True
-    os.system('/usr/bin/ffmpeg -i concat:"'+videos+'" -c copy ./media/videos/'+candidate+'.webm')
-
-    os.system('/usr/bin/ffmpeg -i concat:"sophasum_1.webm|sophasum_2.webm|sophasum_3.webm" -c copy haha.webm')
-    # D:\Projects\Online-Examination-System\media\videos\n
+    os.system('ffmpeg -i concat:"'+videos[:-1]+'" -c copy D:/Project/Online-Examination-System/media/videos/'+candidate+'.webm')
+    
+    # Remove all files in `temp_videos` after completing concatenation
+    shutil.rmtree('D:/Project/Online-Examination-System/media/temp_videos/')
+    os.mkdir('D:/Project/Online-Examination-System/media/temp_videos/')
