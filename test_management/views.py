@@ -134,7 +134,6 @@ def import_question(request):
             csv_file.close()
             response['content_type'] ='text/csv'
             response['Content-Disposition'] = 'attachment; filename="import_question_sample.csv"'
-            print response
             return response
     elif request.method == 'POST':
         # if not GET, then proceed
