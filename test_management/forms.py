@@ -5,7 +5,7 @@ from django.forms import ModelForm
 class QuestionForm(ModelForm):
     class Meta:
         model = Question
-        fields = ['test_id','question_type','question_name']
+        fields = ['test_id','question_type','question_name', 'img_option']
   
     test_id = forms.ModelChoiceField(queryset=Test.objects.all(), empty_label=None, label='Test',
             widget=forms.Select(
@@ -38,11 +38,18 @@ class QuestionForm(ModelForm):
             }
         )
     )
+    img_option = forms.FileField(label='Question picture',
+        widget=forms.FileInput(
+            attrs={
+                'class': 'question_img',
+            }
+        )
+    )
 
 class OptionForm(ModelForm):
     class Meta:
         model = Option
-        fields = ['option_name','answer']
+        fields = ['option_name','answer', 'img_option']
     
     option_name = forms.CharField(label='', 
         widget=forms.TextInput(
@@ -52,7 +59,6 @@ class OptionForm(ModelForm):
             }
         )
     )
-
     answer = forms.ChoiceField(choices = ANSWER, initial='F', label='',
             widget=forms.Select(
                 attrs={
@@ -62,4 +68,11 @@ class OptionForm(ModelForm):
                     'data-size': '7',
                 }
             )
+    )
+    img_option = forms.FileField(label='Option picture',
+        widget=forms.FileInput(
+            attrs={
+                'class': 'form-control option_img',
+            }
+        )
     )
