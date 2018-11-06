@@ -48,9 +48,6 @@ def register(request):
 		student_profile = request.FILES['student_profile']
 		register_obj=Register(student_profile= student_profile ,card_id= card_id,email = email,city=city,sname=sname,birthday=birthday,address=address, firstname = firstname, lastname = lastname, phonenumber = phonenumber, country = country)
 		context = register_obj.save(request)
-		# form = FileUpload(request.POST, request.FILES or None)
-		# if form.is_valid():
-		# 	form.save()
         return render(request, 'congratulation.html', {'context' : context})
 
 

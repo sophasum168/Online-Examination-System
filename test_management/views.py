@@ -72,17 +72,19 @@ def add_question(request):
         question_name = json.loads(request.POST.get('question_name'))
         question_type = json.loads(request.POST.get('question_type'))
         test_id = json.loads(request.POST.get('test_id'))
-        question_obj = Question(question_name = question_name, question_type = question_type, test_id = Test.objects.get(id=test_id))
-        question_obj.save()
+        img_question = json.dump(request.POST.get('img_question'))
+        question_obj = Question(img_question=img_question, question_name = question_name, question_type = question_type, test_id = Test.objects.get(id=test_id))
+        context = question_obj.save(request)
+        # question_obj.save()
         
         option_rows = json.loads(request.POST.get('option_rows'))
         for option in option_rows:
-            option_obj = Option()
+            option_obj = Option()   
             option_obj.question_id = question_obj
             option_obj.option_name = option
             option_obj.answer = option_rows[option]
             option_obj.save()
-        return HttpResponseRedirect('/question/')
+        return render(request, 'question_list.html', {'context' : context})
 
 def edit_question(request):
     context = dict()

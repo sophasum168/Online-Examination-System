@@ -16,6 +16,7 @@
 from django.conf.urls import url
 from django.conf import settings
 from test_management import views
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^test/', views.test_list, name='test'),
@@ -28,5 +29,5 @@ urlpatterns = [
     url(r'^test-management/delete_question/', views.delete_question, name='delete_question'),
     url(r'^test-management/import_question/', views.import_question, name='import_question'),
     url(r'^get_question_lists/$', views.get_question_lists, name='get_question_lists'),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

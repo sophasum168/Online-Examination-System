@@ -41,7 +41,7 @@ class Question(models.Model):
     test_id = models.ForeignKey('Test', on_delete=models.CASCADE)
     question_type = models.CharField(max_length=3, choices=QUESTION_TYPE, default='QCM')
     question_name = models.TextField(max_length=250)
-    img_option = models.FileField(upload_to='question_img', blank=True, null=True)
+    img_question = models.FileField(upload_to='question_img')
     create_date = models.DateTimeField(auto_now_add=True)
 
     def add_question(self, test_id, **kwargs):
@@ -49,6 +49,7 @@ class Question(models.Model):
         question_obj.test_id = Test.objects.get(id = test_id)
         question_obj.question_type = kwargs['question_type']
         question_obj.question_name = kwargs['question_name']
+        question_obj.img_question = kwargs['img_question']
         question_obj.save()
 
         question_id = question_obj.id
@@ -94,7 +95,7 @@ class Option(models.Model):
     question_id = models.ForeignKey('Question', on_delete=models.CASCADE)
     option_name = models.TextField(max_length=150, blank=True, null=True)
     answer = models.CharField(max_length=1, choices=ANSWER, default='F')
-    img_option = models.FileField(upload_to='option_img', blank=True, null=True)
+    img_option = models.FileField(upload_to='option_img')
     last_update_date = models.DateTimeField(auto_now_add=True)
 
     def add_option(self, question_id, **kwargs):
