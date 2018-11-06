@@ -72,9 +72,9 @@ def add_question(request):
         question_name = json.loads(request.POST.get('question_name'))
         question_type = json.loads(request.POST.get('question_type'))
         test_id = json.loads(request.POST.get('test_id'))
-        img_question = json.dumps(request.FILES['img_question'])
-        print img_question
-        question_obj = Question(img_question=img_question, question_name = question_name, question_type = question_type, test_id = Test.objects.get(id=test_id))
+        img_question = request.FILES['question_img']
+        print question_name, img_question
+        question_obj = Question(img_question = img_question, question_name = question_name, question_type = question_type, test_id = Test.objects.get(id=test_id))
         context = question_obj.save(request)
         # question_obj.save()
         

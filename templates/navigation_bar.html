@@ -147,6 +147,7 @@ $(document).ready(function(){
     var question_type = JSON.stringify($("#question_type").val());
     var question_name = JSON.stringify($("#question_name").val());
     var button_pressed = JSON.stringify($(this).attr('name'));
+    var question_img = $("#img_question").get(0).files[0];
 
     
     //Add option list into a dictionary `option_rows`
@@ -166,12 +167,24 @@ $(document).ready(function(){
     });
 
     var option_rows = JSON.stringify(option_rows);
+    
+    var formData = new FormData();
+    formData.append('button_pressed', button_pressed);
+    formData.append('test_id', test_id);
+    formData.append('question_name', question_name);
+    formData.append('question_img', question_img);
+    formData.append('question_type', question_type);
+    formData.append('option_rows', option_rows);
+    formData.append('csrfmiddlewaretoken', $("[name=csrfmiddlewaretoken]").val());
+
 
     $.ajax({
       url: "{% url 'add_question' %}",
       type: 'POST',
-      data: {'button_pressed' : button_pressed, 'question_name' : question_name, 'question_type' : question_type,
-      'test_id' : test_id, 'option_rows' : option_rows,'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
+      data: formData,
+      contentType: false,
+      processData: false,
+      cache: false,
       success: function(){
         $("#addModal").html("");
       },
@@ -248,7 +261,6 @@ $(document).ready(function(){
             }
             else{
               $('#question_form_edit').append($optionTable);
-              console.log("hi");
             }
           });
 
@@ -332,10 +344,6 @@ $(document).ready(function(){
     });
   });
 });
-
-
-
-
 
 </script>
 </html>
