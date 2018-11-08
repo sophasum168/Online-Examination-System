@@ -149,34 +149,40 @@ $(document).ready(function(){
     var button_pressed = JSON.stringify($(this).attr('name'));
     var question_img = $("#img_question").get(0).files[0];
 
-    
     //Add option list into a dictionary `option_rows`
-    var option_rows = {};
+    var formData = new FormData();
+    var option_rows = [];
     var answer = "";
-    $('.option-list-add tbody tr.option_row').each(function(){
+    var option_img;
+    var count = 0;
+    $('.option-list tbody tr.option_row').each(function(){
       option_name = $(this).find(".option-name").val();
       answer = $(this).find(".answer").find(":selected").val();
-      option_rows[option_name] = answer;
+      option_img = $(this).find(".option_img").get(0).files[0];
+      option_rows.push({option_name : option_name,
+                        answer : answer});
+      formData.append('option_img'+count, option_img);
+      count++;
       $(this).on("change", function(){
         var option_name = "";
         var answer = "";
+        var option_img;
         option_name = $(this).find(".option-name").val();
         answer = $(this).find(".answer").find(":selected").val();
-        option_rows[option_name] = answer;
+        option_img = $(this).find(".option_img").get(0).files[0];
+        formData.append('option_img'+count, option_img);
+        option_rows.push({option_name : option_name,
+                          answer : answer});
       });
     });
-
-    var option_rows = JSON.stringify(option_rows);
     
-    var formData = new FormData();
     formData.append('button_pressed', button_pressed);
     formData.append('test_id', test_id);
     formData.append('question_name', question_name);
     formData.append('question_img', question_img);
     formData.append('question_type', question_type);
-    formData.append('option_rows', option_rows);
+    formData.append('option_rows', JSON.stringify(option_rows));
     formData.append('csrfmiddlewaretoken', $("[name=csrfmiddlewaretoken]").val());
-
 
     $.ajax({
       url: "{% url 'add_question' %}",
@@ -188,7 +194,7 @@ $(document).ready(function(){
       success: function(){
         $("#addModal").html("");
       },
-    })
+    });
     
     var button_pr = $(this).attr('name');
     if (button_pr == 'add_new'){
@@ -254,7 +260,7 @@ $(document).ready(function(){
           
           $($renderQuestion).find('.question_type').change(function(e){
             var $self = e.currentTarget;
-            var $optionTable = $.parseHTML('<div class="option-list"><table id="fresh-table" class="table table-striped table-hover table-sm option-list-add"><thead class="thead-table-list"><tr><th scope="col">Option</th><th scope="col">Answer</th><th></th></tr></thead><tbody><tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"></td><td><div class="btn-group bootstrap-select answer"><button type="button" class="dropdown-toggle btn btn-primary btn-sm" data-toggle="dropdown" role="button" data-id="id_answer" title="False"><span class="filter-option pull-left">False</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option></select></div></td><td><i class="material-icons option-delete">delete</i></td></tr><tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"></td><td><div class="btn-group bootstrap-select answer"><button type="button" class="dropdown-toggle btn btn-primary btn-sm" data-toggle="dropdown" role="button" data-id="id_answer" title="False"><span class="filter-option pull-left">False</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option></select></div></td><td><i class="material-icons option-delete">delete</i></td></tr><tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"></td><td><div class="btn-group bootstrap-select answer"><button type="button" class="dropdown-toggle btn btn-primary btn-sm" data-toggle="dropdown" role="button" data-id="id_answer" title="False"><span class="filter-option pull-left">False</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option></select></div></td><td><i class="material-icons option-delete">delete</i></td></tr><tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"></td><td><div class="btn-group bootstrap-select answer"><button type="button" class="dropdown-toggle btn btn-primary btn-sm" data-toggle="dropdown" role="button" data-id="id_answer" title="False"><span class="filter-option pull-left">False</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option></select></div></td><td><i class="material-icons option-delete">delete</i></td></tr></tbody></table><u id="add_option" class="add_option">Add New</u></div>');
+            var $optionTable = $.parseHTML('<div class="option-list"><table id="fresh-table" class="table table-striped table-hover table-sm option-list-add"><thead class="thead-table-list"><tr><th scope="col">Option</th><th scope="col">Answer</th><th></th></tr></thead><tbody><tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"><td><input type="file" name="img_question" data-style="btn btn-primary btn-sm" required="" id="img_question"></td></td><td><div class="btn-group bootstrap-select answer"><button type="button" class="dropdown-toggle btn btn-primary btn-sm" data-toggle="dropdown" role="button" data-id="id_answer" title="False"><span class="filter-option pull-left">False</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option></select></div></td><td><i class="material-icons option-delete">delete</i></td></tr><tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"><td><input type="file" name="img_question" data-style="btn btn-primary btn-sm" required="" id="img_question"></td></td><td><div class="btn-group bootstrap-select answer"><button type="button" class="dropdown-toggle btn btn-primary btn-sm" data-toggle="dropdown" role="button" data-id="id_answer" title="False"><span class="filter-option pull-left">False</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option></select></div></td><td><i class="material-icons option-delete">delete</i></td></tr><tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"><td><input type="file" name="img_question" data-style="btn btn-primary btn-sm" required="" id="img_question"></td></td><td><div class="btn-group bootstrap-select answer"><button type="button" class="dropdown-toggle btn btn-primary btn-sm" data-toggle="dropdown" role="button" data-id="id_answer" title="False"><span class="filter-option pull-left">False</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option></select></div></td><td><i class="material-icons option-delete">delete</i></td></tr><tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"><td><input type="file" name="img_question" data-style="btn btn-primary btn-sm" required="" id="img_question"></td></td><td><div class="btn-group bootstrap-select answer"><button type="button" class="dropdown-toggle btn btn-primary btn-sm" data-toggle="dropdown" role="button" data-id="id_answer" title="False"><span class="filter-option pull-left">False</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option></select></div></td><td><i class="material-icons option-delete">delete</i></td></tr></tbody></table><u id="add_option" class="add_option">Add New</u></div>');
             if($($self).val() == 'ES'){
               //to remove or hide when type is ES, to enable option back when type is QCM, but if remove, cannot add back. what to do?
               $("#editModal .option-list").remove();
@@ -270,22 +276,41 @@ $(document).ready(function(){
             var test_id = JSON.stringify($($renderQuestion).find("#test_id").val());
             var question_type = JSON.stringify($($renderQuestion).find("#question_type").val());
             var question_name = JSON.stringify($($renderQuestion).find("#question_name").val());
-            var option_rows = {};
+            var question_img = $("#editModal .img_question").get(0).files[0];
+            
+            var formData = new FormData();
+            var option_rows = [];
             var answer = "";
+            var option_img;
+            var count = 0;
             $('#editModal .option-list tbody tr.option_row').each(function(){
               option_name = $(this).find(".option-name").val();
               answer = $(this).find(".answer").find(":selected").val();
-              option_rows[option_name] = answer;
+              option_img = $(this).find(".option_img").get(0).files[0];
+              option_rows.push({option_name : option_name,
+                                  answer : answer});
+              formData.append('option_img'+count, option_img);
+              count++;
             });
+
+            formData.append('row_id', row_id);
+            formData.append('test_id', test_id);
+            formData.append('question_type', question_type);
+            formData.append('question_name', question_name);
+            formData.append('question_img', question_img);
+            formData.append('csrfmiddlewaretoken', $("[name=csrfmiddlewaretoken]").val());
+            formData.append('option_rows', JSON.stringify(option_rows));
             $.ajax({
-            url: "{% url 'edit_question' %}",
-            type: 'POST',
-            data: {'row_id' : row_id, 'test_id' : test_id, 'question_type' : question_type, 'question_name' : question_name,
-                    'option_rows' : JSON.stringify(option_rows), 'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val() },
-            success: function(){
-              location.reload();
-              },
-            });
+              url: "{% url 'edit_question' %}",
+              type: 'POST',
+              data: formData,
+              contentType: false,
+              processData: false,
+              cache: false,
+              success: function(){
+                  location.reload();
+                  },
+              })
           });
         },
       });
@@ -300,14 +325,14 @@ $(document).ready(function(){
 
   //Add option row-- QCM
   $("#editModal .add_option").click(function(){
-    var add_option_row = $.parseHTML('<tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"></td><td><div class="btn-group bootstrap-select answer"><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option>/select></div></td><td><i class="material-icons option-delete">delete</i></td></tr>');
+    var add_option_row = $.parseHTML('<tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"></td><td><input type="file" name="img_option" class="form-control option_img" data-style="btn btn-primary btn-sm" required="" id="img_option"></td><td><div class="btn-group bootstrap-select answer"><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option>/select></div></td><td><i class="material-icons option-delete">delete</i></td></tr>');
     $('#editModal .option_row:last-child').after(add_option_row);
     $(add_option_row).find(".selectpicker").selectpicker("render");
     $(add_option_row).find(".option-delete").on("click", bindClickOnDeleteBtn);
   });
 
   $("#addModal .add_option").click(function(){
-    var add_option_row = $.parseHTML('<tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"></td><td><div class="btn-group bootstrap-select answer"><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option>/select></div></td><td><i class="material-icons option-delete">delete</i></td></tr>');
+    var add_option_row = $.parseHTML('<tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"></td><td><input type="file" name="img_option" class="form-control option_img" data-style="btn btn-primary btn-sm" required="" id="img_option"></td><td><div class="btn-group bootstrap-select answer"><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option>/select></div></td><td><i class="material-icons option-delete">delete</i></td></tr>');
     $('#addModal .option_row:last-child').after(add_option_row);
     $(add_option_row).find(".selectpicker").selectpicker("render");
     $(add_option_row).find(".option-delete").on("click", bindClickOnDeleteBtn);

@@ -72,18 +72,22 @@ def add_question(request):
         question_name = json.loads(request.POST.get('question_name'))
         question_type = json.loads(request.POST.get('question_type'))
         test_id = json.loads(request.POST.get('test_id'))
-        img_question = request.FILES['question_img']
-        print question_name, img_question
-        question_obj = Question(img_question = img_question, question_name = question_name, question_type = question_type, test_id = Test.objects.get(id=test_id))
+        if bool(request.FILES.get('question_img', False)) == False:
+            question_obj = Question(question_name = question_name, question_type = question_type, test_id = Test.objects.get(id=test_id))
+        else:
+            img_question = request.FILES['question_img']
+            question_obj = Question(img_question = img_question, question_name = question_name, question_type = question_type, test_id = Test.objects.get(id=test_id))
         context = question_obj.save(request)
-        # question_obj.save()
         
-        option_rows = json.loads(request.POST.get('option_rows'))
-        for option in option_rows:
-            option_obj = Option()   
+        option_rows = json.loads(request.POST.get("option_rows"))
+        
+        for index, option in enumerate(option_rows, start=0):
+            option_obj = Option()
             option_obj.question_id = question_obj
-            option_obj.option_name = option
-            option_obj.answer = option_rows[option]
+            option_obj.option_name = option_rows[index]["option_name"]
+            option_obj.answer = option_rows[index]["answer"]
+            if bool(request.FILES.get('option_img'+str(index), False)) == True:
+                option_obj.img_option = request.FILES['option_img'+str(index)]
             option_obj.save()
         return render(request, 'question_list.html', {'context' : context})
 
@@ -117,7 +121,17 @@ def edit_question(request):
         question_type = json.loads(request.POST.get('question_type'))
         question_name = json.loads(request.POST.get('question_name'))
         option_rows = json.loads(request.POST.get('option_rows'))
-        kwargs = {"test_id":test_id, "question_type":question_type, "question_name":question_name, "option_rows":option_rows}
+        question_img = ""
+
+        if bool(request.FILES.get('question_img', False)) == True:
+            question_img = request.FILES.get('question_img')
+
+        option_imgs = []
+        for index, option in enumerate(option_rows, start=0):
+            if bool(request.FILES.get('option_img'+str(index), False)) == True:
+                option_imgs.append(request.FILES['option_img'+str(index)])
+
+        kwargs = {"test_id":test_id, "question_type":question_type, "question_name":question_name, "question_img":question_img, "option_rows":option_rows, "option_imgs":option_imgs}
         question_obj = Question()
         question = question_obj.edit_question_save(row_id, **kwargs)
         return HttpResponseRedirect('/question/')
@@ -137,7 +151,6 @@ def import_question(request):
             csv_file.close()
             response['content_type'] ='text/csv'
             response['Content-Disposition'] = 'attachment; filename="import_question_sample.csv"'
-            print response
             return response
     elif request.method == 'POST':
         # if not GET, then proceed

@@ -11,7 +11,7 @@ Need to install celery, redis. When Run, start redis-server. Open two terminals.
 `celery -A exam worker -l info`
 `celery -A exam beat -l info`
 Tutorial: https://realpython.com/asynchronous-tasks-with-django-and-celery/
-After clone the project repository, you maynot be able to run celery beat. This is solved by deleting `celerybeat.pid` in project directory.
+After clone the project repository, you may not be able to run celery beat. This is solved by deleting `celerybeat.pid` in project directory.
 Setting Up:
 $ pip install celery==3.1.18
 $ pip freeze > requirements.txt

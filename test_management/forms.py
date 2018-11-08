@@ -39,11 +39,12 @@ class QuestionForm(ModelForm):
             }
         )
     )
-    img_question = forms.FileField(label='Question', 
+    img_question = forms.FileField(label='Question Image', 
         widget=forms.FileInput(
             attrs={
                 'id': "img_question",
                 'data-style': 'btn btn-primary btn-sm',
+                'class': 'img_question',
             }
         )
     )
@@ -75,6 +76,7 @@ class OptionForm(ModelForm):
         widget=forms.FileInput(
             attrs={
                 'class': 'form-control option_img',
+                'data-style': 'btn btn-primary btn-sm',
             }
         )
     )

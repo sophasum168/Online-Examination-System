@@ -16,8 +16,6 @@ QUESTION_TYPE = (
 )
 
 class Test(models.Model):
-    # candidate_id = models.ForeignKey('Candidate', on_delete=models.CASCADE)
-    # admin_id = models.OneToOneField('Admin', on_delete=models.CASCADE)
     test_name = models.TextField(max_length=45)
     test_type = models.TextField(max_length=45)
     test_date = models.DateField()
@@ -41,7 +39,7 @@ class Question(models.Model):
     test_id = models.ForeignKey('Test', on_delete=models.CASCADE)
     question_type = models.CharField(max_length=3, choices=QUESTION_TYPE, default='QCM')
     question_name = models.TextField(max_length=250)
-    img_question = models.FileField(upload_to='question_img')
+    img_question = models.FileField(upload_to='question_img', blank=True, null=True)
     create_date = models.DateTimeField(auto_now_add=True)
 
     def add_question(self, test_id, **kwargs):
@@ -82,10 +80,16 @@ class Question(models.Model):
         question_obj.test_id = test_id
         question_obj.question_type = kwargs['question_type']
         question_obj.question_name = kwargs['question_name']
+        if kwargs['question_img']:
+            question_obj.img_question = kwargs['question_img']
+        question_obj.save()
         ###Add condition for type 'QCM'
-        options = kwargs['option_rows']
+        if kwargs['option_imgs']:
+            kwargs = {"options":kwargs['option_rows'], "option_imgs":kwargs['option_imgs']}
+        else:
+            kwargs = {"options":kwargs['option_rows']}
         option_obj = Option()
-        option_obj.edit_option_save(row_id, options)
+        option_obj.edit_option_save(row_id, **kwargs)
         return None   
 
     def __str__(self):
@@ -95,7 +99,7 @@ class Option(models.Model):
     question_id = models.ForeignKey('Question', on_delete=models.CASCADE)
     option_name = models.TextField(max_length=150, blank=True, null=True)
     answer = models.CharField(max_length=1, choices=ANSWER, default='F')
-    img_option = models.FileField(upload_to='option_img')
+    img_option = models.FileField(upload_to='option_img', blank=True, null=True)
     last_update_date = models.DateTimeField(auto_now_add=True)
 
     def add_option(self, question_id, **kwargs):
@@ -110,7 +114,6 @@ class Option(models.Model):
         option_obj.save()
         return None
 
-
     def edit_option(self, question_id):
         options = Option.objects.filter(question_id = question_id).values('option_name', 'answer')
         if options != None:
@@ -121,15 +124,22 @@ class Option(models.Model):
         else:
             return None
     
-    def edit_option_save(self, question_id, options):
+    def edit_option_save(self, question_id, **kwargs):
         Option.objects.filter(question_id = question_id).delete()
-        for (option, answer) in options.iteritems():
-            option_name = option
-            option = Option()
-            option.question_id = Question.objects.get(id = question_id)
-            option.option_name = option_name
-            option.answer = answer
-            option.save()
+        options = kwargs['options']
+        option_imgs = kwargs['option_imgs']
+
+        for index, option in enumerate(options, start=0):
+            option_obj = Option()
+            option_obj.question_id = Question.objects.get(id = question_id)
+            option_obj.option_name = options[index]["option_name"]
+            option_obj.answer = options[index]["answer"]
+            try:
+                option_obj.img_option = option_imgs[index]
+            except Exception as ex:
+                print ex
+            finally:
+                option_obj.save()
         return None
 
     def __str__(self):
