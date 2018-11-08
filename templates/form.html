@@ -65,9 +65,8 @@ input[type=submit]:hover {
 {% block content %}
 <nav class="navbar navbar-expand-lg bg-rose">
   <img src="../static/img/kit-11.png" style="width: 8%; margin-left: 25px;">
-    <div class="center">
-        <h3 style="margin-left: 360px;"><b>ONLINE EXAMINATION SYSTEM</b></h3>
-        </div>
+  <div class="form-group col-md-9">
+    <h3 class="card-title text-center" style="color: white; width: 100%;"><b>ONLINE EXAMINATION SYSTEM</b></h3>
     </div>
 </nav>
 
@@ -89,7 +88,7 @@ input[type=submit]:hover {
                       <i class="material-icons">account_circle</i>
                          </span>
                         </div>
-                     <input type="text" class="form-control" name="firstname" id="firstname" required="true" placeholder="First Name..."/>
+                     <input type="text" required pattern="[a-z-A-Z_.-]*" class="form-control" name="firstname" id="firstname" required="true" placeholder="First Name..."/>
                       </div>
                     </div>
                     </td>
@@ -100,7 +99,7 @@ input[type=submit]:hover {
                             <div class="input-group-prepend">
                               
                         </div>
-                         <input type="text" class="form-control" name="lastname" required="true" placeholder="Last Name..."/>
+                         <input type="text" class="form-control" pattern="[0-9a-zA-Z_.-]*" name="lastname" required="true" placeholder="Last Name..."/>
                         </div>
                        </div>
                            </td>
@@ -114,7 +113,7 @@ input[type=submit]:hover {
                             <i class="material-icons">email</i>
                                </span>
                         </div>
-                     <input type="text" class="form-control" name="email"  required="true" placeholder="Email..."/>
+                     <input type="email" class="form-control" name="email" pattern="[0-9a-zA-Z@._\+\-]+$"  required="true" placeholder="Email..."/>
                       </div>
                     </div>
                           </td>
@@ -126,7 +125,7 @@ input[type=submit]:hover {
                             <i class="material-icons">phone</i>
                                </span>
                         </div>
-                     <input type="text" class="form-control" name="phonenumber"  required="true" placeholder="Mobile Phone..."/>
+                     <input type="text" class="form-control" pattern="[-+()\\s0-9]+$" name="phonenumber"  required="true" placeholder="Mobile Phone..."/>
                       </div>
                     </div>
                           </td>
@@ -141,7 +140,7 @@ input[type=submit]:hover {
                             <i class="material-icons">school</i>
                                </span>
                         </div>
-                     <input type="text" class="form-control" name="sname"  required="true" placeholder="School Name..."/>
+                     <input type="text" class="form-control" name="sname" pattern="[0-9a-zA-Z_.-]*" required="true" placeholder="School Name..."/>
                       </div>
                     </div>
                           </td>
@@ -176,12 +175,12 @@ input[type=submit]:hover {
                             <td>
                               <b style="margin-left: 5px;">Candidate Profile</b>
                               <br>
-                               <input required="true" id="card_id" value="card_id" name="card_id" class="btn btn-round add-btn" type="file" />
+                               <input required="true" id="card_id" value="card_id" name="card_id" class="btn btn-round add-btn" type="file" accept="image/*" onChange="validateAndUpload(this);"/>
                             </td>
                             <td>
                             <b style="margin-left: 5px;">Student ID Card</b>
                             <br>
-                             <input required="true" id="student_profile" value="student_profile" name="student_profile" class="btn btn-round add-btn" type="file" />
+                             <input required="true" id="student_profile" value="student_profile" name="student_profile" class="btn btn-round add-btn" type="file" accept="image/*" onChange="validateAndUpload(this);" />
                             </td>
 
                           </tr>
@@ -225,68 +224,40 @@ input[type=submit]:hover {
                       <input src="{% url 'model_form_upload' %}" type="submit" value="Register"/>
                     </div>
                  </form>
-      </div>
-    </div>
-    </div>
-  </div>
+              </div>
+            </div>
+            </div>
+          </div>
   
   <!-- Advanced Modal -->
     <div class="modal hide fade" id="takephoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-login" role="document">
         <div class="modal-content">
-            
-                <div class="modal-body">
-                        <div class="card-body">
-                            <!-- <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                          </div> -->
-                                <h3 id="myModalLabel" style="text-align: center;">Camara</h3>
-                                <div class="text-center">
-                                <p><b>Please Fill above information before take photo!</b></p>
-                                <p>please click Allow to capture the photo.</p>
-                                </div>
-                            </div>
-                            <div class="modal-body">
-                              <!-- Configure a few settings -->
-                              <script language="JavaScript">
-                                document.write( webcam.get_html(370, 250) );
-                              </script>
-                            </div>
-                        </div>
-                       <div class="modal-footer">
-                              <a class="btn" data-dismiss="modal" aria-hidden="true" style="background-color: wheat;">Close</a>
-                              <button class="btn btn-primary" onClick="take_snapshot()">Capture Photo</button>
-                      </div>               
+          <div class="modal-body">
+                  <div class="card-body">
+                      <!-- <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div> -->
+                          <h3 id="myModalLabel" style="text-align: center;">Camara</h3>
+                          <div class="text-center">
+                          <p><b>Please Fill above information before take photo!</b></p>
+                          <p>please click Allow to capture the photo.</p>
+                          </div>
+                      </div>
+                      <div class="modal-body">
+                        <!-- Configure a few settings -->
+                        <script language="JavaScript">
+                          document.write( webcam.get_html(370, 250) );
+                        </script>
+                      </div>
+                  </div>
+                 <div class="modal-footer">
+                        <a class="btn" data-dismiss="modal" aria-hidden="true" style="background-color: wheat;">Close</a>
+                        <button class="btn btn-primary" onClick="take_snapshot()">Capture Photo</button>
+                </div>               
             </div>
         </div>
     </div>
-    <!-- <div class="modal hide fade" id="takephoto1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-login" role="document">
-        <div class="modal-content">
-            
-                <div class="modal-body">
-                        <div class="card-body">
-                                <h3 id="myModalLabel" style="text-align: center;">Camara</h3>
-                                <div class="text-center">
-                                <p><b>Please Fill above information before take photo!</b></p>
-                                <p>please click Allow to capture the photo.</p>
-                                </div>
-                            </div>
-                            <div class="modal-body">
-                                <input style="margin-left: 40px;" type="file" name="card_id" value="card_id">
-                                <input style="margin-left: 40px;" type="file" name="student_profile" value="student_profile">
-                          </br>
-                            <a class="btn btn-round add-btn" aria-hidden="true" data-toggle="modal" data-target="#takephoto" style="color: white;"><b>Take Photo</b></a>
-                            </div>
-                        </div>
-                       <div class="modal-footer">
-                              <a class="btn" data-dismiss="modal" aria-hidden="true" style="background-color: wheat;">Close</a>
-                      </div>               
-            </div>
-        </div>
-    </div> -->
-  <!-- </div>
-</div> -->
 
 
 {% endblock content %}
@@ -299,6 +270,60 @@ input[type=submit]:hover {
     <script src="{% static 'js/core/popper.min.js' %}"></script>
     <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
     <script language="JavaScript">
+
+    var input = document.querySelector("[name=firstname]");
+    input.oninput = function(event) {
+        event.target.setCustomValidity("");
+    };
+    input.oninvalid = function(event) {
+        event.target.setCustomValidity("Special characters are not allowed.");
+    };
+    var input = document.querySelector("[name=lastname]");
+    input.oninput = function(event) {
+        event.target.setCustomValidity("");
+    };
+    input.oninvalid = function(event) {
+        event.target.setCustomValidity("Special characters are not allowed.");
+    };
+    var input = document.querySelector("[name=sname]");
+    input.oninput = function(event) {
+        event.target.setCustomValidity("");
+    };
+    input.oninvalid = function(event) {
+        event.target.setCustomValidity("Special characters are not allowed.");
+    };
+    var input = document.querySelector("[name=phonenumber]");
+    input.oninput = function(event) {
+        event.target.setCustomValidity("");
+    };
+    input.oninvalid = function(event) {
+        event.target.setCustomValidity("Characters are not allowed.");
+    };
+    var input = document.querySelector("[name=email]");
+    input.oninput = function(event) {
+        event.target.setCustomValidity("");
+    };
+    input.oninvalid = function(event) {
+        event.target.setCustomValidity("Please Enter the correct Email");
+    };
+
+    function validateAndUpload(input){
+    var URL = window.URL || window.webkitURL;
+    var file = input.files[0];
+
+    if (file) {
+        var image = new Image();
+
+        image.onload = function() {
+            if (this.width) {
+                 console.log('Image has width, I think it is real image');
+                 //TODO: upload to backend
+            }
+        };
+
+        image.src = URL.createObjectURL(file);
+    }
+};​
 
     function take_snapshot() {    
       var firstname = document.getElementById('firstname').value;
