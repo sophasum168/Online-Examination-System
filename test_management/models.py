@@ -39,7 +39,11 @@ class Question(models.Model):
     test_id = models.ForeignKey('Test', on_delete=models.CASCADE)
     question_type = models.CharField(max_length=3, choices=QUESTION_TYPE, default='QCM')
     question_name = models.TextField(max_length=250)
+<<<<<<< HEAD
     img_question = models.FileField(upload_to='question_img', blank=True, null=True)
+=======
+    img_option = models.FileField(upload_to='question_img',blank=True,null=True)
+>>>>>>> e1179a0f6f5b1bb66ca856df2381d5ed77b9b2c0
     create_date = models.DateTimeField(auto_now_add=True)
 
     def add_question(self, test_id, **kwargs):

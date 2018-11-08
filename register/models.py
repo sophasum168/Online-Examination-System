@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 from test_management.models import *
+# from django.core.validators import RegexValidator
 # from regi.models import *
 
 def get_image_name(instance, filename):
@@ -19,15 +20,15 @@ def get_image_name(instance, filename):
 	
 	
 class Register(models.Model):
-	
+	# alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Only alphanumeric characters are allowed.')
 	email = models.EmailField(max_length=120, blank=False, null=False)
-	password = models.TextField(blank=True, null=True)
+	password = models.TextField(max_length=50,blank=True, null=True)
 	firstname= models.CharField(max_length=120, blank=False, null=False)
 	lastname = models.CharField(max_length=120, blank=False, null=False)
-	phonenumber = models.CharField(max_length=120, blank=True, null=True)
+	phonenumber = models.IntegerField(blank=False, null=False)
 	country = models.CharField(max_length=120, blank=False, null=False)
-	card_id = models.FileField(upload_to='card_id')
-	student_profile = models.FileField(upload_to='student_profile')
+	card_id = models.FileField(upload_to='card_id', null=False, blank=False)
+	student_profile = models.FileField(upload_to='student_profile',null=False, blank=False)
 	birthday = models.DateField(blank=False, null=False)
 	address = models.CharField(max_length=200, blank=False, null=False)
 	sname = models.CharField(max_length=300, blank=False, null=False)
