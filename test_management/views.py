@@ -75,8 +75,8 @@ def add_question(request):
         if bool(request.FILES.get('question_img', False)) == False:
             question_obj = Question(question_name = question_name, question_type = question_type, test_id = Test.objects.get(id=test_id))
         else:
-            img_question = request.FILES['question_img']
-            question_obj = Question(img_question = img_question, question_name = question_name, question_type = question_type, test_id = Test.objects.get(id=test_id))
+            img_option = request.FILES['question_img']
+            question_obj = Question(img_option = img_option, question_name = question_name, question_type = question_type, test_id = Test.objects.get(id=test_id))
         context = question_obj.save(request)
         
         option_rows = json.loads(request.POST.get("option_rows"))

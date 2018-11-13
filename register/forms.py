@@ -4,20 +4,20 @@ from django.forms import ModelForm
 from .models import *
 # from .models import CandiateImage
 
-class RegisterForm(forms.ModelForm):
-	class Meta:
-		model = Register
-		fields = ['firstname','email','lastname','phonenumber','country']
+# class RegisterForm(forms.ModelForm):
+# 	class Meta:
+# 		model = Register
+# 		fields = ['firstname','email','lastname','phonenumber','country']
 
-	def clean_email(self):
-		email=self.cleaned_data.get(email)
-		email_base, provider = email.split("@")
-		domain, extension = provider.split(".")
-		if not domain == 'USC':
-			raise forms.ValidationError("Please make sure you use your USC email")
-		if not extension == "com":
-			raise forms.ValidationError("Please user a valid .COM email address")
-		return email
+# 	def clean_email(self):
+# 		email=self.cleaned_data.get(email)
+# 		email_base, provider = email.split("@")
+# 		domain, extension = provider.split(".")
+# 		if not domain == 'USC':
+# 			raise forms.ValidationError("Please make sure you use your USC email")
+# 		if not extension == "com":
+# 			raise forms.ValidationError("Please user a valid .COM email address")
+# 		return email
 
 
 class UploadFileForm(forms.ModelForm):

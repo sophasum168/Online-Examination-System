@@ -9,6 +9,7 @@ from django.contrib.auth import (
 	)
 from django.core.files.base import File
 import subprocess
+from django.contrib import auth
 from django.shortcuts import render
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
@@ -67,6 +68,22 @@ def candidate(request):
 	candidates = Register.objects.all()
 	# return HttpResponse(output)
 	return render(request,'candidate.html',{'candidates':candidates})
+
+def login(request):
+	c = {}
+	c.update(csrf(request))
+	return render_to_response('login.html',c)
+
+def auth_view(request):
+	username = request.POST.get('username','')
+	password = request.POST.get('password','')
+	user = auth.authenticate(username=username, password=password)
+
+	if user is not None:
+		auth.login(request, user)
+		return HttpResponseRedirect('account/loggedin')
+	else:
+		return HttpResponseRedirect('account/invalid')
 	
 def edit_candidate(request):
     context = dict()

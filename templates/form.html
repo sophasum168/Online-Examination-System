@@ -47,6 +47,7 @@
 input[type=submit]:hover {
     background-color: green;
 }
+body {font-size:100%}
   </style>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -62,6 +63,7 @@ input[type=submit]:hover {
 </head>
 
 <body class="signup-page sidebar-collapse">
+
 {% block content %}
 <nav class="navbar navbar-expand-lg bg-rose">
   <img src="../static/img/kit-11.png" style="width: 8%; margin-left: 25px;">
@@ -171,6 +173,7 @@ input[type=submit]:hover {
                     </div>
                           </th>
                           </tr>
+                          <div>
                           <tr>
                             <td>
                               <b style="margin-left: 5px;">Candidate Profile</b>
@@ -182,17 +185,17 @@ input[type=submit]:hover {
                             <br>
                              <input required="true" id="student_profile" value="student_profile" name="student_profile" class="btn btn-round add-btn" type="file" accept="image/*" onChange="validateAndUpload(this);" />
                             </td>
-
                           </tr>
+                          </div>
                         <br>
                         <br>
                       <tr>
                         <td>
                           <label for="city" style="color: black;"><b>CITY</b></label>
                           <select id="city" name="city" style="border-radius: 5px; padding: 6px; width: 90%; border: 5px;" required="True">
-                            <option value="Tokyo">Kompot</option>
-                            <option value="Ozaka">PP</option>
-                            <option value="Kyoto">Koh Kong</option>
+                            <option value="Tokyo">Tokyo</option>
+                            <option value="Ozaka">Ozaka</option>
+                            <option value="Kyoto">Kyoto</option>
                           </select>
                         </td>
                         <td>
@@ -220,7 +223,7 @@ input[type=submit]:hover {
                                 </td>
                               </tr>
                         </table>
-                      <div class="text-center">
+                    <div class="text-center">
                       <input src="{% url 'model_form_upload' %}" type="submit" value="Register"/>
                     </div>
                  </form>
