@@ -5,7 +5,7 @@ from django.forms import ModelForm
 class QuestionForm(ModelForm):
     class Meta:
         model = Question
-        fields = ['test_id','question_type','question_name','img_question']
+        fields = ['test_id','question_type','question_name','img_option']
 
   
     test_id = forms.ModelChoiceField(queryset=Test.objects.all(), empty_label=None, label='Test',
@@ -39,7 +39,7 @@ class QuestionForm(ModelForm):
             }
         )
     )
-    img_question = forms.FileField(label='Question Image', 
+    img_option = forms.FileField(label='Question Image', 
         widget=forms.FileInput(
             attrs={
                 'id': "img_option",
