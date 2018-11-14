@@ -39,7 +39,7 @@ class Question(models.Model):
     test_id = models.ForeignKey('Test', on_delete=models.CASCADE)
     question_type = models.CharField(max_length=3, choices=QUESTION_TYPE, default='QCM')
     question_name = models.TextField(max_length=250)
-    img_option = models.FileField(upload_to='question_img',blank=False,null=False)
+    img_option = models.FileField(upload_to='question_img', blank=True, null=True)
     create_date = models.DateTimeField(auto_now_add=True)
 
     def add_question(self, test_id, **kwargs):
@@ -47,18 +47,20 @@ class Question(models.Model):
         question_obj.test_id = Test.objects.get(id = test_id)
         question_obj.question_type = kwargs['question_type']
         question_obj.question_name = kwargs['question_name']
-        question_obj.img_option = kwargs['img_option']
-        question_obj.save()
+        try:
+            question_obj.img_option = kwargs['question_img']
+        finally:
+            question_obj.save()
 
-        question_id = question_obj.id
-        option_context = {
-                    "option":kwargs['option'],
-                    "answer":kwargs['answer']
-                }
-        if kwargs['question_type'] == "QCM":
-            option = Option()
-            option.add_option(question_id, **option_context)
-        return question_id
+            question_id = question_obj.id
+            option_context = {
+                        "option":kwargs['option'],
+                        "answer":kwargs['answer']
+                    }
+            if kwargs['question_type'] == "QCM":
+                option = Option()
+                option.add_option(question_id, **option_context)
+            return question_id
 
     def edit_question(self, row_id):
         question_obj = Question.objects.get(id = row_id)
@@ -81,7 +83,7 @@ class Question(models.Model):
         question_obj.question_type = kwargs['question_type']
         question_obj.question_name = kwargs['question_name']
         if kwargs['question_img']:
-            question_obj.img_question = kwargs['question_img']
+            question_obj.img_option = kwargs['question_img']
         question_obj.save()
         ###Add condition for type 'QCM'
         if kwargs['option_imgs']:

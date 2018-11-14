@@ -33,8 +33,6 @@ USE_L10N = False
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    # 'photo_upload',
-    # 'ziplookup',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -46,7 +44,6 @@ INSTALLED_APPS = [
     'livertc',
     'Landingpage',
     'test_management',
-    # 'capture',
     'django.contrib.staticfiles',
     'corsheaders',
 ]

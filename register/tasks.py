@@ -20,9 +20,11 @@ $ pip freeze > requirements.txt
 @Sokunthaneth
 """
 
-# run_every(crontab(*args)). Accepted arguments are minute, hour, day_of_week, day_of_month, month_of_year. 
+# run_every(crontab(*args)). Accepted arguments are minute, hour, day_of_week, day_of_month, month_of_year.
+# final configuration, execute every day at midnight: run_every=(crontab(minute=0, hour=0))
 @periodic_task(
-    run_every=(crontab(minute='*/1')),
+    # testing: run_every 5 minutes
+    run_every=(crontab(minute='*/5')),
     name="concatenate_video",
     ignore_result=True
 )

@@ -5,7 +5,7 @@ from django.forms import ModelForm
 class QuestionForm(ModelForm):
     class Meta:
         model = Question
-        fields = ['test_id','question_type','question_name','img_option']
+        fields = ['test_id','question_type','question_name','img_question']
 
   
     test_id = forms.ModelChoiceField(queryset=Test.objects.all(), empty_label=None, label='Test',
