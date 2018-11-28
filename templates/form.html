@@ -90,7 +90,7 @@ body {font-size:100%}
                       <i class="material-icons">account_circle</i>
                          </span>
                         </div>
-                     <input type="text" required pattern="[a-z-A-Z_.-]*" class="form-control" name="firstname" id="firstname" required="true" placeholder="First Name..."/>
+                     <input type="text" required pattern="[a-z-A-Z]*" class="form-control" name="firstname" id="firstname" required="true" placeholder="First Name..."/>
                       </div>
                     </div>
                     </td>
@@ -101,7 +101,7 @@ body {font-size:100%}
                             <div class="input-group-prepend">
                               
                         </div>
-                         <input type="text" class="form-control" pattern="[0-9a-zA-Z_.-]*" name="lastname" required="true" placeholder="Last Name..."/>
+                         <input type="text" class="form-control" pattern="[a-z-A-Z]*" name="lastname" required="true" placeholder="Last Name..."/>
                         </div>
                        </div>
                            </td>
@@ -142,7 +142,7 @@ body {font-size:100%}
                             <i class="material-icons">school</i>
                                </span>
                         </div>
-                     <input type="text" class="form-control" name="sname" pattern="[0-9a-zA-Z_.-]*" required="true" placeholder="School Name..."/>
+                     <input type="text" class="form-control" name="sname" pattern="[a-z-A-Z]*" required="true" placeholder="School Name..."/>
                       </div>
                     </div>
                           </td>
@@ -154,7 +154,7 @@ body {font-size:100%}
                             <i class="material-icons">date_range</i>
                                </span>
                         </div>
-                     <input type="date" class="form-control" name="birthday"  required="true"/>
+                     <input type="date" id="datefield" type='date' min='1980-01-01' max='2018-01-01' class="form-control" name="birthday"  required="true"/>
                       </div>
                     </div>
                           </td>
@@ -178,12 +178,12 @@ body {font-size:100%}
                             <td>
                               <b style="margin-left: 5px;">Candidate Profile</b>
                               <br>
-                               <input required="true" id="card_id" value="card_id" name="card_id" class="btn btn-round add-btn" type="file" accept="image/*" onChange="validateAndUpload(this);"/>
+                               <input required="true" name="card_id" class="btn btn-round add-btn" type="file" id="fileName" accept=".jpg,.jpeg,.png" onchange="validateFileType()"/>
                             </td>
                             <td>
                             <b style="margin-left: 5px;">Student ID Card</b>
                             <br>
-                             <input required="true" id="student_profile" value="student_profile" name="student_profile" class="btn btn-round add-btn" type="file" accept="image/*" onChange="validateAndUpload(this);" />
+                             <input required="true" id="student_profile" value="student_profile" name="student_profile" class="btn btn-round add-btn" type="file" accept=".jpg,.jpeg,.png" onchange="validateFileType()" />
                             </td>
                           </tr>
                           </div>
@@ -273,6 +273,20 @@ body {font-size:100%}
     <script src="{% static 'js/core/popper.min.js' %}"></script>
     <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
     <script language="JavaScript">
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth()+1; //January is 0!
+      var yyyy = today.getFullYear();
+       if(dd<10){
+              dd='0'+dd
+          } 
+          if(mm<10){
+              mm='0'+mm
+          } 
+
+      today = yyyy+'-'+mm+'-'+dd;
+      document.getElementById("datefield").setAttribute("max", today);
+
 
     var input = document.querySelector("[name=firstname]");
     input.oninput = function(event) {
@@ -310,23 +324,16 @@ body {font-size:100%}
         event.target.setCustomValidity("Please Enter the correct Email");
     };
 
-    function validateAndUpload(input){
-    var URL = window.URL || window.webkitURL;
-    var file = input.files[0];
-
-    if (file) {
-        var image = new Image();
-
-        image.onload = function() {
-            if (this.width) {
-                 console.log('Image has width, I think it is real image');
-                 //TODO: upload to backend
-            }
-        };
-
-        image.src = URL.createObjectURL(file);
+    function validateFileType(){
+        var fileName = document.getElementById("fileName").value;
+        var idxDot = fileName.lastIndexOf(".") + 1;
+        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+        if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+            //TO DO
+        }else{
+            alert("Only jpg/jpeg and png files are allowed!");
+        }   
     }
-};​
 
     function take_snapshot() {    
       var firstname = document.getElementById('firstname').value;
