@@ -33,6 +33,7 @@ class Register(models.Model):
 	address = models.CharField(max_length=200, blank=False, null=False)
 	sname = models.CharField(max_length=300, blank=False, null=False)
 	city = models.CharField(max_length=120, blank=False, null=False)
+	state = models.CharField(max_length=120, blank=False, null=False)
 	score = models.IntegerField(default=0)
 	created_at = models.DateTimeField(auto_now_add=True)
 	taken_test = models.BooleanField(default=False)
