@@ -61,17 +61,21 @@ $(document).ready(function(){
     var test_type = JSON.stringify($("#add_test_type").val());
     var test_date = JSON.stringify($("#add_test_date").val());
     var button_pressed = JSON.stringify($(this).attr('name'));
-    if(!checkTestValidity()){
-      console.log('Failed validation');
+    var valid = checkTestValidity(0);
+    if(valid){
+        $.ajax({
+        url: "{% url 'add_test' %}",
+        type: 'POST',
+        data: {'button_pressed' : button_pressed, 'test_name' : test_name, 'test_type' : test_type,
+        'test_date' : test_date,'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
+        success: function(){
+          location.reload();
+        },
+      })
+    }
+    else{
       return ;
     };
-    console.log('ajax running')
-    $.ajax({
-      url: "{% url 'add_test' %}",
-      type: 'POST',
-      data: {'button_pressed' : button_pressed, 'test_name' : test_name, 'test_type' : test_type,
-      'test_date' : test_date,'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
-    })
     var button_pr = $(this).attr('name');
     if (button_pr == 'add_new'){
       $("#add_test_name").val("");
@@ -111,9 +115,9 @@ $(document).ready(function(){
     $('#editModal').modal('show');
     let rowId = $(this).closest('tr').attr('data-id');
     const row = $(this).closest('tr');
-    var test_name = row.find('td[ name="test_name" ]').text();
-    var test_type = row.find('td[ name="test_type" ]').text();
-    var test_date = row.find('td[ name="test_date" ]').text();
+    var test_name = row.find('td[ name="name" ]').text();
+    var test_type = row.find('td[ name="type" ]').text();
+    var test_date = row.find('td[ name="date" ]').text();
     var date = new Date(test_date);
     var day = ("0" + date.getDate()).slice(-2);
     var month = ("0" + (date.getMonth() + 1)).slice(-2);
@@ -129,15 +133,21 @@ $(document).ready(function(){
       var test_name = JSON.stringify($("#edit_test_name").val());
       var test_type = JSON.stringify($("#edit_test_type").val());
       var test_date = JSON.stringify($("#edit_test_date").val());
-      $.ajax({
-      url: "{% url 'edit_test' %}",
-      type: 'POST',
-      data: {'row_id' : row_id, 'test_name' : test_name, 'test_type' : test_type, 'test_date' : test_date,
-              'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val() },
-      success: function(){
-        location.reload();
-        },
-      });
+      var valid = checkTestValidity(1);
+      if(valid){
+        $.ajax({
+            url: "{% url 'edit_test' %}",
+            type: 'POST',
+            data: {'row_id' : row_id, 'test_name' : test_name, 'test_type' : test_type, 'test_date' : test_date,
+                    'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val() },
+            success: function(){
+            location.reload();
+            },
+        });
+      }
+      else{
+        return ;
+      };
     });
   });
 
@@ -306,6 +316,11 @@ $(document).ready(function(){
             formData.append('question_img', question_img);
             formData.append('csrfmiddlewaretoken', $("[name=csrfmiddlewaretoken]").val());
             formData.append('option_rows', JSON.stringify(option_rows));
+            if(($('[name="question_name"]')[1].value == '')&&($('[name="img_option"]').get(5).files[0] == undefined)){
+              var input = $('[name="question_name"]')[1];
+              input.reportValidity();
+              return ;
+            }
             $.ajax({
               url: "{% url 'edit_question' %}",
               type: 'POST',
@@ -363,8 +378,6 @@ $(document).ready(function(){
       url: "{% url 'import_question' %}",
       method: "GET",
       success: function(data, settings){
-        console.log(settings);
-        console.log(data);
       }
     });
   });
@@ -376,28 +389,23 @@ function bindClickOnDeleteBtn(e){
   $($self).parents('.rowRecord').remove();
 }
 
-function checkTestValidity(){
-  var test_name = document.querySelector("[name=test_name]");
-  test_name.oninput = function(event) {
-        event.target.setCustomValidity("");
-    };
-  test_name.oninvalid = function(event) {
-        event.target.reportValidity();
-    };
-  var test_type = document.querySelector("[name=test_type]");
-  test_type.oninput = function(event) {
-        event.target.setCustomValidity("");
-    };
-  test_type.oninvalid = function(event) {
-        event.target.reportValidity();
-    };z
-  // var test_date = document.querySelector("[name=test_date]");
-  // test_date.oninput = function(event) {
-  //       event.target.setCustomValidity("");
-  //   };
-  //   test_date.oninvalid = function(event) {
-  //       event.target.setCustomValidity("Special characters are not allowed.");
-  //   };
+function checkTestValidity(index){
+  test_name = $('[name="test_name"]')[index]
+  test_type = $('[name="test_type"]')[index]
+  test_date = $('[name="test_date"]')[index]
+  if(test_name.value == ''){
+    test_name.reportValidity();
+    return false;
+  };
+  if(test_type.value == ''){
+    test_type.reportValidity();
+    return false;
+  };
+  if(test_date.value == ''){
+    test_date.reportValidity();
+    return false;
+  };
+  return true;
 }
 </script>
 </html>

@@ -36,6 +36,7 @@ class QuestionForm(ModelForm):
                 'id': "question_name",
                 'class': 'form-control question_name',
                 'placeholder': 'Add question here...',
+                'maxlength': '250',
             }
         )
     )
@@ -60,6 +61,7 @@ class OptionForm(ModelForm):
             attrs={
                 'class': 'form-control option-name',
                 'placeholder': 'Option...',
+                'maxlength': '150',
             }
         )
     )
