@@ -21,6 +21,9 @@ from .models import *
 from .forms import *
 # from .forms import FileUpload
 from test_management.models import *
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.	
 # def concatenate_video():
@@ -61,7 +64,7 @@ def model_form_upload(request):
     return render(request, 'form.html', {
         'form': form
     })	
-
+@login_required(login_url="/login/")
 def candidate(request):
 	# c=Register.objects.all()
 	# lastSeenId = float('-Inf')
@@ -69,21 +72,21 @@ def candidate(request):
 	# return HttpResponse(output)
 	return render(request,'candidate.html',{'candidates':candidates})
 
-def login(request):
-	c = {}
-	c.update(csrf(request))
-	return render_to_response('login.html',c)
+# def login(request):
+# 	c = {}
+# 	c.update(csrf(request))
+# 	return render_to_response('login.html',c)
 
-def auth_view(request):
-	username = request.POST.get('username','')
-	password = request.POST.get('password','')
-	user = auth.authenticate(username=username, password=password)
+# def auth_view(request):
+# 	username = request.POST.get('username','')
+# 	password = request.POST.get('password','')
+# 	user = auth.authenticate(username=username, password=password)
 
-	if user is not None:
-		auth.login(request, user)
-		return HttpResponseRedirect('account/loggedin')
-	else:
-		return HttpResponseRedirect('account/invalid')
+# 	if user is not None:
+# 		auth.login(request, user)
+# 		return HttpResponseRedirect('account/loggedin')
+# 	else:
+# 		return HttpResponseRedirect('account/invalid')
 	
 def edit_candidate(request):
     context = dict()
@@ -201,6 +204,19 @@ def submit_answer(request):
 		return HttpResponse({"status":"ok"})
 	return HttpResponse({"status":"ok"})
 
+def login_view(request):
+	if request.method == "POST":
+		form = AuthenticationForm(data=request.POST)
+		if form.is_valid():
+			user = form.get_user()
+			login(request,user)
+			return HttpResponseRedirect('/candidate/')
+
+	else:
+		form = AuthenticationForm()
+	return render(request, 'login.html', {'form':form})
+
+	
 # @csrf_exempt
 # def save_image(self, *args, **kwargs):
 # 	self.filename = self.kwargs['firstname']+'.jpg'

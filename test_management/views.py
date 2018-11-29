@@ -16,10 +16,13 @@ from .forms import QuestionForm, OptionForm
 from .serializers import QuestionSerializer, OptionSerializer
 from register.models import Register
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 # from .forms import TestUpload
 
 
 # Create your views here.
+
+@login_required(login_url="/login/")
 def test_list(request):
     tests = Test.objects.all()
     return render(request, 'test_list.html', {'tests' : tests})
@@ -60,7 +63,8 @@ def delete_test(request):
         for i, test in enumerate(selected_tests):
             Test.objects.filter(id__in=selected_tests).delete()
         return redirect('test')
-    
+
+@login_required(login_url="/login/")        
 def question_list(request):
     questions = Question.objects.all()
     questionForm = QuestionForm()
