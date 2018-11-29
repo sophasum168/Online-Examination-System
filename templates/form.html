@@ -34,6 +34,7 @@
     input[type=submit] {
     width: 45%;
     background-color: #04043E;
+    margin-top: 40px;
     color: white;
     padding: 11px 0px;
     margin-bottom: 30px;
@@ -66,7 +67,7 @@ body {font-size:100%}
 
 {% block content %}
 <nav class="navbar navbar-expand-lg bg-rose">
-  <img src="../static/img/kit-11.png" style="width: 8%; margin-left: 25px;">
+  <img src="../static/img/kit-11.png" style="height: 70px; margin-left: 25px;">
   <div class="form-group col-md-9">
     <h3 class="card-title text-center" style="color: white; width: 100%;"><b>ONLINE EXAMINATION SYSTEM</b></h3>
     </div>
@@ -127,7 +128,11 @@ body {font-size:100%}
                             <i class="material-icons">phone</i>
                                </span>
                         </div>
+<<<<<<< HEAD
+                     <input type="text" class="form-control" pattern="[-+()\\s0-9]+$" minlength="8" maxlength="15" name="phonenumber" accept="0" required="true" placeholder="DialingCode+PhoneNumber"/>
+=======
                      <input type="text" class="form-control" pattern="[-+()\\s0-9]+$" name="phonenumber"  required="true" placeholder="Mobile Phone..."/>
+>>>>>>> 3ba9925e058defb89f2cef19b22013e4e80a09b0
                       </div>
                     </div>
                           </td>
@@ -160,18 +165,18 @@ body {font-size:100%}
                           </td>
                           </tr>
                           <tr>
-                           <th> 
+                           <td>
                           <div class="form-group">
                           <div class="input-group">
                             <div class="input-group-prepend">
                               <span class="input-group-text">
                               <i class="material-icons">add_location</i>
-                               </span>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control" name="address"  required="true" placeholder="Address..."/>
+                          </div>
                         </div>
-                     <input type="text" class="form-control" name="address"  required="true" placeholder="Address..."/>
-                      </div>
-                    </div>
-                          </th>
+                          </td>
                           </tr>
                           <div>
                           <tr>
@@ -191,6 +196,27 @@ body {font-size:100%}
                         <br>
                       <tr>
                         <td>
+<<<<<<< HEAD
+                          <label for="country" style="color: black; margin: 0 4px;"><b>COUNTRY</b></label>
+                          <select id="country" name="country" style="border-radius: 5px; padding: 6px; width: 92%; margin: 0 5px; box-shadow: 0px 2px 5px 0px;" required="True">
+                          </select>
+                        </td> 
+                        <td>
+                          <label for="city" style="color: black; margin: 0 9px;"><b>CITY</b></label>
+                          <select id="state" name="city" style="border-radius: 5px; padding: 6px; width: 92%;margin: 0 6px; box-shadow: 0px 2px 5px 0px;" required="True">
+                          </select>
+                        </td>
+                        
+                        </tr>
+                        <!-- <tr>
+                        <td>
+                          <label for="city" style="color: black; margin-left: 13px;"><b>CITY</b></label>
+                          <select id="city" name="city" style="border-radius: 5px; padding: 6px; width: 92%;margin: 0 5px; box-shadow: 0px 2px 5px 0px;" required="True">
+                          </select>
+                        </td>
+                      </tr> -->
+
+=======
                           <label for="city" style="color: black;"><b>CITY</b></label>
                           <select id="city" name="city" style="border-radius: 5px; padding: 6px; width: 90%; border: 5px;" required="True">
                             <option value="Tokyo">Tokyo</option>
@@ -207,10 +233,11 @@ body {font-size:100%}
                           </select>
                         </td>
                       </tr>
+>>>>>>> 3ba9925e058defb89f2cef19b22013e4e80a09b0
                       
                       <tr>
                         <td>
-                      <div class="form-check">
+                      <!-- <div class="form-check">
                         <label class="form-check-label">
                           <input class="form-check-input" type="checkbox" value="" />
                           <span class="form-check-sign">
@@ -219,7 +246,7 @@ body {font-size:100%}
                           I agree to the
                           <a href="#something">terms and conditions</a>.
                         </label>
-                        </div>
+                        </div> -->
                                 </td>
                               </tr>
                         </table>
@@ -272,6 +299,142 @@ body {font-size:100%}
     <script src="{% static 'js/core/jquery.min.js' %}"></script>
     <script src="{% static 'js/core/popper.min.js' %}"></script>
     <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
+<<<<<<< HEAD
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+        // Countries
+        var country_arr = new Array();
+        country_arr[0]="Select Country";
+        country_arr[1]="JAPAN";
+        country_arr[2]="INDIA";
+        // country_arr[3]="";
+        // country_arr[4]="";
+        // country_arr[5]="";
+        // country_arr[6]="";
+
+        $.each(country_arr, function (i, item) {
+            $('#country').append($('<option>', {
+                value: i,
+                text : item,
+            }, '</option>' ));
+        });
+
+        // States
+        var s_a = new Array();
+        s_a[0]="Select State";
+        s_a[1]="Select State|Hokkaido|Iwate|Fukushima|Nagano|Niigata|Akita|Gifu|Aomori|Yamagata|Kagoshima|Hiroshima|Hyogo|Shizuoka|Miyagi|Kochi|Okayama|Kumamoto|Shimane|Miyazaki|Tochigi|Gunma|Yamaguchi|Ibaraki|Oita|Mie|Ehime|Chiba|Aichi|Fukuoka|Wakayama|Kyoto|Yamanashi|Toyama|Fukui|Ishikawa|Tokushima|Nagasaki|Shiga|Saitama|Nara|Tottori|Saga|Kanagawa|Okinawa|Tokyo|Osaka|Kagawa";
+        s_a[2]="Select State|ANDHRAPRADESH|ARUNACHALPRADESH|ASSAM|BIHAR|CHHATTISGARH|HARYANA|HIMACHALPRADESH|JUMMU & KHASIMAR|JHARKHAND|KERALA|MANINPUR|MEGHALAYA|MIZORAM|NAGALAND|ODISHA|PUNJAB|SIKKIM|TELENGANA|TRIPURA|UTTAPRADESH|UTTARACKHAND|KARNATAKA|TAMILNADU|DELHI|GOA|W-BENGAL|GUJARAT|MADHYAPRADESH|MAHARASHTRA|RAJASTHAN";
+        // s_a[3]="Select State|AUCKLAND";
+        // s_a[4]="Select State|NEWJERSEY|ILLINOIS";
+        // s_a[5]="Select State|DUBAI";
+        // s_a[6]="Select State|MAURITIUS";
+
+        // Cities
+        // var c_a = new Array();
+        // c_a['QUEENSLAND']="BRISBANE";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+
+        // c_a['NAGALAND']="KOHIMA";
+        // c_a['ODISHA']="BHUBANESWAR";
+        // c_a['PUNJAB']="Chandigarh";
+        // c_a['SIKKIM']="Gangtok";
+        // c_a['TELENGANA']="Hyderabad";
+        // c_a['TRIPURA']="Agartala";
+        // c_a['UTTAPRADESH']="Lucknow";
+        // c_a['UTTARACKHAND']="Dehradun";
+        // c_a['ANDHRAPRADESH']="HYDERABAD";
+        // c_a['ARUNACHALPRADESH']="ITANAGAR";
+        // c_a['ASSAM']="DISPUR";
+        // c_a['BIHAR']="PATNA";
+        // c_a['CHHATTISGARH']="RAIPUR";
+        // c_a['HARYANA']="CHANDIGARH|PUNJAB";
+        // c_a['HIMACHALPRADESH']="SHIMLA";
+        // c_a['JUMMU & KHASIMAR']="SRINAGAR|JAMMU";
+        // c_a['JHARKHAND']="RANCHI";
+        // c_a['KERALA']="THIRUVANANTHAPURAM";
+        // c_a['MANINPUR']="IMPHAL";
+        // c_a['MEGHALAYA']="SHILLONG";
+        // c_a['MIZORAM']="AIZAWL";
+        // c_a['KARNATAKA']="BANGLORE";
+        // c_a['TAMILNADU']="CHENNAI";
+        // c_a['DELHI']="DELHI";
+        // c_a['GOA']="GOA";
+        // c_a['W-BENGAL']="KOLKATA";
+        // c_a['GUJARAT']="AHMEDABAD1|AHMEDABAD2|AHMEDABAD3|BARODA|BHAVNAGAR|MEHSANA|RAJKOT|SURAT|UNA";
+        // c_a['MADHYAPRADESH']="INDORE";
+        // c_a['MAHARASHTRA']="MUMBAI|PUNE";
+        // c_a['RAJASTHAN']="ABU";
+
+        $('#country').change(function(){
+            var c = $(this).val();
+            var state_arr = s_a[c].split("|");
+            $('#state').empty();
+            $('#city').empty();
+            if(c==0){
+                $('#state').append($('<option>', {
+                    value: '0',
+                    text: 'Select State',
+                }, '</option>'));
+            }else {
+                $.each(state_arr, function (i, item_state) {
+                    $('#state').append($('<option>', {
+                        value: item_state,
+                        text: item_state,
+                    }, '</option>'));
+                });
+            }
+            // $('#city').append($('<option>', {
+            //     value: '0',
+            //     text: 'Select City',
+            // }, '</option>'));
+        });
+
+        $('#state').change(function(){
+            var s = $(this).val();
+            if(s=='Select State'){
+                $('#city').empty();
+                $('#city').append($('<option>', {
+                    value: '0',
+                    text: 'Select City',
+                }, '</option>'));
+            }
+            var city_arr = c_a[s].split("|");
+            $('#city').empty();
+
+            $.each(city_arr, function (j, item_city) {
+                $('#city').append($('<option>', {
+                    value: item_city,
+                    text: item_city,
+                }, '</option>'));
+            });
+
+
+        });
+    });
+</script>
+=======
+>>>>>>> 3ba9925e058defb89f2cef19b22013e4e80a09b0
     <script language="JavaScript">
       var today = new Date();
       var dd = today.getDate();
