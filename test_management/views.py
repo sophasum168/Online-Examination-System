@@ -32,7 +32,7 @@ def add_test(request):
         test_date = datetime.strptime(test_date, '%Y-%m-%d').date()
         test_obj = Test(test_name = test_name, test_type = test_type, test_date = test_date)
         test_obj.save()
-        return HttpResponseRedirect('/test/')
+        return redirect('test')
 
 def edit_test(request):
     if request.method == 'POST':
@@ -59,7 +59,7 @@ def delete_test(request):
         selected_tests = json.loads(selected_tests)
         for i, test in enumerate(selected_tests):
             Test.objects.filter(id__in=selected_tests).delete()
-        return HttpResponseRedirect('/test/')
+        return redirect('test')
     
 def question_list(request):
     questions = Question.objects.all()
@@ -114,7 +114,6 @@ def edit_question(request):
             'question_form': question_form,
             'option_form': option_form,
         })          
-        print context
         return JsonResponse(context)
     elif request.method == 'POST':
         row_id = json.loads(request.POST.get('row_id'))
@@ -135,7 +134,7 @@ def edit_question(request):
         kwargs = {"test_id":test_id, "question_type":question_type, "question_name":question_name, "question_img":question_img, "option_rows":option_rows, "option_imgs":option_imgs}
         question_obj = Question()
         question = question_obj.edit_question_save(row_id, **kwargs)
-        return HttpResponseRedirect('/question/')
+        return redirect('question')
 
 def delete_question(request):
     if request.is_ajax():
@@ -143,7 +142,7 @@ def delete_question(request):
         selected_questions = json.loads(selected_questions)
         for i, test in enumerate(selected_questions):
             Question.objects.filter(id__in=selected_questions).delete()
-        return HttpResponseRedirect('/question/')
+        return redirect('question')
 
 def import_question(request):
     if request.method == 'GET':
@@ -233,8 +232,8 @@ def import_question(request):
         except Exception as e:
                 messages.error(request,"Unable to upload file. "+repr(e))
             
-        return HttpResponseRedirect('/question/')
-    return HttpResponse('/question/')
+        return redirect('question')
+    return redirect('question')
 
 @csrf_exempt
 def get_question_lists(request):

@@ -35,26 +35,22 @@
 <script type='text/javascript'>
 $(document).ready(function(){
   // Check or Uncheck All checkboxes
-  $("#checkall").change(function(){
-    var checked = $(this).is(':checked');
-    if(checked){
-      $(".check-ele").each(function(){
-        $(this).prop("checked",true);
-      });
-    }else{
-      $(".check-ele").each(function(){
-        $(this).prop("checked",false);
-      });
-    }
-  });
+  var tableElement = $('table');
+  tableElement.on('change', 'input[type=checkbox]', function(event) {
+    var changed = event.target,
+      checkboxes = tableElement
+      .find('input[type=checkbox]')
+      .not('#checkall');
 
-  // Changing state of CheckAll checkbox 
-  $(".check-ele").click(function(){
-
-    if($(".check-ele").length == $(".check-ele:checked").length) {
-      $("#checkall").prop("checked", true);
+    if (changed.id === 'checkall') {
+      checkboxes.prop('checked', changed.checked)
     } else {
-      $("#checkall").removeAttr("checked");
+      var allChecked = checkboxes.length === checkboxes.filter(':checked').length
+
+      $('#checkall').prop(
+        'checked', allChecked
+      );
+
     }
   });
 
@@ -149,64 +145,72 @@ $(document).ready(function(){
     var button_pressed = JSON.stringify($(this).attr('name'));
     var question_img = $("#img_option").get(0).files[0];
 
-    //Add option list into a dictionary `option_rows`
-    var formData = new FormData();
-    var option_rows = [];
-    var answer = "";
-    var option_img;
-    var count = 0;
-    $('.option-list tbody tr.option_row').each(function(){
-      option_name = $(this).find(".option-name").val();
-      answer = $(this).find(".answer").find(":selected").val();
-      option_img = $(this).find(".option_img").get(0).files[0];
-      option_rows.push({option_name : option_name,
-                        answer : answer});
-      formData.append('option_img'+count, option_img);
-      count++;
-      $(this).on("change", function(){
-        var option_name = "";
-        var answer = "";
-        var option_img;
-        option_name = $(this).find(".option-name").val();
-        answer = $(this).find(".answer").find(":selected").val();
-        option_img = $(this).find(".option_img").get(0).files[0];
-        formData.append('option_img'+count, option_img);
-        option_rows.push({option_name : option_name,
-                          answer : answer});
-      });
-    });
-    
-    formData.append('button_pressed', button_pressed);
-    formData.append('test_id', test_id);
-    formData.append('question_name', question_name);
-    formData.append('question_img', question_img);
-    formData.append('question_type', question_type);
-    formData.append('option_rows', JSON.stringify(option_rows));
-    formData.append('csrfmiddlewaretoken', $("[name=csrfmiddlewaretoken]").val());
-
-    $.ajax({
-      url: "{% url 'add_question' %}",
-      type: 'POST',
-      data: formData,
-      contentType: false,
-      processData: false,
-      cache: false,
-      success: function(){
-        $("#addModal").html("");
-      },
-    });
-    
-    var button_pr = $(this).attr('name');
-    if (button_pr == 'add_new'){
-      $("#test_id").val("");
-      $("#question_type").val("");
-      $("#question_name").val("");
-    } else {
-      $("#test_id").val("");
-      $("#question_type").val("");
-      $("#question_name").val("");
-      $(".cancel-btn-question").click();
+    if(($("#question_name").val() == '')&&($("#img_option").get(0).files[0] == undefined)){
+      console.log(true);
+      var input = document.querySelector("[name=question_name]");
+          input.oninput = function(event) {
+              event.target.setCustomValidity("Question and question cannot be both emptied!");
+          };
     }
+
+    // //Add option list into a dictionary `option_rows`
+    // var formData = new FormData();
+    // var option_rows = [];
+    // var answer = "";
+    // var option_img;
+    // var count = 0;
+    // $('.option-list tbody tr.option_row').each(function(){
+    //   option_name = $(this).find(".option-name").val();
+    //   answer = $(this).find(".answer").find(":selected").val();
+    //   option_img = $(this).find(".option_img").get(0).files[0];
+    //   option_rows.push({option_name : option_name,
+    //                     answer : answer});
+    //   formData.append('option_img'+count, option_img);
+    //   count++;
+    //   $(this).on("change", function(){
+    //     var option_name = "";
+    //     var answer = "";
+    //     var option_img;
+    //     option_name = $(this).find(".option-name").val();
+    //     answer = $(this).find(".answer").find(":selected").val();
+    //     option_img = $(this).find(".option_img").get(0).files[0];
+    //     formData.append('option_img'+count, option_img);
+    //     option_rows.push({option_name : option_name,
+    //                       answer : answer});
+    //   });
+    // });
+    
+    // formData.append('button_pressed', button_pressed);
+    // formData.append('test_id', test_id);
+    // formData.append('question_name', question_name);
+    // formData.append('question_img', question_img);
+    // formData.append('question_type', question_type);
+    // formData.append('option_rows', JSON.stringify(option_rows));
+    // formData.append('csrfmiddlewaretoken', $("[name=csrfmiddlewaretoken]").val());
+
+    // $.ajax({
+    //   url: "{% url 'add_question' %}",
+    //   type: 'POST',
+    //   data: formData,
+    //   contentType: false,
+    //   processData: false,
+    //   cache: false,
+    //   success: function(){
+    //     $("#addModal").html("");
+    //   },
+    // });
+    
+    // var button_pr = $(this).attr('name');
+    // if (button_pr == 'add_new'){
+    //   $("#test_id").val("");
+    //   $("#question_type").val("");
+    //   $("#question_name").val("");
+    // } else {
+    //   $("#test_id").val("");
+    //   $("#question_type").val("");
+    //   $("#question_name").val("");
+    //   $(".cancel-btn-question").click();
+    // }
   }));
 
   //Delete Button- Question
@@ -276,7 +280,7 @@ $(document).ready(function(){
             var test_id = JSON.stringify($($renderQuestion).find("#test_id").val());
             var question_type = JSON.stringify($($renderQuestion).find("#question_type").val());
             var question_name = JSON.stringify($($renderQuestion).find("#question_name").val());
-            var question_img = $("#editModal .img_option").get(0).files[0];
+            var question_img = $("#editModal .img_question").get(0).files[0];
             
             var formData = new FormData();
             var option_rows = [];

@@ -41,7 +41,11 @@ def register(request):
 		phonenumber = request.POST.get('phonenumber')
 		country = request.POST.get('country')
 		city = request.POST.get('city')
+<<<<<<< HEAD
 		# state = request.POST.get('state')
+=======
+		# file =request.POST.get('file')
+>>>>>>> 3ba9925e058defb89f2cef19b22013e4e80a09b0
 		sname = request.POST.get('sname')
 		birthday = request.POST.get('birthday')
 		address =request.POST.get('address')
@@ -96,7 +100,10 @@ def edit_candidate(request):
 			'email': candidate_obj.email,
 			'phonenumber': candidate_obj.phonenumber,
 			'city': candidate_obj.city,
+<<<<<<< HEAD
 			# 'state': candidate_obj.state,
+=======
+>>>>>>> 3ba9925e058defb89f2cef19b22013e4e80a09b0
 			'country': candidate_obj.country,
 			'birthday': candidate_obj.birthday,
 			'address': candidate_obj.address,
