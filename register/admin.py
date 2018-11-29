@@ -6,7 +6,7 @@ from .models import *
 
 class CandidateProfile(admin.ModelAdmin):
 	list_filter= ('created_at','firstname','email','sname','address')
-	list_display=('created_at','email','state','firstname','card_id','student_profile','lastname','phonenumber','birthday','sname','address','city','country')
+	list_display=('created_at','email','firstname','card_id','student_profile','lastname','phonenumber','birthday','sname','address','city','country')
 	search_fields=('firstname','email','lastname')
 	
 	def get_queryset(self, request):

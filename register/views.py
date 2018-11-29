@@ -41,13 +41,13 @@ def register(request):
 		phonenumber = request.POST.get('phonenumber')
 		country = request.POST.get('country')
 		city = request.POST.get('city')
-		state = request.POST.get('state')
+		# state = request.POST.get('state')
 		sname = request.POST.get('sname')
 		birthday = request.POST.get('birthday')
 		address =request.POST.get('address')
 		card_id = request.FILES['card_id']
 		student_profile = request.FILES['student_profile']
-		register_obj=Register(student_profile= student_profile,state=state ,card_id= card_id,email = email,city=city,sname=sname,birthday=birthday,address=address, firstname = firstname, lastname = lastname, phonenumber = phonenumber, country = country)
+		register_obj=Register(student_profile= student_profile ,card_id= card_id,email = email,city=city,sname=sname,birthday=birthday,address=address, firstname = firstname, lastname = lastname, phonenumber = phonenumber, country = country)
 		context = register_obj.save(request)
         return render(request, 'congratulation.html', {'context' : context})
 
@@ -96,7 +96,7 @@ def edit_candidate(request):
 			'email': candidate_obj.email,
 			'phonenumber': candidate_obj.phonenumber,
 			'city': candidate_obj.city,
-			'state': candidate_obj.state,
+			# 'state': candidate_obj.state,
 			'country': candidate_obj.country,
 			'birthday': candidate_obj.birthday,
 			'address': candidate_obj.address,
