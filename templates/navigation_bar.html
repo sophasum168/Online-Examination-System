@@ -61,6 +61,11 @@ $(document).ready(function(){
     var test_type = JSON.stringify($("#add_test_type").val());
     var test_date = JSON.stringify($("#add_test_date").val());
     var button_pressed = JSON.stringify($(this).attr('name'));
+    if(!checkTestValidity()){
+      console.log('Failed validation');
+      return ;
+    };
+    console.log('ajax running')
     $.ajax({
       url: "{% url 'add_test' %}",
       type: 'POST',
@@ -146,71 +151,68 @@ $(document).ready(function(){
     var question_img = $("#img_option").get(0).files[0];
 
     if(($("#question_name").val() == '')&&($("#img_option").get(0).files[0] == undefined)){
-      console.log(true);
-      var input = document.querySelector("[name=question_name]");
-          input.oninput = function(event) {
-              event.target.setCustomValidity("Question and question cannot be both emptied!");
-          };
+      var input = $('#question_name')[0];
+      input.reportValidity();
     }
 
-    // //Add option list into a dictionary `option_rows`
-    // var formData = new FormData();
-    // var option_rows = [];
-    // var answer = "";
-    // var option_img;
-    // var count = 0;
-    // $('.option-list tbody tr.option_row').each(function(){
-    //   option_name = $(this).find(".option-name").val();
-    //   answer = $(this).find(".answer").find(":selected").val();
-    //   option_img = $(this).find(".option_img").get(0).files[0];
-    //   option_rows.push({option_name : option_name,
-    //                     answer : answer});
-    //   formData.append('option_img'+count, option_img);
-    //   count++;
-    //   $(this).on("change", function(){
-    //     var option_name = "";
-    //     var answer = "";
-    //     var option_img;
-    //     option_name = $(this).find(".option-name").val();
-    //     answer = $(this).find(".answer").find(":selected").val();
-    //     option_img = $(this).find(".option_img").get(0).files[0];
-    //     formData.append('option_img'+count, option_img);
-    //     option_rows.push({option_name : option_name,
-    //                       answer : answer});
-    //   });
-    // });
+    //Add option list into a dictionary `option_rows`
+    var formData = new FormData();
+    var option_rows = [];
+    var answer = "";
+    var option_img;
+    var count = 0;
+    $('.option-list tbody tr.option_row').each(function(){
+      option_name = $(this).find(".option-name").val();
+      answer = $(this).find(".answer").find(":selected").val();
+      option_img = $(this).find(".option_img").get(0).files[0];
+      option_rows.push({option_name : option_name,
+                        answer : answer});
+      formData.append('option_img'+count, option_img);
+      count++;
+      $(this).on("change", function(){
+        var option_name = "";
+        var answer = "";
+        var option_img;
+        option_name = $(this).find(".option-name").val();
+        answer = $(this).find(".answer").find(":selected").val();
+        option_img = $(this).find(".option_img").get(0).files[0];
+        formData.append('option_img'+count, option_img);
+        option_rows.push({option_name : option_name,
+                          answer : answer});
+      });
+    });
     
-    // formData.append('button_pressed', button_pressed);
-    // formData.append('test_id', test_id);
-    // formData.append('question_name', question_name);
-    // formData.append('question_img', question_img);
-    // formData.append('question_type', question_type);
-    // formData.append('option_rows', JSON.stringify(option_rows));
-    // formData.append('csrfmiddlewaretoken', $("[name=csrfmiddlewaretoken]").val());
+    formData.append('button_pressed', button_pressed);
+    formData.append('test_id', test_id);
+    formData.append('question_name', question_name);
+    formData.append('question_img', question_img);
+    formData.append('question_type', question_type);
+    formData.append('option_rows', JSON.stringify(option_rows));
+    formData.append('csrfmiddlewaretoken', $("[name=csrfmiddlewaretoken]").val());
 
-    // $.ajax({
-    //   url: "{% url 'add_question' %}",
-    //   type: 'POST',
-    //   data: formData,
-    //   contentType: false,
-    //   processData: false,
-    //   cache: false,
-    //   success: function(){
-    //     $("#addModal").html("");
-    //   },
-    // });
+    $.ajax({
+      url: "{% url 'add_question' %}",
+      type: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      cache: false,
+      success: function(){
+        $("#addModal").html("");
+      },
+    });
     
-    // var button_pr = $(this).attr('name');
-    // if (button_pr == 'add_new'){
-    //   $("#test_id").val("");
-    //   $("#question_type").val("");
-    //   $("#question_name").val("");
-    // } else {
-    //   $("#test_id").val("");
-    //   $("#question_type").val("");
-    //   $("#question_name").val("");
-    //   $(".cancel-btn-question").click();
-    // }
+    var button_pr = $(this).attr('name');
+    if (button_pr == 'add_new'){
+      $("#test_id").val("");
+      $("#question_type").val("");
+      $("#question_name").val("");
+    } else {
+      $("#test_id").val("");
+      $("#question_type").val("");
+      $("#question_name").val("");
+      $(".cancel-btn-question").click();
+    }
   }));
 
   //Delete Button- Question
@@ -351,12 +353,6 @@ $(document).ready(function(){
       $(".option-list").show();
     }
   });
-
-  function bindClickOnDeleteBtn(e){
-    e.preventDefault();
-    var $self = e.currentTarget;
-    $($self).parents('.rowRecord').remove();
-  }
   
   //Delete option_row onClick
   $('.option-delete').on('click', bindClickOnDeleteBtn);
@@ -374,5 +370,34 @@ $(document).ready(function(){
   });
 });
 
+function bindClickOnDeleteBtn(e){
+  e.preventDefault();
+  var $self = e.currentTarget;
+  $($self).parents('.rowRecord').remove();
+}
+
+function checkTestValidity(){
+  var test_name = document.querySelector("[name=test_name]");
+  test_name.oninput = function(event) {
+        event.target.setCustomValidity("");
+    };
+  test_name.oninvalid = function(event) {
+        event.target.reportValidity();
+    };
+  var test_type = document.querySelector("[name=test_type]");
+  test_type.oninput = function(event) {
+        event.target.setCustomValidity("");
+    };
+  test_type.oninvalid = function(event) {
+        event.target.reportValidity();
+    };z
+  // var test_date = document.querySelector("[name=test_date]");
+  // test_date.oninput = function(event) {
+  //       event.target.setCustomValidity("");
+  //   };
+  //   test_date.oninvalid = function(event) {
+  //       event.target.setCustomValidity("Special characters are not allowed.");
+  //   };
+}
 </script>
 </html>
