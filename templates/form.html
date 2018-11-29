@@ -44,7 +44,6 @@
     border-radius: 4px;
     cursor: pointer;
 }
-
 input[type=submit]:hover {
     background-color: green;
 }
@@ -128,7 +127,7 @@ body {font-size:100%}
                             <i class="material-icons">phone</i>
                                </span>
                         </div>
-                     <input type="text" class="form-control" pattern="[-+()\\s0-9]+$" name="phonenumber"  required="true" placeholder="Mobile Phone..."/>
+                     <input type="text" class="form-control" pattern="[-+()\\s0-9]+$" minlength="8" maxlength="15" name="phonenumber" accept="0" required="true" placeholder="DialingCode+PhoneNumber"/>
                       </div>
                     </div>
                           </td>
@@ -192,22 +191,25 @@ body {font-size:100%}
                         <br>
                       <tr>
                         <td>
-                          <label for="city" style="color: black;"><b>CITY</b></label>
-                          <select id="city" name="city" style="border-radius: 5px; padding: 6px; width: 90%; border: 5px;" required="True">
-                            <option value="Tokyo">Tokyo</option>
-                            <option value="Ozaka">Ozaka</option>
-                            <option value="Kyoto">Kyoto</option>
+                          <label for="country" style="color: black; margin: 0 4px;"><b>COUNTRY</b></label>
+                          <select id="country" name="country" style="border-radius: 5px; padding: 6px; width: 92%; margin: 0 5px; box-shadow: 0px 2px 5px 0px;" required="True">
                           </select>
-                        </td>
+                        </td> 
                         <td>
-                          <label for="country" style="color: black;"><b>COUNTRY</b></label>
-                          <select id="country" name="country" style="border-radius: 5px; padding: 6px; width: 100%; border: 5px" required="True">
-                            <option value="Japan">Japan</option>
-                            <option value="India">India</option>
-                            <option value="USA">USA</option>
+                          <label for="city" style="color: black; margin: 0 9px;"><b>CITY</b></label>
+                          <select id="state" name="city" style="border-radius: 5px; padding: 6px; width: 92%;margin: 0 6px; box-shadow: 0px 2px 5px 0px;" required="True">
                           </select>
                         </td>
-                      </tr>
+                        
+                        </tr>
+                        <!-- <tr>
+                        <td>
+                          <label for="city" style="color: black; margin-left: 13px;"><b>CITY</b></label>
+                          <select id="city" name="city" style="border-radius: 5px; padding: 6px; width: 92%;margin: 0 5px; box-shadow: 0px 2px 5px 0px;" required="True">
+                          </select>
+                        </td>
+                      </tr> -->
+
                       
                       <tr>
                         <td>
@@ -273,6 +275,130 @@ body {font-size:100%}
     <script src="{% static 'js/core/jquery.min.js' %}"></script>
     <script src="{% static 'js/core/popper.min.js' %}"></script>
     <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+        // Countries
+        var country_arr = new Array();
+        country_arr[0]="Select Country";
+        country_arr[1]="JAPAN";
+        country_arr[2]="INDIA";
+        // country_arr[3]="";
+        // country_arr[4]="";
+        // country_arr[5]="";
+        // country_arr[6]="";
+        $.each(country_arr, function (i, item) {
+            $('#country').append($('<option>', {
+                value: i,
+                text : item,
+            }, '</option>' ));
+        });
+        // States
+        var s_a = new Array();
+        s_a[0]="Select State";
+        s_a[1]="Select State|Hokkaido|Iwate|Fukushima|Nagano|Niigata|Akita|Gifu|Aomori|Yamagata|Kagoshima|Hiroshima|Hyogo|Shizuoka|Miyagi|Kochi|Okayama|Kumamoto|Shimane|Miyazaki|Tochigi|Gunma|Yamaguchi|Ibaraki|Oita|Mie|Ehime|Chiba|Aichi|Fukuoka|Wakayama|Kyoto|Yamanashi|Toyama|Fukui|Ishikawa|Tokushima|Nagasaki|Shiga|Saitama|Nara|Tottori|Saga|Kanagawa|Okinawa|Tokyo|Osaka|Kagawa";
+        s_a[2]="Select State|ANDHRAPRADESH|ARUNACHALPRADESH|ASSAM|BIHAR|CHHATTISGARH|HARYANA|HIMACHALPRADESH|JUMMU & KHASIMAR|JHARKHAND|KERALA|MANINPUR|MEGHALAYA|MIZORAM|NAGALAND|ODISHA|PUNJAB|SIKKIM|TELENGANA|TRIPURA|UTTAPRADESH|UTTARACKHAND|KARNATAKA|TAMILNADU|DELHI|GOA|W-BENGAL|GUJARAT|MADHYAPRADESH|MAHARASHTRA|RAJASTHAN";
+        // s_a[3]="Select State|AUCKLAND";
+        // s_a[4]="Select State|NEWJERSEY|ILLINOIS";
+        // s_a[5]="Select State|DUBAI";
+        // s_a[6]="Select State|MAURITIUS";
+        // Cities
+        // var c_a = new Array();
+        // c_a['QUEENSLAND']="BRISBANE";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['']="";
+        // c_a['NAGALAND']="KOHIMA";
+        // c_a['ODISHA']="BHUBANESWAR";
+        // c_a['PUNJAB']="Chandigarh";
+        // c_a['SIKKIM']="Gangtok";
+        // c_a['TELENGANA']="Hyderabad";
+        // c_a['TRIPURA']="Agartala";
+        // c_a['UTTAPRADESH']="Lucknow";
+        // c_a['UTTARACKHAND']="Dehradun";
+        // c_a['ANDHRAPRADESH']="HYDERABAD";
+        // c_a['ARUNACHALPRADESH']="ITANAGAR";
+        // c_a['ASSAM']="DISPUR";
+        // c_a['BIHAR']="PATNA";
+        // c_a['CHHATTISGARH']="RAIPUR";
+        // c_a['HARYANA']="CHANDIGARH|PUNJAB";
+        // c_a['HIMACHALPRADESH']="SHIMLA";
+        // c_a['JUMMU & KHASIMAR']="SRINAGAR|JAMMU";
+        // c_a['JHARKHAND']="RANCHI";
+        // c_a['KERALA']="THIRUVANANTHAPURAM";
+        // c_a['MANINPUR']="IMPHAL";
+        // c_a['MEGHALAYA']="SHILLONG";
+        // c_a['MIZORAM']="AIZAWL";
+        // c_a['KARNATAKA']="BANGLORE";
+        // c_a['TAMILNADU']="CHENNAI";
+        // c_a['DELHI']="DELHI";
+        // c_a['GOA']="GOA";
+        // c_a['W-BENGAL']="KOLKATA";
+        // c_a['GUJARAT']="AHMEDABAD1|AHMEDABAD2|AHMEDABAD3|BARODA|BHAVNAGAR|MEHSANA|RAJKOT|SURAT|UNA";
+        // c_a['MADHYAPRADESH']="INDORE";
+        // c_a['MAHARASHTRA']="MUMBAI|PUNE";
+        // c_a['RAJASTHAN']="ABU";
+        $('#country').change(function(){
+            var c = $(this).val();
+            var state_arr = s_a[c].split("|");
+            $('#state').empty();
+            $('#city').empty();
+            if(c==0){
+                $('#state').append($('<option>', {
+                    value: '0',
+                    text: 'Select State',
+                }, '</option>'));
+            }else {
+                $.each(state_arr, function (i, item_state) {
+                    $('#state').append($('<option>', {
+                        value: item_state,
+                        text: item_state,
+                    }, '</option>'));
+                });
+            }
+            // $('#city').append($('<option>', {
+            //     value: '0',
+            //     text: 'Select City',
+            // }, '</option>'));
+        });
+        $('#state').change(function(){
+            var s = $(this).val();
+            if(s=='Select State'){
+                $('#city').empty();
+                $('#city').append($('<option>', {
+                    value: '0',
+                    text: 'Select City',
+                }, '</option>'));
+            }
+            var city_arr = c_a[s].split("|");
+            $('#city').empty();
+            $.each(city_arr, function (j, item_city) {
+                $('#city').append($('<option>', {
+                    value: item_city,
+                    text: item_city,
+                }, '</option>'));
+            });
+        });
+    });
+</script>
     <script language="JavaScript">
       var today = new Date();
       var dd = today.getDate();
@@ -284,11 +410,8 @@ body {font-size:100%}
           if(mm<10){
               mm='0'+mm
           } 
-
       today = yyyy+'-'+mm+'-'+dd;
       document.getElementById("datefield").setAttribute("max", today);
-
-
     var input = document.querySelector("[name=firstname]");
     input.oninput = function(event) {
         event.target.setCustomValidity("");
@@ -324,7 +447,6 @@ body {font-size:100%}
     input.oninvalid = function(event) {
         event.target.setCustomValidity("Please Enter the correct Email");
     };
-
     function validateFileType(){
         var fileName = document.getElementById("fileName").value;
         var idxDot = fileName.lastIndexOf(".") + 1;
@@ -335,7 +457,6 @@ body {font-size:100%}
             alert("Only jpg/jpeg and png files are allowed!");
         }   
     }
-
     function take_snapshot() {    
       var firstname = document.getElementById('firstname').value;
       webcam.set_api_url('/save_image/'+escape(firstname)+'/' );
