@@ -129,7 +129,10 @@ class Option(models.Model):
     def edit_option_save(self, question_id, **kwargs):
         Option.objects.filter(question_id = question_id).delete()
         options = kwargs['options']
-        option_imgs = kwargs['option_imgs']
+        try:
+            option_imgs = kwargs['option_imgs']
+        except Exception as ex:
+            print ex
 
         for index, option in enumerate(options, start=0):
             option_obj = Option()
