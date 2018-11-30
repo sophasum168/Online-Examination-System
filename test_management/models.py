@@ -139,7 +139,7 @@ class Option(models.Model):
             try:
                 option_obj.img_option = option_imgs[index]
             except Exception as ex:
-                print ex
+                print(ex)
             finally:
                 option_obj.save()
         return None

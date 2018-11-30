@@ -1,23 +1,32 @@
 {% extends 'navigation_bar.html'%}
 
 {% block question_list %}
-<nav class="navbar navbar-expand-lg bg-rose">
+<!-- sokmeng -->
+   <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Flamenco" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <!--  -->
+<nav class="navbar navbar-expand-lg bg-rose"><!--navbar navbar-expand-lg bg-rose-->
     <img src="../static/img/kit-11.png" style="width: 8%; margin-left: 25px;">
     <div class="container">
         <div class="navbar-translate">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" style="margin-right: 20px">
+                <!-- <span class="sr-only">Toggle navigation</span> -->
                 <span class="navbar-toggler-icon"></span>
                 <span class="navbar-toggler-icon"></span>
                 <span class="navbar-toggler-icon"></span>
+
             </button>
 
         </div>
-        <div class="collapse navbar-collapse" style="margin-left: 100px;"> 
-            <ul class="navbar-nav">
+        <div class="collapse navbar-collapse" style="margin-left: 185px;> <!--style="margin-left: 100px;"-->
+            <ul class="navbar-nav "><!-- ml-auto -->
                 <li class="nav-item">
-                    <a href="{% url 'register' %}" class="nav-link"><b>Dashboard</b></a>
+                    <a href="{% url 'register' %}" class=" nav-link"><b>Dashboard</b>
+                </a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a href="{% url 'question' %}" class="nav-link"><b>Question</b></a>
                 </li>
                 <li class="nav-item">
@@ -33,15 +42,7 @@
                     <a href="#report" class="nav-link"><b>Reporting</b></a>
                 </li>
             </ul>
-
-            <form class="form-inline ml-auto">
-                <div class="form-group has-white">
-                  <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-white btn-raised btn-fab btn-fab-mini btn-round">
-                    <i class="material-icons">search</i>
-                </button>
-            </form>
+           
         </div>
     </div>
 </nav>
@@ -62,22 +63,22 @@
 <div class="table-container">
     <div class="table-responsive">
         <table id="fresh-table" class="table table-striped question-list table-hover table-sm">
-                <thead class="thead-table-list">
+                <thead style="background-color:#006699">
                     <tr>
                         <th scope="col">
                             <div class="form-check">
-                                <label class="form-check-label">
-                                <input class="form-check-input check-prevent" id="checkall" type="checkbox" value="">
-                                <span class="form-check-sign">
+                                <label class="form-check-label" style="margin-right: 40px">
+                                <input class="form-check-input check-ele check-prevent" id="checkall" type="checkbox" value="">
+                                <span class="form-check-sign" >
                                     <span class="check"></span>
                                 </span>
                                 </label>
                             </div>
                         </th>
-                        <th scope="col">#</th>
-                        <th scope="col">Question</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Test</th>
+                        <th scope="col" style="padding-bottom: 10px;color:#fff">#</th>
+                        <th scope="col" style="padding-bottom: 10px;color:#fff">Question</th>
+                        <th scope="col" style="padding-bottom: 10px; color:#fff">Type</th>
+                        <th scope="col" style="padding-bottom: 10px;color:#fff">Test</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -245,4 +246,20 @@
         </div>
     </div>
 </div>
+<!-- sokmeng -->
+<!-- <script type="text/javascript">
+        function slideshow()
+        {
+            var x = document.getElementById('check-class');
+            if (x.style.display === "none") 
+            {
+                x.style.display = "block"
+            }
+            else
+            {
+                x.style.display = "none";
+            }
+        }
+    </script>   -->
+    <!--  --> 
 {% endblock %}

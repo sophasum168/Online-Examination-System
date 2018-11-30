@@ -1920,6 +1920,11 @@ pre code {
 .table-sm td {
   padding: 0.3rem;
 }
+.table-sm1 th,
+.table-sm1 td
+{
+  padding: 0.9rem;
+}
 
 .table-bordered {
   border: 1px solid rgba(0, 0, 0, 0.06);
@@ -2368,7 +2373,7 @@ select.form-control-lg:not([size]):not([multiple]),
 }
 
 .form-check-label {
-  margin-bottom: 0;
+  margin-bottom: 2px;
 }
 
 .form-check-inline {
@@ -17405,11 +17410,11 @@ footer .pull-center {
     transform: translate3d(0px, 0, 0);
   }
   .nav-open .navbar-translate {
-    -webkit-transform: translate3d(-230px, 0, 0);
-    -moz-transform: translate3d(-230px, 0, 0);
-    -o-transform: translate3d(-230px, 0, 0);
-    -ms-transform: translate3d(-230px, 0, 0);
-    transform: translate3d(-230px, 0, 0);
+    -webkit-transform: translate3d(0px, 0, 0);/*230*/
+    -moz-transform: translate3d(0px, 0, 0);
+    -o-transform: translate3d(0px, 0, 0);
+    -ms-transform: translate3d(0px, 0, 0);
+    transform: translate3d(300px, 0, 0);
   }
   .navbar .navbar-translate {
     width: 100%;
@@ -17575,3 +17580,11 @@ label#import_question_sample{
   color: #9c27b0;
 }
 /*# sourceMappingURL=kit-free.css.map */
+
+
+/*By Moonlight => hover*/
+div ul li a:hover
+{
+  background-color: #ccc;
+  transition-duration: 0.6s;
+}

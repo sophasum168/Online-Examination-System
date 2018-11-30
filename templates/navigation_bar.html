@@ -1,10 +1,16 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-<head>
-
+<head lang="en" class="nav-open">
+  <!-- SOKMENG -->
+   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- CSS Files -->
   {% block extra_css %}
   <!-- Primero, incluir la libreria de JpegCam -->
+  <!--I add it by myself because it does not has favicon.ico-->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <script src="/static/jpegcam/webcam.js"></script>
   {% endblock extra_css %}
     <meta charset="utf-8" />
@@ -15,8 +21,9 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-select.min.css' %}" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+  
 </head>
-<body>
+<body class="index-page sidebar-collapse">
   
   {% block test_list %}
   
@@ -30,11 +37,19 @@
   <script src="{% static 'js/core/popper.min.js' %}"></script>
   <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
   <script src="{% static 'js/core/bootstrap-select.min.js' %}"></script>
+  <!-- sokmeng -->
+  <!-- <script src="{% static 'js/plugins/nouislider.min.js' %}"></script>
+  <script src="{% static 'js/plugins/bootstrap-datetimepicker.js' %}"></script>
+  <script src="{% static 'js/plugins/moment.min.js' %}"></script> -->
+  <script src="{% static 'js/material-kit.js' %}"></script>
+  <!--  Google Maps Plugin    -->
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
+  <!--  -->
 
 </body>
 <script type='text/javascript'>
 $(document).ready(function(){
-  // Check or Uncheck All checkboxes
+  // Check or Uncheck All checkboxes check-ele
   $("#checkall").change(function(){
     var checked = $(this).is(':checked');
     if(checked){
@@ -57,6 +72,7 @@ $(document).ready(function(){
       $("#checkall").removeAttr("checked");
     }
   });
+  
 
   //**test_list.html SCRIPT**
   //Add Button- Test
