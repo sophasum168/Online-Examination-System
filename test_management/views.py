@@ -16,10 +16,13 @@ from .forms import QuestionForm, OptionForm
 from .serializers import QuestionSerializer, OptionSerializer
 from register.models import Register
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 # from .forms import TestUpload
 
 
 # Create your views here.
+
+@login_required(login_url="/login/")
 def test_list(request):
     tests = Test.objects.all()
     return render(request, 'test_list.html', {'tests' : tests})
@@ -32,7 +35,7 @@ def add_test(request):
         test_date = datetime.strptime(test_date, '%Y-%m-%d').date()
         test_obj = Test(test_name = test_name, test_type = test_type, test_date = test_date)
         test_obj.save()
-        return HttpResponseRedirect('/test/')
+        return redirect('test')
 
 def edit_test(request):
     if request.method == 'POST':
@@ -59,8 +62,9 @@ def delete_test(request):
         selected_tests = json.loads(selected_tests)
         for i, test in enumerate(selected_tests):
             Test.objects.filter(id__in=selected_tests).delete()
-        return HttpResponseRedirect('/test/')
-    
+        return redirect('test')
+
+@login_required(login_url="/login/")        
 def question_list(request):
     questions = Question.objects.all()
     questionForm = QuestionForm()
@@ -99,14 +103,16 @@ def edit_question(request):
         question = question_obj.edit_question(row_id)
         question_form = QuestionForm(initial={'question_name': question[0]['question_name'],
                                             'question_type': question[0]['question_type'],
-                                            'test_id': question[0]['test_id']}, auto_id=False).__str__()
+                                            'test_id': question[0]['test_id'],
+                                            'img_option': question[0]['img_option']}, auto_id=False).__str__()
         option_form = ""
         if question[1]:
             cont = dict()
             options_form = []
             for option in question[1]:
-                option_form = OptionForm(initial={'option_name': option['option_name'],
-                                                    'answer': option['answer']})
+                option_form = OptionForm(initial={'option_name': option.option_name,
+                                                    'answer': option.answer,
+                                                    'img_option': option.img_option})
                 options_form.append(option_form)
             cont.update({'options': options_form})
             option_form = render_to_string('include/question_option_row.html', cont)
@@ -114,7 +120,6 @@ def edit_question(request):
             'question_form': question_form,
             'option_form': option_form,
         })          
-        print context
         return JsonResponse(context)
     elif request.method == 'POST':
         row_id = json.loads(request.POST.get('row_id'))
@@ -135,7 +140,7 @@ def edit_question(request):
         kwargs = {"test_id":test_id, "question_type":question_type, "question_name":question_name, "question_img":question_img, "option_rows":option_rows, "option_imgs":option_imgs}
         question_obj = Question()
         question = question_obj.edit_question_save(row_id, **kwargs)
-        return HttpResponseRedirect('/question/')
+        return redirect('question')
 
 def delete_question(request):
     if request.is_ajax():
@@ -143,7 +148,7 @@ def delete_question(request):
         selected_questions = json.loads(selected_questions)
         for i, test in enumerate(selected_questions):
             Question.objects.filter(id__in=selected_questions).delete()
-        return HttpResponseRedirect('/question/')
+        return redirect('question')
 
 def import_question(request):
     if request.method == 'GET':
@@ -233,8 +238,8 @@ def import_question(request):
         except Exception as e:
                 messages.error(request,"Unable to upload file. "+repr(e))
             
-        return HttpResponseRedirect('/question/')
-    return HttpResponse('/question/')
+        return redirect('question')
+    return redirect('question')
 
 @csrf_exempt
 def get_question_lists(request):
