@@ -68,7 +68,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 #    'http//:localhost:8000',
 #)
 
-LOGIN_REDIRECT_URL = 'home'
+# LOGIN_REDIRECT_URL = 'home'
 
 ROOT_URLCONF = 'exam.urls'
 

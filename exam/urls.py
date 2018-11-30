@@ -24,12 +24,15 @@ from register.views import *
 from Landingpage.views import (landingpage)
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 # from register import views
 # from capture.views import (PersonaCreateView, SaveImage, template)
 from test_management import urls as test_management_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    # url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
+    url(r'^login/$',login_view,name="login"),
     url(r'^register/$',register,name="register"),
     url(r'^upload/', upload_file, name="upload"),
     url(r'^livertc/', livertc, name="livertc"),

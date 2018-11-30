@@ -105,7 +105,7 @@
     </div>
 </div>
 <div class="modal fade" id="addModal" tabindex="-1" role="">
-    <div class="modal-dialog modal-login" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="card card-signup card-plain">
                 <div class="modal-body">
@@ -165,14 +165,14 @@
                                         <td>{{optionForm.answer}}</td>
                                         <td><i class="material-icons option-delete">delete</i></td>
                                     </tr>
-                                    <tr class="option_row">
+                                    <tr class="option_row rowRecord">
                                         <td>{{optionForm.option_name}}</td>
                                         <td>{{optionForm.img_option}}</td>
                                         <td>{{optionForm.answer}}</td>
                                         <td><i class="material-icons option-delete">delete</i></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3"><u id="add_option" class="add_option">Add New</u></td>
+                                        <td colspan="4"><u id="add_option" class="add_option">Add New</u></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -189,7 +189,7 @@
     </div>
 </div>
 <div class="modal fade" id="editModal" tabindex="-1" role="">
-    <div class="modal-dialog modal-login" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="card card-signup card-plain">
                 <div class="modal-body">
@@ -204,7 +204,6 @@
                                         <tr>
                                             <th colspan="2">Option</th>
                                             <th colspan="2">Answer</th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody id="option-list-edit-body">
@@ -235,7 +234,7 @@
                         <label id="import_question_sample">Get a sample file</label>
                         <hr>
                         <label for="exampleFormControlFile1">Upload question file (*.xlsx)</label>
-                        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="spreadsheet_file">
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="spreadsheet_file" accept=".xlsx">
                         <div class="modal-footer justify-content-right">
                             <button type="button" class="btn btn-primary btn-link btn-wd btn-lg cancel-btn-import" data-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary save-btn-import" name="save">Import</button>
