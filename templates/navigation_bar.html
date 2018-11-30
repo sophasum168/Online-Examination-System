@@ -10,7 +10,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="icon" type="image/png" href="../static/img/kit-11.png"> 
-    <title>KIT Online Exam</title>
+    <title>KIT Online Examination System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-select.min.css' %}" />
@@ -61,6 +61,7 @@ $(document).ready(function(){
     var test_type = JSON.stringify($("#add_test_type").val());
     var test_date = JSON.stringify($("#add_test_date").val());
     var button_pressed = JSON.stringify($(this).attr('name'));
+    var button_pr = $(this).attr('name');
     var valid = checkTestValidity(0);
     if(valid){
         $.ajax({
@@ -69,24 +70,19 @@ $(document).ready(function(){
         data: {'button_pressed' : button_pressed, 'test_name' : test_name, 'test_type' : test_type,
         'test_date' : test_date,'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()},
         success: function(){
-          location.reload();
+          if (button_pr == 'add_new'){
+            $("#add_test_name").val("");
+            $("#add_test_type").val("");
+            $("#add_test_date").val("");
+          } else {
+            location.reload();
+          }
         },
       })
     }
     else{
       return ;
     };
-    var button_pr = $(this).attr('name');
-    if (button_pr == 'add_new'){
-      $("#add_test_name").val("");
-      $("#add_test_type").val("");
-      $("#add_test_date").val("");
-    } else {
-      $("#add_test_name").val("");
-      $("#add_test_type").val("");
-      $("#add_test_date").val("");
-      $(".cancel-btn-test").click();
-    }
   });
 
   //Delete Button- Test
@@ -97,6 +93,7 @@ $(document).ready(function(){
       var row=$(this);
       if (row.find('input[type="checkbox"]').is(':checked')) {
           selected_rows.push(row.attr('data-id'));
+          row.find('input[type="checkbox"]').prop('checked',false);
           };
     });
     var selected_rows = JSON.stringify(selected_rows);
@@ -155,10 +152,12 @@ $(document).ready(function(){
   //Add Button- Question
   $(".submit-btn-question").on("click", (function(){
     var test_id = JSON.stringify($("#test_id").val());
+    var test_id_int = $("#test_id").val()
     var question_type = JSON.stringify($("#question_type").val());
     var question_name = JSON.stringify($("#question_name").val());
     var button_pressed = JSON.stringify($(this).attr('name'));
     var question_img = $("#img_option").get(0).files[0];
+    var button_pr = $(this).attr('name');
 
     if(($("#question_name").val() == '')&&($("#img_option").get(0).files[0] == undefined)){
       var input = $('#question_name')[0];
@@ -208,21 +207,22 @@ $(document).ready(function(){
       processData: false,
       cache: false,
       success: function(){
-        $("#addModal").html("");
+        if (button_pr == 'add_new'){
+          $("#test_id").val(test_id_int);
+          $("#question_type").val("QCM");
+          $("#question_name").val("");
+          $("#img_option").val("");
+          $('.option-list tbody tr.option_row').each(function(){
+            option_name = $(this).find(".option-name").val("");
+            option_img = $(this).val("");
+          });
+          $("#test_id").find(".selectpicker").selectpicker("render");
+          $("#question_type").find(".selectpicker").selectpicker("render");
+        } else {
+          location.reload();
+        }
       },
     });
-    
-    var button_pr = $(this).attr('name');
-    if (button_pr == 'add_new'){
-      $("#test_id").val("");
-      $("#question_type").val("");
-      $("#question_name").val("");
-    } else {
-      $("#test_id").val("");
-      $("#question_type").val("");
-      $("#question_name").val("");
-      $(".cancel-btn-question").click();
-    }
   }));
 
   //Delete Button- Question
@@ -233,6 +233,7 @@ $(document).ready(function(){
       var row=$(this);
       if (row.find('input[type="checkbox"]').is(':checked')) {
           selected_rows.push(row.attr('data-id'));
+          row.find('input[type="checkbox"]').prop('checked',false);
           };
     });
     var selected_rows = JSON.stringify(selected_rows);
@@ -347,14 +348,14 @@ $(document).ready(function(){
   //Add option row-- QCM
   $("#editModal .add_option").click(function(){
     var add_option_row = $.parseHTML('<tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"></td><td><input type="file" name="img_option" class="form-control option_img" data-style="btn btn-primary btn-sm" required="" id="img_option"></td><td><div class="btn-group bootstrap-select answer"><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option>/select></div></td><td><i class="material-icons option-delete">delete</i></td></tr>');
-    $('#editModal .option_row:last-child').after(add_option_row);
+    $('#editModal .option_row:last').after(add_option_row);
     $(add_option_row).find(".selectpicker").selectpicker("render");
     $(add_option_row).find(".option-delete").on("click", bindClickOnDeleteBtn);
   });
 
   $("#addModal .add_option").click(function(){
     var add_option_row = $.parseHTML('<tr class="option_row rowRecord"><td><input name="option_name" required="" placeholder="Option..." class="form-control option-name" id="id_option_name" type="text"></td><td><input type="file" name="img_option" class="form-control option_img" data-style="btn btn-primary btn-sm" required="" id="img_option"></td><td><div class="btn-group bootstrap-select answer"><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">True</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">False</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="answer" id="id_answer" data-style="btn btn-primary btn-sm" data-size="7" class="selectpicker answer" title="Select an Answer" tabindex="-98"><option class="bs-title-option" value="">Select an Answer</option><option value="T">True</option><option value="F" selected="">False</option>/select></div></td><td><i class="material-icons option-delete">delete</i></td></tr>');
-    $('#addModal .option_row:last-child').after(add_option_row);
+    $('#addModal .option_row:last').after(add_option_row);
     $(add_option_row).find(".selectpicker").selectpicker("render");
     $(add_option_row).find(".option-delete").on("click", bindClickOnDeleteBtn);
   });

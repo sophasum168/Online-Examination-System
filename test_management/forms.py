@@ -41,11 +41,11 @@ class QuestionForm(ModelForm):
         )
     )
     img_option = forms.FileField(label='Question Image', 
-        widget=forms.FileInput(
+        widget=forms.ClearableFileInput(
             attrs={
                 'id': "img_option",
                 'data-style': 'btn btn-primary btn-sm',
-                'class': 'img_question',
+                'class': 'form-group form-control-file img_question',
                 'accept': '.jpg,.jpeg,.png',
             }
         )
@@ -75,11 +75,11 @@ class OptionForm(ModelForm):
                 }
             )
     )
-    img_option = forms.FileField(label='Option picture',
-        widget=forms.FileInput(
+    img_option = forms.FileField(label='Option Image',
+        widget=forms.ClearableFileInput(
             attrs={
                 'id': 'option_img',
-                'class': 'form-control option_img',
+                'class': 'form-control-file option_img',
                 'data-style': 'btn btn-primary btn-sm',
                 'accept': '.jpg,.jpeg,.png',
             }

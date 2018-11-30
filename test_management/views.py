@@ -103,14 +103,16 @@ def edit_question(request):
         question = question_obj.edit_question(row_id)
         question_form = QuestionForm(initial={'question_name': question[0]['question_name'],
                                             'question_type': question[0]['question_type'],
-                                            'test_id': question[0]['test_id']}, auto_id=False).__str__()
+                                            'test_id': question[0]['test_id'],
+                                            'img_option': question[0]['img_option']}, auto_id=False).__str__()
         option_form = ""
         if question[1]:
             cont = dict()
             options_form = []
             for option in question[1]:
-                option_form = OptionForm(initial={'option_name': option['option_name'],
-                                                    'answer': option['answer']})
+                option_form = OptionForm(initial={'option_name': option.option_name,
+                                                    'answer': option.answer,
+                                                    'img_option': option.img_option})
                 options_form.append(option_form)
             cont.update({'options': options_form})
             option_form = render_to_string('include/question_option_row.html', cont)

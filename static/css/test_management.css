@@ -17574,4 +17574,16 @@ footer .pull-center {
 label#import_question_sample{
   color: #9c27b0;
 }
+
+.option-delete{
+  cursor: pointer;
+}
+
+tr.table-row{
+  cursor: pointer;
+}
+
+#add_option{
+  cursor: pointer;
+}
 /*# sourceMappingURL=kit-free.css.map */

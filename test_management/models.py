@@ -71,6 +71,10 @@ class Question(models.Model):
         question['test_name'] = question_obj.test_id.test_name
         question['question_type'] = question_obj.question_type
         question['question_name'] = question_obj.question_name
+        try:
+            question['img_option'] = question_obj.img_option
+        except Exception as e:
+            print e
         if question['question_type'] == 'QCM':
             return question, option
         else:
@@ -117,11 +121,12 @@ class Option(models.Model):
         return None
 
     def edit_option(self, question_id):
-        options = Option.objects.filter(question_id = question_id).values('option_name', 'answer')
+        options = Option.objects.filter(question_id = question_id)
         if options != None:
             option = []
-            for obj in options:
-                option.append(obj)
+            for obj in Option.objects.all():
+                if obj.question_id.id == question_id:
+                    option.append(obj)
             return option
         else:
             return None
