@@ -32,9 +32,9 @@
       margin: auto;
     }
     input[type=submit] {
-    width: 45%;
+    width: 30%;
     background-color: #04043E;
-    margin-top: 40px;
+    margin-top: 20px;
     color: white;
     padding: 11px 0px;
     margin-bottom: 30px;
@@ -44,10 +44,24 @@
     border-radius: 4px;
     cursor: pointer;
 }
+label{
+  color: black;
+}
+#my_form1 p label,
+#my_form1 p input{
+    color: black;
+}
 
+.login .form-row {
+    padding: 4px 0;
+    float: left;
+    width: 100%;
+    border-bottom: none;
+}
 input[type=submit]:hover {
     background-color: green;
 }
+
 body {font-size:100%}
   </style>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -76,13 +90,15 @@ body {font-size:100%}
 <div class="page-header header-filter" filter-color="purple" style="background-image: url('../static/img/kit.jpg')">
   <div class="page-header header-filter" filter-color="purple" >
     <div class="container">
-      <div class="card card-signup center" style="width: 65%;">
+      <div class="card card-signup center" style="width: 65%; margin: 85px;">
         <h2 class="card-title text-center">Login</h2>
         <form style="width: 100%;" name="form" method="POST" action="{% url 'login' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <!-- <form class="form" method="" action=""> -->
-                    <div class="text-center">
-                    {{ form.as_p }}
+                    <div class="text-center" style="margin-top: 20px;">
+                    <div id="my_form1">
+                        {{ form.as_p }}
+                    </div>
                     </div>
                     <div class="text-center">
                       <input type="submit" value="Login"/>
@@ -94,34 +110,6 @@ body {font-size:100%}
           </div>
   
   <!-- Advanced Modal -->
-    <div class="modal hide fade" id="takephoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-login" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-                  <div class="card-body">
-                      <!-- <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    </div> -->
-                          <h3 id="myModalLabel" style="text-align: center;">Camara</h3>
-                          <div class="text-center">
-                          <p><b>Please Fill above information before take photo!</b></p>
-                          <p>please click Allow to capture the photo.</p>
-                          </div>
-                      </div>
-                      <div class="modal-body">
-                        <!-- Configure a few settings -->
-                        <script language="JavaScript">
-                          document.write( webcam.get_html(370, 250) );
-                        </script>
-                      </div>
-                  </div>
-                 <div class="modal-footer">
-                        <a class="btn" data-dismiss="modal" aria-hidden="true" style="background-color: wheat;">Close</a>
-                        <button class="btn btn-primary" onClick="take_snapshot()">Capture Photo</button>
-                </div>               
-            </div>
-        </div>
-    </div>
 
 
 {% endblock content %}

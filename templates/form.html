@@ -68,7 +68,7 @@ body {font-size:100%}
 <nav class="navbar navbar-expand-lg bg-rose">
   <img src="../static/img/kit-11.png" style="height: 70px; margin-left: 25px;">
   <div class="form-group col-md-9">
-    <h3 class="card-title text-center" style="color: white; width: 100%; margin-left: 40px"><b>ONLINE EXAMINATION SYSTEM</b></h3>
+    <h3 class="card-title text-center" style="color: white; width: 100%;"><b>ONLINE EXAMINATION SYSTEM</b></h3>
     </div>
 </nav>
 
@@ -95,20 +95,17 @@ body {font-size:100%}
                     </div>
                     </td>
                        <!-- &nbsp; &nbsp;  &nbsp;  &nbsp;  --> 
-                    <td>
+                        <td>
                           <div class="form-group">
-                            <!-- sokmeng -->
-                          <div class="input-group" style="margin-left: 55px;width: 200px">
-                            <!--sokmeng-->
-                     <!--        <div class="input-group-prepend">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
                               
-                        </div> -->
-                         <input type="text" class="form-control" pattern="[0-9a-zA-Z_.-]*" name="lastname" required="true" placeholder="Last Name..."/>
-                          </div>
-                          </div>
-                          </td>
-                        </tr>
-
+                        </div>
+                         <input type="text" class="form-control" pattern="[a-z-A-Z]*" name="lastname" required="true" placeholder="Last Name..."/>
+                        </div>
+                       </div>
+                           </td>
+                          </tr>
                         <tr>
                           <td>
                           <div class="form-group">
@@ -194,13 +191,9 @@ body {font-size:100%}
                         <br>
                       <tr>
                         <td>
-                          <label for="city" style="color:black;"><b>CITY</b></label>
-                          <select id="city" name="city" style="border-radius: 5px; padding: 6px; width: 90%; border: 5px;" required="True">
-                            <option value="Tokyo">Tokyo</option>
-                            <option value="Ozaka">Ozaka</option>
-                            <option value="Kyoto">Kyoto</option>
+                          <label for="country" style="color: black; margin: 0 4px;"><b>COUNTRY</b></label>
+                          <select id="country" name="country" style="border-radius: 5px; padding: 6px; width: 92%; margin: 0 5px; box-shadow: 0px 2px 5px 0px;" required="True">
                           </select>
-                        </td>
                         </td> 
                         <td>
                           <label for="city" style="color: black; margin: 0 9px;"><b>CITY</b></label>
@@ -209,6 +202,13 @@ body {font-size:100%}
                         </td>
                         
                         </tr>
+                        <!-- <tr>
+                        <td>
+                          <label for="city" style="color: black; margin-left: 13px;"><b>CITY</b></label>
+                          <select id="city" name="city" style="border-radius: 5px; padding: 6px; width: 92%;margin: 0 5px; box-shadow: 0px 2px 5px 0px;" required="True">
+                          </select>
+                        </td>
+                      </tr> -->
 
                       
                       <tr>
@@ -415,7 +415,7 @@ body {font-size:100%}
       today = yyyy+'-'+mm+'-'+dd;
       document.getElementById("datefield").setAttribute("max", today);
     var input = document.querySelector("[name=firstname]");
-    input.b = function(event) {
+    input.oninput = function(event) {
         event.target.setCustomValidity("");
     };
     input.oninvalid = function(event) {
@@ -436,7 +436,7 @@ body {font-size:100%}
         event.target.setCustomValidity("Special characters are not allowed.");
     };
     var input = document.querySelector("[name=phonenumber]");
-    input.oninput = function(event) {  
+    input.oninput = function(event) {
         event.target.setCustomValidity("");
     };
     input.oninvalid = function(event) {
