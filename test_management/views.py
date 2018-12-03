@@ -21,8 +21,9 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-
+# login
 @login_required(login_url="/login/")
+
 def test_list(request):
     tests = Test.objects.all()
     return render(request, 'test_list.html', {'tests' : tests})
@@ -64,7 +65,9 @@ def delete_test(request):
             Test.objects.filter(id__in=selected_tests).delete()
         return redirect('test')
 
-@login_required(login_url="/login/")        
+#login
+@login_required(login_url="/login/")
+
 def question_list(request):
     questions = Question.objects.all()
     questionForm = QuestionForm()

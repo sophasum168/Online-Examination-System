@@ -107,7 +107,7 @@ body {font-size:100%}
                            </td>
                           </tr>
                         <tr>
-                          <td>
+                        <td>
                           <div class="form-group">
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -115,8 +115,10 @@ body {font-size:100%}
                             <i class="material-icons">email</i>
                                </span>
                         </div>
-                     <input type="email" class="form-control" name="email" pattern="[0-9a-zA-Z@._\+\-]+$"  required="true" placeholder="Email..."/>
+                     <input type="email" class="form-control" name="email" pattern="^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"  required="true" placeholder="Email..."/>
                       </div>
+                      <!-- [a-zA-Z0-9_\.\+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+$ -->
+                      <!-- [0-9a-zA-Z@._\+\-]+$ -->
                     </div>
                           </td>
                           <td>
@@ -195,20 +197,16 @@ body {font-size:100%}
                           <select id="country" name="country" style="border-radius: 5px; padding: 6px; width: 92%; margin: 0 5px; box-shadow: 0px 2px 5px 0px;" required="True">
                           </select>
                         </td> 
-                        <td>
-                          <label for="city" style="color: black; margin: 0 9px;"><b>CITY</b></label>
-                          <select id="state" name="city" style="border-radius: 5px; padding: 6px; width: 92%;margin: 0 6px; box-shadow: 0px 2px 5px 0px;" required="True">
-                          </select>
-                        </td>
+                    
                         
-                        </tr>
-                        <!-- <tr>
+                        <!-- </tr>
+                        <tr> -->
                         <td>
                           <label for="city" style="color: black; margin-left: 13px;"><b>CITY</b></label>
-                          <select id="city" name="city" style="border-radius: 5px; padding: 6px; width: 92%;margin: 0 5px; box-shadow: 0px 2px 5px 0px;" required="True">
+                          <select id="state" name="city" style="border-radius: 5px; padding: 6px; width: 92%;margin: 0 5px; box-shadow: 0px 2px 5px 0px;" required="True">
                           </select>
                         </td>
-                      </tr> -->
+                      </tr>
 
                       
                       <tr>
@@ -414,6 +412,7 @@ body {font-size:100%}
     input.oninvalid = function(event) {
         event.target.setCustomValidity("Characters are not allowed.");
     };
+    // email
     var input = document.querySelector("[name=email]");
     input.oninput = function(event) {
         event.target.setCustomValidity("");
@@ -421,6 +420,7 @@ body {font-size:100%}
     input.oninvalid = function(event) {
         event.target.setCustomValidity("Please Enter the correct Email");
     };
+    // 
     function validateFileType(){
         var fileName = document.getElementById("fileName").value;
         var idxDot = fileName.lastIndexOf(".") + 1;

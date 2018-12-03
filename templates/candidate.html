@@ -63,7 +63,7 @@
                     <a href="#report" class="nav-link"><b>Reporting</b></a>
                 </li>
             </ul>
-
+            <a href="/admin/logout/" class="badge badge-success" style="height: 30px; padding-top: 10px; margin-left: 200px">Log out</a>
             <!-- <form class="form-inline ml-auto">
                 <div class="form-group has-white">
                   <input type="text" class="form-control" placeholder="Search">
@@ -80,14 +80,14 @@
 
   <!-- <div style="margin: 50px"> -->
     <div id="inline-toolbar">
-  </button>
+  <!-- </button> -->
     <button class="btn btn-round btn-danger delete-btn-candidate" data-toggle="modal">
-<i class="material-icons" action >delete</i>   Delete
-</button>
+      <i class="material-icons" action >delete</i>   Delete
+    </button>
 </div>
 <div class="table-container" >
     <div class="table-responsive">
-  <table id="fresh-table" class="table table-striped candidate table-hover table-sm table-sm1"><!-- table-hover table-sm -->
+  <table id="fresh-table" class="table table-striped candidate table-hover table-sm "><!-- table-hover table-sm -->
     <thead style="background-color:#006699">
     <tr>
          <th scope="col"><!-- -2 -->
@@ -129,7 +129,7 @@
     </td>
       <td>{{ forloop.counter }}</td>
       <td>{{ candidate.email }}</td>
-      <td>{{ candidate.firstname }}</td>
+      <td>{{ candidate.firstname }}</td>    
       <td>{{ candidate.lastname }}</td>
       <td>{{ candidate.score }}</td>
       <td>{{ candidate.phonenumber }}</td>
@@ -145,7 +145,7 @@
 </div>
 </div>
 <div class="modal fade" id="editModal" tabindex="-1" role="">
-  <div class="modal-dialog modal-login" role="document">
+  <div class="modal-dialog modal-login" role="document"><!-- login to lg-->
       <div class="modal-content">
           <div class="card card-signup card-plain">
               <div class="modal-body">
@@ -260,6 +260,7 @@ $(".delete-btn-candidate").click(function(){
           var $birthday = data['birthday'];
           var $address = data['address'];
           var $created_at = data['created_at']
+
           $("#candidate_info").append($.parseHTML('<div id="edit_form" class="card-body"></div>'))
           var $candidate_information = $.parseHTML('<div><label>Firstname :</label>'+$firstname+'</div></br><div><label>Lastname :</label>'+$lastname+'</div></br><div><label>Email :</label>'+$email+'</div></br><div><label>Score :</label>'+$score+'</div></br><div><label>Phone number :</label>'+$phonenumber+'</div></br><div><label>Date of birth :</label>'+$birthday+'</div></br><div><label>City :</label>'+$city+'</div></br><div><label>Country :</label>'+$country+'</div></br><div><label>Address :</label>'+$address+'</div></br><div><label>Registered Date :</label>'+$created_at+'</div>');
           $("#edit_form").append($candidate_information);
@@ -271,6 +272,12 @@ $(".delete-btn-candidate").click(function(){
       });
       
   });
+
+
+  // Scroll globals
+
+// loadOnScroll handler
+
 </script>
 </body>
 </html>

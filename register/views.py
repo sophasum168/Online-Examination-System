@@ -64,7 +64,9 @@ def model_form_upload(request):
     return render(request, 'form.html', {
         'form': form
     })	
+    
 @login_required(login_url="/login/")
+
 def candidate(request):
 	# c=Register.objects.all()
 	# lastSeenId = float('-Inf')
