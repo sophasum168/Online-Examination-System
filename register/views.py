@@ -203,6 +203,7 @@ def submit_answer(request):
 			user_id.taken_test = True
 			request.update=True
 			user_id.save(request)
+			print user_id.taken_test
 		return HttpResponse({"status":"ok"})
 	return HttpResponse({"status":"ok"})
 
