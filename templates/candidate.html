@@ -62,8 +62,11 @@
                 <li class="nav-item">
                     <a href="#report" class="nav-link"><b>Reporting</b></a>
                 </li>
+                <li class="nav-item">
+                <a href="/admin/logout/" style="margin: 0px 120px; height: 45px;" class="nav-link badge badge-success">Logout</a>
+              </li>
             </ul>
-            <a href="/admin/logout/" class="badge badge-success" style="height: 30px; padding-top: 10px; margin-left: 200px">Log out</a>
+            
             <!-- <form class="form-inline ml-auto">
                 <div class="form-group has-white">
                   <input type="text" class="form-control" placeholder="Search">
@@ -109,6 +112,7 @@
         <th scope="col" style="color:#fff">School Name</th>
         <th scope="col" style="color:#fff">City</th>
         <th scope="col" style="color:#fff">Register Date</th>
+        <th scope="col" style="color:#fff">Student Profile</th>
         <!-- <th>Profile Picture</th>
         <th>ID Card</th> -->
       </tr>
@@ -136,6 +140,7 @@
       <td>{{ candidate.sname }}</td>
       <td>{{ candidate.city }}</td>
       <td>{{ candidate.created_at}}</td>
+      <td>{{ candidate.student_profile}}</td>
       <!-- <td>{{ candidate.file }}</td>
       <td>{{ candidate.image }}</td> -->
     </tr>      

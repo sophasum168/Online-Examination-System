@@ -13,7 +13,7 @@ def get_image_name(instance, filename):
 	archivo = '%s%s' % (instance.firstname, ext)
 	return os.path.join('webcamimages', archivo)
 # Create your models here.
-1
+
 # class CandiateImage(models.Model):
 # 	card_id = models.ImageField(upload_to='card_id')
 # 	student_profile = models.ImageField(upload_to='student_profile')
@@ -59,8 +59,11 @@ class Register(models.Model):
 
     #Authenticate user login credential from Desktop application
 	def login_authentication(self, email, password):
-		if Register.objects.filter(email = email, password = password):
-			return True
+	   	user = Register.objects.get(email = email, password = password)
+		if user:
+			if not (user.taken_test):
+				return True
+			return False
 		return False
 
     #Generate random login password for candidate
