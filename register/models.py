@@ -5,12 +5,6 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 from test_management.models import *
-#sokmeng
-# from django.core.validators import validate_email
-# from django.core.exceptions import ValidationError
-
-
-# from verified_email_field.models import VerifiedEmailField it not work
 # from django.core.validators import RegexValidator
 # from regi.models import *
 
@@ -31,8 +25,7 @@ class Register(models.Model):
 	password = models.TextField(max_length=50,blank=True, null=True)
 	firstname= models.CharField(max_length=120, blank=False, null=False)
 	lastname = models.CharField(max_length=120, blank=False, null=False)
-	phonenumber = models.CharField(max_length=20,blank=False, null=False)
-	# phone = models.CharField(max_length=20,blank=False, null=False)
+	phonenumber = models.IntegerField(blank=False, null=False)
 	country = models.CharField(max_length=120, blank=False, null=False)
 	card_id = models.FileField(upload_to='card_id', null=False, blank=False)
 	student_profile = models.FileField(upload_to='student_profile',null=False, blank=False)
@@ -44,12 +37,8 @@ class Register(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	taken_test = models.BooleanField(default=False)
 	
-	# try:
-	# 	validate_email('email')
-	# except ValidationError as e:
-	# 	return False
 	
-
+	
 	#Override save method for Register model for auto generating random login password
 	def save(self, request, *args, **kwargs):
 		if not Register.objects.filter(email = self.email):
@@ -63,12 +52,10 @@ class Register(models.Model):
 				messages.add_message(request, messages.SUCCESS, "Successfully registered!")
 				return context
 		else:
-			# sokmeng
 			# if request.update == True:
 			# 	super(Register, self).save(*args, **kwargs)
-			# 	return messages.add_message(request, messages.SUCCESS, "Successfully updated!")
+			# return messages.add_message(request, messages.SUCCESS, "Successfully updated!")
 			return messages.add_message(request, messages.ERROR, "Your email is already registered. You can only register for the exam once!")
-
 
     #Authenticate user login credential from Desktop application
 	def login_authentication(self, email, password):
@@ -116,25 +103,3 @@ class CandidateAnswer(models.Model):
 	question_id = models.ForeignKey('test_management.Question', on_delete=models.CASCADE)
 	essay_answer = models.TextField(blank=True, null=True)
 	selected_option = models.TextField(blank=True, null=True)
-
-# # sokmeng
-# @receiver(pre_save, sender=User)
-# def User_pre_save(sender, **kwargs):
-#     email = kwargs['instance'].email
-#     username = kwargs['instance'].username
-
-#     if not email: raise ValidationError("email required")
-#     if sender.objects.filter(email=email).exclude(username=username).count(): raise ValidationError("email needs to be unique")
-
-# sokmeng
-# def clean_email(self):
-#     email = self.cleaned_data.get('email')
-#     username = self.cleaned_data.get('username')
-#     print User.objects.filter(email=email).count()
-#     if email and User.objects.filter(email=email).count() > 0:
-#         raise forms.ValidationError(u'This email address is already registered.')
-#     return email
-
-#sokmeng
-# class User(models.Model):
-#     email = VerifiedEmailField('email') it not work
