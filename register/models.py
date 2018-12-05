@@ -52,17 +52,25 @@ class Register(models.Model):
 				messages.add_message(request, messages.SUCCESS, "Successfully registered!")
 				return context
 		else:
-			# if request.update == True:
-			# 	super(Register, self).save(*args, **kwargs)
-			# return messages.add_message(request, messages.SUCCESS, "Successfully updated!")
+# <<<<<<< HEAD
+# 			# if request.update == True:
+# 			# 	super(Register, self).save(*args, **kwargs)
+# 			# return messages.add_message(request, messages.SUCCESS, "Successfully updated!")
+# =======
+# 			if request.update == True:
+# 				super(Register, self).save(*args, **kwargs)
+# 				return messages.add_message(request, messages.SUCCESS, "Successfully updat 4c6629ae25a3c32b847976505e93ebcf0025a161
 			return messages.add_message(request, messages.ERROR, "Your email is already registered. You can only register for the exam once!")
 
     #Authenticate user login credential from Desktop application
 	def login_authentication(self, email, password):
 	   	user = Register.objects.get(email = email, password = password)
-		if user:
-			if not (user.taken_test):
+		try:
+			user = Register.objects.get(email = email, password = password)
+			if user.taken_test == False:
 				return True
+			return False
+		except Register.DoesNotExist:
 			return False
 		return False
 
