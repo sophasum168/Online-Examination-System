@@ -253,7 +253,10 @@ def get_question_lists(request):
         credential = ast.literal_eval(request.body)
         email = credential['email']
         password = credential['password']
-        status = Register().login_authentication(email, password)
+        try:
+            status = Register().login_authentication(email, password)
+        except Exception:
+            status = False
         if status is True:
             # Adapt logic to how many questions should retrieve each time
             questions = Question.objects.all()
