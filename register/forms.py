@@ -27,28 +27,28 @@ class UploadFileForm(forms.ModelForm):
    	model = Image
    	fields = ['file']
 # sokmeng
-class UserForm(forms.ModelForm):
-   class Meta:
-        model = User
-        fields = ('email',)
-   def clean_email(self):
-        # Get the email
-        email = self.cleaned_data['email']
-        # email = self.cleaned_data.get('email')
+# class UserForm(forms.ModelForm):
+#    class Meta:
+#         model = User
+#         fields = ('email',)
+#    def clean_email(self):
+#         # Get the email
+#         email = self.cleaned_data['email']
+#         # email = self.cleaned_data.get('email')
 
-        # Check to see if any users already exist with this email as a username.
-        try:
-        	mt = verified_email(email)
-            # match = User.objects.get(email=email)
-        except:
-        	return forms.ValidationError("Email is not in correct format")
-        # except User.DoesNotExist:
-            # Unable to find a user, this is fine
-            # return email
+#         # Check to see if any users already exist with this email as a username.
+#         try:
+#         	mt = verified_email(email)
+#             # match = User.objects.get(email=email)
+#         except:
+#         	return forms.ValidationError("Email is not in correct format")
+#         # except User.DoesNotExist:
+#             # Unable to find a user, this is fine
+#             # return email
 
-        # A user was found with this as a username, raise an error.
-        return email
-        # raise forms.ValidationError('This email address is already in use.')
+#         # A user was found with this as a username, raise an error.
+#         return email
+#         # raise forms.ValidationError('This email address is already in use.')
 
 # class FileUpload(forms.ModelForm):
 # 	class Meta:
