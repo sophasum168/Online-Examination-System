@@ -25,7 +25,7 @@ class Register(models.Model):
 	password = models.TextField(max_length=50,blank=True, null=True)
 	firstname= models.CharField(max_length=120, blank=False, null=False)
 	lastname = models.CharField(max_length=120, blank=False, null=False)
-	phonenumber = models.IntegerField(blank=False, null=False)
+	phonenumber = models.CharField(blank=False, null=False,max_length=30)
 	country = models.CharField(max_length=120, blank=False, null=False)
 	card_id = models.FileField(upload_to='card_id', null=False, blank=False)
 	student_profile = models.FileField(upload_to='student_profile',null=False, blank=False)
