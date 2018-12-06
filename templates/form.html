@@ -33,6 +33,48 @@
     table {
       margin: auto;
     }
+
+    /* The Modal or pop up*/
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;  /*Stay in place*/
+     /*overflow:scroll;*/
+    z-index: 1; /* Sit on top */
+    padding-top: 100px;  /*Location of the box*/ 
+    left: 0;
+    top: 0;
+   
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 50px;
+    border: 1px solid #888;
+    width: 80%;
+    color: #936c6c;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
     input[type=submit] {
     width: 45%;
     background-color: #04043E;
@@ -46,6 +88,7 @@
     border-radius: 4px;
     cursor: pointer;
 }
+/*end pop up*/
 input[type=submit]:hover {
     background-color: green;
 }
@@ -224,50 +267,16 @@ body {font-size:100%}
                           <span class="form-check-sign">
                             <span class="check"></span>
                           </span>
-                          I agree to the
-                          <!-- <a href="#exampleModal">terms and conditions</a>. -->
-                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
-                          Launch demo modal
-                            </button>
-                            <div class="modal fade" id="importModal" tabindex="-1" role="">
-    <div class="modal-dialog modal-login" role="document">
-        <div class="modal-content">
-            <div class="card card-signup card-plain">
-                <div class="modal-body">
-                    <!-- <form class="form" method="POST" action="{% url 'import_question' %}" enctype="multipart/form-data"> -->
-                        
-                        <h2>Import Question</h2>
-                    
-                            <button type="button" class="cancel-btn-question" data-dismiss="modal">Cancel</button>
-                            
-                        </div>
-                    <!-- </form> -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-                       <!--    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" 
-                          aria-labelledby=" exampleModalLabel"aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                   <span aria-hidden="true">&times;</span>
-                                  </button>
-                              </div>
-                              <div class="modal-body">
-                                  <p>hello</p>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-primary btn-link btn-wd btn-lg cancel-btn-question" data-dismiss="modal">close</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
+                          I agree to the 
+                          <!-- sokmeng -->
+                          <a href="#exampleModal" id="myBtn">terms and conditions</a>.
+                            <div id="myModal" class="modal">
+                              <div class="modal-content" style="width: 50%">
+                                <span class="close">&times;</span>
+                                  <p>Please confirm that all of the information provided above is true and no any information is found to be a fraud, or your application will not be considered</p>
                               </div>
                             </div>
-                          </div>
-                          </div> -->
-
+                            <!--  -->
                         </label>
                         </div>
                                 </td>
@@ -295,7 +304,9 @@ body {font-size:100%}
     <script src="{% static 'js/core/popper.min.js' %}"></script>
     <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-
+<!-- 
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="themes/default/bootstrap/js/bootstrap.js"></script> -->
   <script type="text/javascript">
     $(document).ready(function(){
         // Countries
@@ -502,13 +513,50 @@ body {font-size:100%}
       }
       else alert("Python Error: " + msg);
     }
-  </script>
+        // $(".hidelogopenreg").click( function() {  // opening on same line K&R style
+        //   $('#cancel').modal('hide')
+        //   \
+        //  }
+         // $('#modal').modal('hide')
 
-{% endblock extra_js %}
- <!-- sokmeng -->
+// pop up terms and conditions
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+// pop up
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+  </script>
+   <!-- sokmeng -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!--  -->
+
+
+
+
+
+{% endblock extra_js %}
+
 </body>
 </html>
