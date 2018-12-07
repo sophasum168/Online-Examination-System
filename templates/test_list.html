@@ -31,9 +31,14 @@
                 <li class="nav-item">
                     <a href="#report" class="nav-link"><b>Reporting</b></a>
                 </li>
+                 <!-- sokmeng -->
                 <li class="nav-item">
-                <a href="/admin/logout/" style="margin: 0px 120px; height: 45px;" class="nav-link badge badge-success">Logout</a>
-                </li>
+                  <form class="Logout-link" action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success" style="margin-left:120px">Logout</button> 
+                  </form>  
+              </li>
+              <!--  -->
             </ul>
           <!--   <form class="form-inline ml-auto">
                 <div class="form-group has-white">

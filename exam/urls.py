@@ -33,6 +33,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^login/$',login_view,name="login"),
+    # sokmeng
+    url(r'^logout/$',logout_view,name="logout"),
+    # 
     url(r'^register/$',register,name="register"),
     url(r'^upload/', upload_file, name="upload"),
     url(r'^livertc/', livertc, name="livertc"),

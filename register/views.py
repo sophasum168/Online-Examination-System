@@ -74,6 +74,7 @@ def candidate(request):
 	# return HttpResponse(output)
 	return render(request,'candidate.html',{'candidates':candidates})
 
+# @login_required(login_url="/login/")
 # def login(request):
 # 	c = {}
 # 	c.update(csrf(request))
@@ -90,6 +91,7 @@ def candidate(request):
 # 	else:
 # 		return HttpResponseRedirect('account/invalid')
 	
+
 def edit_candidate(request):
     context = dict()
     if request.method == 'GET':
@@ -233,3 +235,9 @@ def login_view(request):
 
 	# else:
 	# 	return HttpResponse('no data')
+
+# sokmeng make logout
+def logout_view(request):
+	if request.method == 'POST':
+		logout(request)
+		return HttpResponseRedirect('/')
