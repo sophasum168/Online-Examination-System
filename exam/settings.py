@@ -155,3 +155,14 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'pechsokmeng17@kit.edu.kh'
 EMAIL_HOST_PASSWORD = '087800098'
 EMAIL_USE_TLS = True
+
+# EMAIL_HOST_USER = 'kimmiratorimoonlight17@kit.edu.kh'
+# EMAIL_HOST_PASSWORD = 'Bibo-1234567890'
+# >>>>>>> 02c730b854e63744b4cec88bafffc1f02ef779dc
+# EMAIL_USE_TLS = True
+# =======
+# EMAIL_HOST_USER = 'kimmiratorimoonlight17@kit.edu.kh'
+# EMAIL_HOST_PASSWORD = 'Password'
+# EMAIL_USE_TLS = True
+# >>>>>>> 61c65afbc0f699d96f3bc1cea239f996d4b1a85c
+# >>>>>>> 94397db9b432bd874c16e4b105c85bee01af73b7
