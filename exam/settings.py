@@ -154,4 +154,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'sumsopha15@kit.edu.kh'
 EMAIL_HOST_PASSWORD = 'BONGSOPHA22'
+# =======
+# EMAIL_HOST_USER = 'kimmiratorimoonlight17@kit.edu.kh'
+# EMAIL_HOST_PASSWORD = 'Bibo-1234567890'
+# >>>>>>> 02c730b854e63744b4cec88bafffc1f02ef779dc
 EMAIL_USE_TLS = True
