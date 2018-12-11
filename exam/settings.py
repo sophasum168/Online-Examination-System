@@ -152,6 +152,6 @@ CELERY_TIMEZONE = 'Asia/Bangkok'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'pechsokmeng17@kit.edu.kh'
-EMAIL_HOST_PASSWORD = 'password'
+EMAIL_HOST_USER = 'sumsopha15@kit.edu.kh'
+EMAIL_HOST_PASSWORD = 'BONGSOPHA22'
 EMAIL_USE_TLS = True
