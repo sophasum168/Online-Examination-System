@@ -182,7 +182,8 @@ body {font-size:100%}
                             <i class="material-icons">phone</i>
                                </span>
                         </div>
-                     <input type="text" class="form-control" pattern="[-+()\\s0-9]+$" minlength="8" maxlength="15" name="phonenumber" accept="0" required="true" placeholder="DialingCode+PhoneNumber"/>
+                     <input type="text" class="form-control" pattern="^\([+ ][0-9]{2,3}\)[0-9]{8,14}$" minlength="8" maxlength="15" name="phonenumber" accept="0" required="true" placeholder="(+DialingCode)PhoneNumber"/>
+                     <!-- [-+()\\s0-9]+$ -->
                       </div>
                     </div>
                           </td>
@@ -197,7 +198,8 @@ body {font-size:100%}
                             <i class="material-icons">school</i>
                                </span>
                         </div>
-                     <input type="text" class="form-control" name="sname" required="true" placeholder="School Name..."/>
+                     <input type="text" class="form-control" pattern="^[a-zA-Z0-9_]+( [a-zA-Z0-9_]+)*$" name="sname" required="true" placeholder="School Name..."/>
+                     <!-- [a-z-A-Z]* -->
                       </div>
                     </div>
                           </td>
@@ -209,7 +211,8 @@ body {font-size:100%}
                             <i class="material-icons">date_range</i>
                                </span>
                         </div>
-                     <input type="date" id="datefield" type='date' min='1980-01-01' max='2018-12-12' class="form-control" name="birthday"  required="true"/>
+                     <input type="date" id="datefield" type='date' min='1980-01-01' max='2018-12-12' class="form-control" name="birthday"  required="true"
+                     placeholder="Birthday"/>
                       </div>
                     </div>
                           </td>
@@ -492,7 +495,8 @@ body {font-size:100%}
         if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
             //TO DO
         }else{
-            alert("Only jpg/jpeg and png files are allowed!");
+            alert("You should input Candidate Profile before you input Student ID Card");
+            // Only jpg/jpeg and png files are allowed!
         }   
     }
     function take_snapshot() {    
@@ -549,16 +553,6 @@ window.onclick = function(event) {
     }
 }
   </script>
-   <!-- sokmeng -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <!--  -->
-
-
-
-
-
 {% endblock extra_js %}
 
 </body>

@@ -149,3 +149,9 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Bangkok'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'pechsokmeng17@kit.edu.kh'
+EMAIL_HOST_PASSWORD = '087800098'
+EMAIL_USE_TLS = True

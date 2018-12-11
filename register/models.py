@@ -5,6 +5,10 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 from test_management.models import *
+
+
+from django.conf import settings
+from django.core.mail import send_mail
 # from django.core.validators import RegexValidator
 # from regi.models import *
 
@@ -49,6 +53,14 @@ class Register(models.Model):
 					'email' : self.email,
 					'password' : self.password,
 					}
+				self.message = "Dear Candidate, \nThis is a reminder that your password to login to KIT examination is: " + self.password + "\n\nBest Regards,\nKIT Teams"
+				send_mail(
+    						'KIT Register Credential',
+    						self.message,
+    						'pechsokmeng17@kit.edu.kh',
+    						[self.email],
+    						fail_silently=False,
+				)
 				messages.add_message(request, messages.SUCCESS, "Successfully registered!")
 				return context
 		else:

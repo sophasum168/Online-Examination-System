@@ -122,7 +122,7 @@ def edit_question(request):
         context.update({
             'question_form': question_form,
             'option_form': option_form,
-        })          
+        })
         return JsonResponse(context)
     elif request.method == 'POST':
         row_id = json.loads(request.POST.get('row_id'))
