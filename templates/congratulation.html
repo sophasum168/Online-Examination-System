@@ -79,10 +79,19 @@ input[type=submit]:hover {
               {% for message in messages %}
                 {% if message.tags == 'success' %}
                   <h2 class="card-title text-center">Registration Completed!</h2>
-                  <h5 class="card-subtitle text-center mb-2 text-muted" style="padding-top: 20px; padding-left: 10px; padding-right: 10px;">We are looking forward to have you join our institute. Please <a href="#">download KIT entrance exam</a> software. To take the test, install the software into your computer. When taking the test, use the following credential to login:</h5>
-                  <h4 class="card-subtitle text-center mb-2 text-muted" style="padding-top: 20px; padding-left: 10px; padding-right: 10px;"><b>Email:</b>   {{context.email}}</h4>
-                  <h4 class="card-subtitle text-center mb-2 text-muted" style="padding-top: 20px; padding-left: 10px; padding-right: 10px;"><b>Password:</b>   {{context.password}}</h4>
-                  <h5 class="card-subtitle text-center mb-2 text-muted" style="padding-top: 20px; padding-left: 10px; padding-right: 10px;">Note: the computer is required to have webcam. Please also ensures stable internet connection when taking the test.</h5>
+                  <h5 class="card-subtitle  mb-2 text-muted" style="padding-top: 20px; padding-left: 10px; padding-right: 10px;">We are looking forward to have you join our institute. Please <a href="#">download KIT entrance exam</a> software. To take the test, install the software into your computer.
+                  </h5>
+                  
+                  <h5 class="card-subtitle  mb-2 text-muted" style="padding-top: 20px; padding-left: 10px; padding-right: 10px;">
+                    <div class="text-center">
+                                        
+                      To take the test, please check the <b>PASSWORD</b> to login that has been sent to <b>{{context.email}}</b>. If you cannot find the password in the <b>Inbox</b>, please check your <b>Spam box</b>.
+                      </div>
+
+                  </h5>
+
+
+                  <h5 class="card-subtitle mb-2 text-muted" style="padding-top: 20px; padding-left: 10px; padding-right: 10px;">Note: the computer is required to have webcam. Please also ensures stable internet connection when taking the test.</h5>
                 {% elif message.tags == 'error' %}
                   <h2 class="card-title text-center">Registration Failed!!</h2>
                   <h5 class="card-subtitle text-center mb-2 text-muted" style="padding-top: 20px; padding-left: 10px; padding-right: 10px;">Your email is already registered. You can only register for the exam once!</h5>
