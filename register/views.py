@@ -110,7 +110,7 @@ def edit_candidate(request):
 			'created_at': candidate_obj.created_at,
 			# changed => Moonlight
 			'student_profile': candidate_obj.student_profile.__str__(),
-            'id_card': candidate_obj.card_id.__str__(),
+        	'id_card': candidate_obj.card_id.__str__(),
         })          
         return JsonResponse(context)
 
