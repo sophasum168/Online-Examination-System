@@ -54,10 +54,11 @@ class Register(models.Model):
 					'password' : self.password,
 					}
 				self.message = "Dear Candidate, \nThis is a reminder that your password to login to KIT examination is: " + self.password + "\n\nBest Regards,\nKIT Teams"
+				# send email, password to candidate
 				send_mail(
     						'KIT Register Credential',
     						self.message,
-    						'pechsokmeng17@kit.edu.kh',
+    						'admin_email',
     						[self.email],
     						fail_silently=False,
 				)

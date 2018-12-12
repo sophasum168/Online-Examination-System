@@ -83,6 +83,7 @@ def add_question(request):
             question_obj = Question(question_name = question_name, question_type = question_type, test_id = Test.objects.get(id=test_id))
         else:
             img_option = request.FILES['question_img']
+            print ("img_option",img_option)
             question_obj = Question(img_option = img_option, question_name = question_name, question_type = question_type, test_id = Test.objects.get(id=test_id))
         context = question_obj.save(request)
         

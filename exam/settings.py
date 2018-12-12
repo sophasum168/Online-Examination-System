@@ -152,6 +152,7 @@ CELERY_TIMEZONE = 'Asia/Bangkok'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
+<<<<<<< HEAD
 
 EMAIL_HOST_USER = 'sumsopha15@kit.edu.kh'
 EMAIL_HOST_PASSWORD = 'BONGSOPHA22'
@@ -176,3 +177,8 @@ EMAIL_USE_TLS = True
 # # >>>>>>> 61c65afbc0f699d96f3bc1cea239f996d4b1a85c
 # # >>>>>>> 94397db9b432bd874c16e4b105c85bee01af73b7
 # >>>>>>> 47e4e0e1e2a4379a9e5c11dd21e8eb96df61beaa
+=======
+EMAIL_HOST_USER = 'admin_email'
+EMAIL_HOST_PASSWORD = 'password'
+EMAIL_USE_TLS = True
+>>>>>>> b12081146ec4b51f51a35b2c1e5d177993fb0579

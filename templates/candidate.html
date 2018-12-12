@@ -161,6 +161,7 @@
               <div class="modal-body">
                   <form class="form" method="POST" action="{% url 'edit_test' %}">
                       {% csrf_token %}
+                      <!-- might change -->
                       <h2>Candidate Information</h2>
                       <div id="candidate_info"></div>
                       <div class="modal-footer justify-content-right">
@@ -269,10 +270,15 @@ $(".delete-btn-candidate").click(function(){
           var $country = data['country'];
           var $birthday = data['birthday'];
           var $address = data['address'];
-          var $created_at = data['created_at']
+          var $created_at = data['created_at'];
+          //changed => Moonlight
+          var $student_profile = data['student_profile'];
+          var $id_card = data['id_card'];
 
           $("#candidate_info").append($.parseHTML('<div id="edit_form" class="card-body"></div>'))
-          var $candidate_information = $.parseHTML('<div><label>Firstname :</label>'+$firstname+'</div></br><div><label>Lastname :</label>'+$lastname+'</div></br><div><label>Email :</label>'+$email+'</div></br><div><label>Score :</label>'+$score+'</div></br><div><label>Phone number :</label>'+$phonenumber+'</div></br><div><label>Date of birth :</label>'+$birthday+'</div></br><div><label>City :</label>'+$city+'</div></br><div><label>Country :</label>'+$country+'</div></br><div><label>Address :</label>'+$address+'</div></br><div><label>Registered Date :</label>'+$created_at+'</div>');
+          //changed => Moonlight
+          var $candidate_information = $.parseHTML( '<div><label>Firstname :</label> '+$firstname+'</div></br><div><label>Lastname :</label> '+$lastname+'</div></br><div><label>Email :</label> '+$email+'</div></br><div><label>Score :</label> '+$score+'</div></br><div><label>Phone number :</label> '+$phonenumber+'</div></br><div><label>Date of birth :</label> '+$birthday+'</div></br><div><label>City :</label>'+$city+'</div></br><div><label>Country :</label>'+$country+'</div></br><div><label>Address :</label> '+$address+'</div></br><div><label>Registered Date :</label> '+$created_at+'</div>'+'<br><div><label>Student Profile:</label> <a href="/media/'+$student_profile+'" target="_blank">'+$student_profile+'</a></div><br>  <div><label>Student ID card:</label> <a href="/media/'+$id_card+'"  target="_blank">'+$id_card+'</a></div>');
+
           $("#edit_form").append($candidate_information);
         },
       });
