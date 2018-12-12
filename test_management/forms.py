@@ -40,11 +40,12 @@ class QuestionForm(ModelForm):
             }
         )
     )
-    img_option = forms.FileField(label='Question Image', 
+
+    img_option = forms.FileField(label='Question Image',
         widget=forms.ClearableFileInput(
             attrs={
                 'id': "img_option",
-                'data-style': 'btn btn-primary btn-sm',
+                'data-style': 'btn ',
                 'class': 'form-group form-control-file img_question',
                 'accept': '.jpg,.jpeg,.png',
             }
