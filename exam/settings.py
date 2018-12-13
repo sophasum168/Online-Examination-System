@@ -150,34 +150,9 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Bangkok'
 
+# Settings for sending email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-
 EMAIL_HOST_USER = 'admin_email'
 EMAIL_HOST_PASSWORD = 'Password'
-# =======
-# EMAIL_HOST_USER = 'kimmiratorimoonlight17@kit.edu.kh'
-# EMAIL_HOST_PASSWORD = 'Bibo-1234567890'
-# >>>>>>> 02c730b854e63744b4cec88bafffc1f02ef779dc
 EMAIL_USE_TLS = True
-# =======
-# EMAIL_HOST_USER = 'pechsokmeng17@kit.edu.kh'
-# EMAIL_HOST_PASSWORD = '087800098'
-# EMAIL_USE_TLS = True
-
-# # EMAIL_HOST_USER = 'kimmiratorimoonlight17@kit.edu.kh'
-# # EMAIL_HOST_PASSWORD = 'Bibo-1234567890'
-# # >>>>>>> 02c730b854e63744b4cec88bafffc1f02ef779dc
-# # EMAIL_USE_TLS = True
-# # =======
-# # EMAIL_HOST_USER = 'kimmiratorimoonlight17@kit.edu.kh'
-# # EMAIL_HOST_PASSWORD = 'Password'
-# # EMAIL_USE_TLS = True
-# # >>>>>>> 61c65afbc0f699d96f3bc1cea239f996d4b1a85c
-# # >>>>>>> 94397db9b432bd874c16e4b105c85bee01af73b7
-# >>>>>>> 47e4e0e1e2a4379a9e5c11dd21e8eb96df61beaa
-# =======
-# EMAIL_HOST_USER = 'admin_email'
-# EMAIL_HOST_PASSWORD = 'password'
-# EMAIL_USE_TLS = True
-# >>>>>>> b12081146ec4b51f51a35b2c1e5d177993fb0579
