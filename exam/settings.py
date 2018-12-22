@@ -153,6 +153,6 @@ CELERY_TIMEZONE = 'Asia/Bangkok'
 # Settings for sending email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'admin_email'
-EMAIL_HOST_PASSWORD = 'Password'
+EMAIL_HOST_USER = 'sumsopha15@kit.edu.kh'
+EMAIL_HOST_PASSWORD = 'BONGSOPHA22'
 EMAIL_USE_TLS = True
