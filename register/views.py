@@ -208,7 +208,6 @@ def submit_answer(request):
 			user_id.taken_test = True
 			request.update=True
 			user_id.save(request)
-			print user_id.taken_test
 		return HttpResponse({"status":"ok"})
 	return HttpResponse({"status":"ok"})
 
@@ -223,21 +222,6 @@ def login_view(request):
 	else:
 		form = AuthenticationForm()
 	return render(request, 'login.html', {'form':form})
-
-	
-# @csrf_exempt
-# def save_image(self, *args, **kwargs):
-# 	self.filename = self.kwargs['firstname']+'.jpg'
-# 	# return dispatch(*args, **kwargs)
-# 	f = open(settings.MEDIA_ROOT + '/webcamimages/'+ self.filename, 'wb')
-# 	f.write(request.body)
-# 	f.close()
-# 	# f.save()
-# 	# return the URL
-# 	return HttpResponse("/media/webcamimages/" + self.filename)
-
-	# else:
-	# 	return HttpResponse('no data')
 
 # sokmeng make logout
 def logout_view(request):
