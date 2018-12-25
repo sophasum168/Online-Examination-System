@@ -272,7 +272,11 @@ body {font-size:100%}
                         <td>
                       <div class="form-check">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="" />
+
+<!-- 
+                          <input class="form-check-input" type="checkbox" value="box"  required/>
+-->
+                          <input class="form-check-input" type="checkbox" value="" required="true" />
                           <span class="form-check-sign">
                             <span class="check"></span>
                           </span>
@@ -288,8 +292,8 @@ body {font-size:100%}
                             <!--  -->
                         </label>
                         </div>
-                                </td>
-                              </tr>
+                      </td>
+                        </tr>
                         </table>
                     <div class="text-center">
                       <input src="{% url 'model_form_upload' %}" type="submit" value="Register"/>

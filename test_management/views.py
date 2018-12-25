@@ -260,6 +260,7 @@ def get_question_lists(request):
             status = False
         if status is True:
             # Adapt logic to how many questions should retrieve each time
+
             questions = Question.objects.all()
             question_id = list()
             for question in questions:
@@ -278,8 +279,15 @@ def get_question_lists(request):
             }
             messages.add_message(request, messages.SUCCESS, "Succesfully login!")
             return JsonResponse(context, safe=False)
+        # changed 
+                
         context = {
             "status": "500",
             "message": "Error"
         }
         return JsonResponse(context, safe=False)
+        # context = {
+        #     "status": "500",
+        #     "message": "Error"
+        # }
+        # return JsonResponse(context, safe=False)

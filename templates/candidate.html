@@ -108,7 +108,9 @@
               </label>
           </div>
         </th>
+
         <th scope="col" style="color:#fff">#</th>
+        <th scope="col" style="color:#fff">Register Date</th>
         <th scope="col" style="color:#fff">Email</th>
         <th scope="col" style="color:#fff">First Name</th>
         <th scope="col" style="color:#fff">Last Name</th>
@@ -116,10 +118,7 @@
         <th scope="col" style="color:#fff">Phone Number</th>
         <th scope="col" style="color:#fff">School Name</th>
         <th scope="col" style="color:#fff">City</th>
-        <th scope="col" style="color:#fff">Register Date</th>
-        <th scope="col" style="color:#fff">Student Profile</th>
-        <!-- <th>Profile Picture</th>
-        <th>ID Card</th> -->
+        <th scope="col" style="color:#fff">Test taken?</th>
       </tr>
     </thead>
     <tbody>
@@ -136,7 +135,9 @@
           </label>
       </div>
     </td>
+    
       <td>{{ forloop.counter }}</td>
+      <td>{{ candidate.created_at}}</td>
       <td>{{ candidate.email }}</td>
       <td>{{ candidate.firstname }}</td>    
       <td>{{ candidate.lastname }}</td>
@@ -144,10 +145,7 @@
       <td>{{ candidate.phonenumber }}</td>
       <td>{{ candidate.sname }}</td>
       <td>{{ candidate.city }}</td>
-      <td>{{ candidate.created_at}}</td>
-      <td>{{ candidate.student_profile}}</td>
-      <!-- <td>{{ candidate.file }}</td>
-      <td>{{ candidate.image }}</td> -->
+      <td>{{ candidate.taken_test}}</td>
     </tr>      
     {% endfor %}
     </tbody>

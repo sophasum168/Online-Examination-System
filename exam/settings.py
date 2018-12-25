@@ -150,8 +150,14 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Bangkok'
 
+# Settings for sending email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'admin_email'
-EMAIL_HOST_PASSWORD = 'password'
+EMAIL_HOST_USER = 'kimmiratorimoonlight17@kit.edu.kh'
+EMAIL_HOST_PASSWORD = 'Bigbibo09876'
 EMAIL_USE_TLS = True
+
+# EMAIL_HOST_USER = 'sumsopha15@kit.edu.kh'
+# EMAIL_HOST_PASSWORD = 'BONGSOPHA22'
+# >>>>>>> 383ea2d84a796dfb0c8b3f1ef8c284ab210bcc05
+
