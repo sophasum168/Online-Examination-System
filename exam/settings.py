@@ -48,8 +48,6 @@ INSTALLED_APPS = [
     'import_export',
     'crispy_forms',
     'register',
-    'livertc',
-    'Landingpage',
     'test_management',
     'django.contrib.staticfiles',
     'corsheaders',

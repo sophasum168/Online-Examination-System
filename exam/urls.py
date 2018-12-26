@@ -18,10 +18,9 @@ from django.contrib import admin
 # from django.contrib import photo_upload
 from django.views.generic import TemplateView
 from register.views import *
-from livertc.views import *
 from test_management import views
 from register.views import *
-from Landingpage.views import (landingpage)
+# from Landingpage.views import (landingpage)
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views

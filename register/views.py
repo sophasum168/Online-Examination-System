@@ -58,6 +58,8 @@ def register(request):
 		certificate_english = request.FILES['certificate_english']
 		register_obj=Register(academic_transcript=academic_transcript,certificate_english=certificate_english,student_profile= student_profile ,card_id= card_id,email = email,city=city,sname=sname,birthday=birthday,address=address, firstname = firstname, lastname = lastname, phonenumber = phonenumber, country = country)
 		context = register_obj.save(request)
+		for email in Register.objects.values_list('email', flat=True).distinct():
+			Register.objects.filter(pk__in=Register.objects.filter(email=email).values_list('id', flat=True)[1:]).delete()
         return render(request, 'congratulation.html', {'context' : context})
 
 
@@ -69,10 +71,13 @@ def model_form_upload(request):
             # return HttpResponseRedirect('/congratulation/')
     return render(request, 'form.html', {
         'form': form
-    })	
+    })
+@login_required(login_url="/login/")
+def livertc(request):
+	return render(request,'livertc.html')
+	
     
 @login_required(login_url="/login/")
-
 def candidate(request):
 	# c=Register.objects.all()
 	# lastSeenId = float('-Inf')
