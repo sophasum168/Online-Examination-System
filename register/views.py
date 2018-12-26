@@ -24,6 +24,10 @@ from test_management.models import *
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+import sys  
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
 
 # Create your views here.	
 # def concatenate_video():
@@ -258,16 +262,16 @@ def send_result(request):
 	if emailList_passed:
 		send_mail(
 			'KIT Register Credential',
-			'Dear Candidate,\nWe are glad to announce that you have passed KIT The Entrance Exam. Congratulations.\nBest Regards,\nKIT Team',
-			'kimmiratorimoonlight17@kit.edu.kh',
+			'Congratulation to you, \nWe are glad to announce that you have passed The KIT Entrance Exam.\nおめでとうございます,\nあなたはキリロム工科大学入学者選抜試験において、合格しましたので、通知します。\n宜しくお願いします,\nBest Regards,\nKirirom Institute of Technology',
+			'sumsopha15@kit.edu.kh',
 			emailList_passed,
 			fail_silently=False,
 		)
 	if emailList_failed:
 		send_mail(
 			'KIT Register Credential',
-			'Dear Candidate,\nAlthough you have not passed The Entrance Exam, we really thank you for your strong interest and appreciation to KIT. We hope that you are going to participate in the exam again next year.\nBest Regards,\nKIT Team',
-			'kimmiratorimoonlight17@kit.edu.kh',
+			'Dear Candidate,\nAlthough you have not passed The KIT Entrance Exam, we really thank you for your strong interest and appreciation to KIT.\n親愛なる候補者,\nキリロム工科大学入学試験において、不合格となりましたが、当大学に強い関心を持っていただきありがとうございます。\n宜しくお願いします,\nBest Regards,\nKirirom Institute of Technology',
+			'sumsopha15@kit.edu.kh',
 			emailList_failed,
 			fail_silently=False,
 		)

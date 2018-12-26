@@ -66,11 +66,13 @@
 
 <!--------------------------------------------------------------------------------------->
 
-<center><h2><b><u>You have sent results to these emails</u></b></h2></center>
+<!-- <center><h2><b><u>You have sent results to these emails</u></b></h2></center> -->
+<h2 class="text-center" style="color: #07123e;"><u><b>You have sent results to these emails</b></u></h2>
 
-
-<h3>Passed</h3>
-<table id="fresh-table" class="table table-striped candidate table-sm "><!-- table-hover table-sm -->
+<h3 style="margin-left: 25px;"><b>Passed</b></h3>
+<div class="table-container" >
+<div class="table-responsive">
+<table id="fresh-table" class="table table-striped candidate table-hover table-sm "><!-- table-hover table-sm -->
     <thead style="background-color:#006699">
     <tr>
         <th scope="col" style="color:#fff">Candidate Emails</th>
@@ -88,10 +90,13 @@
         {% endfor %}
     </tbody>
 </table>
-
+</div>
+</div>
 <br><br>
 
-<h3>Failed</h3>
+<h3 style="margin-left: 25px;"><b>Failed</b></h3>
+<div class="table-container" >
+<div class="table-responsive">
 <table id="fresh-table" class="table table-striped candidate table-sm "><!-- table-hover table-sm -->
     <thead style="background-color:#006699">
     <tr>
@@ -110,7 +115,8 @@
     {% endfor %}
     </tbody>
 </table>
-
+</div>
+</div>
 
 </body>
 

@@ -5,6 +5,10 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 from test_management.models import *
+import sys  
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
 
 
 from django.conf import settings
@@ -57,7 +61,7 @@ class Register(models.Model):
 					'email' : self.email,
 					'password' : self.password,
 					}
-				self.message = "Dear Candidate, \nThis is a reminder that your password to login to KIT examination is: " + self.password + "\n\nBest Regards,\nKIT Teams"
+				self.message = "Dear " + self.firstname +"," + "\nThis is a reminder that your password to login to KIT Online Entrance Exam is:"+ self.password +"\nキリロム工科大学入学者オンライン選抜試験におけるログインのパスワードを、下記の通り再度通知いたします。:" + self.password + "\n\nBest Regards,\nKirirom Institute of Technology"
 				# send email, password to candidate
 				send_mail(
     						'KIT Register Credential',

@@ -78,7 +78,7 @@
   <!-- <br> -->
   <center><h2><b><u>Candidate Information</u></b></h2></center>
     <!--Moonlight => Send results Button-->
-    <a id="sendresult" onclick="confirmsendmail()" class="btn" style="margin-left:25px; color:#FFFFFF">Send Results to Candidates</a>
+    
     <!--Confirm Sending Email-->
     <script>
         function confirmsendmail() {
@@ -94,12 +94,14 @@
   <!-- <div style="margin: 50px"> -->
     <div id="inline-toolbar">
   <!-- </button> -->
+  <a id="sendresult" onclick="confirmsendmail()" class="btn send" style="color:#eb5b2f;background-color:#07123e; border-radius: 30px;"><b>Send Results to Candidates</b><i class="material-icons right" style="margin-left: 6px;">send</i></a>
     <button class="btn btn-round btn-danger delete-btn-candidate" data-toggle="modal">
       <i class="material-icons" action >delete</i>   Delete
     </button>
+
 </div>
 <div class="table-container" >
-    <div class="table-responsive">
+  <div class="table-responsive">
   <table id="fresh-table" class="table table-striped candidate table-hover table-sm "><!-- table-hover table-sm -->
     <thead style="background-color:#006699">
     <tr>
