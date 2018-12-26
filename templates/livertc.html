@@ -158,44 +158,44 @@ var end_stream = document.getElementById('end');
 
 var streamName;
 
-function stream(form) {
-	streamName = form.streamname.value || Math.floor(Math.random()*100)+'';
-	var phone = window.phone = PHONE({
-	    number        : streamName, // listen on username line else random
-	    publishKey: 'pub-c-99c32c59-0220-4d18-90eb-b6c5acc49e63',
-        subscribeKey: 'sub-c-b1d59faa-998c-11e8-9a7c-62794ce13da1',
-	    oneway        : true,
-	    broadcast     : true
-	});
-	//phone.debug(function(m){ console.log(m); })
-	var ctrl = window.ctrl = CONTROLLER(phone);
-	ctrl.ready(function(){
-		form.streamname.style.background="#55ff5b";
-		form.streamname.value = phone.number(); 
-//		form.stream_submit.hidden="true"; 
-		ctrl.addLocalStream(video_out);
-		ctrl.stream();
-        stream_info.hidden=false;
-        end_stream.hidden =true;
-		addLog("Streaming to " + streamName); 
-	});
-	ctrl.receive(function(session){
-	    session.connected(function(session){ addLog(session.number + " has joined."); });
-	    session.ended(function(session) { addLog(session.number + " has left."); console.log(session)});
-	});
-	ctrl.streamPresence(function(m){
-		here_now.innerHTML=m.occupancy;
-		addLog(m.occupancy + " currently watching.");
-	});
-	return false;
-}
+// function stream(form) {
+// 	streamName = form.streamname.value || Math.floor(Math.random()*100)+'';
+// 	var phone = window.phone = PHONE({
+// 	    number        : streamName, // listen on username line else random
+// 	    publishKey:   'pub-c-3ec1fd14-a958-4319-b50d-d4af24859b5f',
+//         subscribeKey: 'sub-c-620c3c8a-07fb-11e9-8ebf-6a684a5fb351',
+// 	    oneway        : true,
+// 	    broadcast     : true
+// 	});
+// 	//phone.debug(function(m){ console.log(m); })
+// 	var ctrl = window.ctrl = CONTROLLER(phone);
+// 	ctrl.ready(function(){
+// 		form.streamname.style.background="#55ff5b";
+// 		form.streamname.value = phone.number(); 
+// //		form.stream_submit.hidden="true"; 
+// 		ctrl.addLocalStream(video_out);
+// 		ctrl.stream();
+//         stream_info.hidden=false;
+//         end_stream.hidden =true;
+// 		addLog("Streaming to " + streamName); 
+// 	});
+// 	ctrl.receive(function(session){
+// 	    session.connected(function(session){ addLog(session.number + " has joined."); });
+// 	    session.ended(function(session) { addLog(session.number + " has left."); console.log(session)});
+// 	});
+// 	ctrl.streamPresence(function(m){
+// 		here_now.innerHTML=m.occupancy;
+// 		addLog(m.occupancy + " currently watching.");
+// 	});
+// 	return false;
+// }
 
 function watch(form){
 	var num = form.number.value;
 	var phone = window.phone = PHONE({
 	    number        : "Viewer" + Math.floor(Math.random()*100), // listen on username line else random
-	    publishKey: 'pub-c-99c32c59-0220-4d18-90eb-b6c5acc49e63',
-        subscribeKey: 'sub-c-b1d59faa-998c-11e8-9a7c-62794ce13da1',
+	    publishKey:   'pub-c-3ec1fd14-a958-4319-b50d-d4af24859b5f',
+        subscribeKey: 'sub-c-620c3c8a-07fb-11e9-8ebf-6a684a5fb351',
 	    oneway        : true
 	});
 	var ctrl = window.ctrl = CONTROLLER(phone);

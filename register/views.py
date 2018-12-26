@@ -50,7 +50,9 @@ def register(request):
 		address =request.POST.get('address')
 		card_id = request.FILES['card_id']
 		student_profile = request.FILES['student_profile']
-		register_obj=Register(student_profile= student_profile ,card_id= card_id,email = email,city=city,sname=sname,birthday=birthday,address=address, firstname = firstname, lastname = lastname, phonenumber = phonenumber, country = country)
+		academic_transcript = request.FILES['academic_transcript']
+		certificate_english = request.FILES['certificate_english']
+		register_obj=Register(academic_transcript=academic_transcript,certificate_english=certificate_english,student_profile= student_profile ,card_id= card_id,email = email,city=city,sname=sname,birthday=birthday,address=address, firstname = firstname, lastname = lastname, phonenumber = phonenumber, country = country)
 		context = register_obj.save(request)
         return render(request, 'congratulation.html', {'context' : context})
 
@@ -111,6 +113,8 @@ def edit_candidate(request):
 			# changed => Moonlight
 			'student_profile': candidate_obj.student_profile.__str__(),
         	'id_card': candidate_obj.card_id.__str__(),
+        	'academic_transcript': candidate_obj.academic_transcript.__str__(),
+        	'certificate_english': candidate_obj.certificate_english.__str__(),
         })          
         return JsonResponse(context)
 
