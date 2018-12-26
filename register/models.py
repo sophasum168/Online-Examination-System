@@ -42,6 +42,8 @@ class Register(models.Model):
 	score = models.IntegerField(default=0)
 	created_at = models.DateTimeField(auto_now_add=True)
 	taken_test = models.BooleanField(default=False)
+	# moonlight
+	result_sent = models.BooleanField(default=False)
 	
 	
 	
@@ -73,12 +75,8 @@ class Register(models.Model):
 			return messages.add_message(request, messages.ERROR, "Your email is already registered. You can only register for the exam once!")
 
     #Authenticate user login credential from Desktop application
-# <<<<<<< HEAD
+
 	def login_authentication(self,request,email, password):
-# =======
-# 	def login_authentication(self,email, password):
-# >>>>>>> b9b582be362f5b6c00eeb7efe85f803f93dbd71f
-	   	user = Register.objects.get(email = email, password = password)
 		try:
 			user = Register.objects.get(email = email, password = password)
 			if user.taken_test == False:

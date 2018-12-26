@@ -28,7 +28,11 @@ SECRET_KEY = 'r998j^tkgzc@2#)k5tlv941vwm=v=nfo)v16n1$t4(a351bl%2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['127.0.0.1','192.168.7.226','10.10.19.187',]
+=======
+ALLOWED_HOSTS = ['127.0.0.1','192.168.7.226','10.10.11.107']
+>>>>>>> 5b179a3ee0a4aa958be9895e382e60ce5249dbab
 DATE_FORMAT = "Y-m-d"
 USE_L10N = False
 
@@ -156,6 +160,7 @@ CELERY_TIMEZONE = 'Asia/Bangkok'
 # Settings for sending email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
+<<<<<<< HEAD
 # <<<<<<< HEAD
 
 
@@ -167,6 +172,10 @@ EMAIL_PORT = 587
 # >>>>>>> b9b582be362f5b6c00eeb7efe85f803f93dbd71f
 EMAIL_HOST_USER = 'sumsopha15@kit.edu.kh'
 EMAIL_HOST_PASSWORD = 'BONGSOPHA22'
+=======
+EMAIL_HOST_USER = 'adminEmail'
+EMAIL_HOST_PASSWORD = 'password'
+>>>>>>> 5b179a3ee0a4aa958be9895e382e60ce5249dbab
 
 EMAIL_USE_TLS = True
 

@@ -232,3 +232,48 @@ def logout_view(request):
 	if request.method == 'POST':
 		logout(request)
 		return HttpResponseRedirect('/')
+
+# 	Moonlight => Send Results
+def send_result(request):
+	objects = Register.objects.filter(result_sent=False)
+	emailList_passed = []
+	passed_candidates =[]
+	emailList_failed =[]
+	failed_candidates =[]
+
+	for i in range(len(objects)):
+		# passed score is 3 and up
+		if objects[i].score >= 3:
+			emailList_passed.append(objects[i].email)
+			passed_candidates.append(objects[i])
+			objects[i].result_sent = True
+			objects[i].save(request)
+
+		elif objects[i].score in range(1,3):
+			emailList_failed.append(str(objects[i].email))
+			failed_candidates.append(objects[i])
+			objects[i].result_sent = True
+			objects[i].save(request)
+
+	if emailList_passed:
+		send_mail(
+			'KIT Register Credential',
+			'Dear Candidate,\nWe are glad to announce that you have passed KIT The Entrance Exam. Congratulations.\nBest Regards,\nKIT Team',
+			'kimmiratorimoonlight17@kit.edu.kh',
+			emailList_passed,
+			fail_silently=False,
+		)
+	if emailList_failed:
+		send_mail(
+			'KIT Register Credential',
+			'Dear Candidate,\nAlthough you have not passed The Entrance Exam, we really thank you for your strong interest and appreciation to KIT. We hope that you are going to participate in the exam again next year.\nBest Regards,\nKIT Team',
+			'kimmiratorimoonlight17@kit.edu.kh',
+			emailList_failed,
+			fail_silently=False,
+		)
+	context ={
+		'passed':passed_candidates,
+
+		'failed': failed_candidates,
+	}
+	return render(request,"sendresult.html",context)

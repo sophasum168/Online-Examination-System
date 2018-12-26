@@ -74,10 +74,23 @@
             
         </div>
     </div>
-</nav>z
+</nav>
   <!-- <br> -->
   <center><h2><b><u>Candidate Information</u></b></h2></center>
-
+    <!--Moonlight => Send results Button-->
+    <a id="sendresult" onclick="confirmsendmail()" class="btn" style="margin-left:25px; color:#FFFFFF">Send Results to Candidates</a>
+    <!--Confirm Sending Email-->
+    <script>
+        function confirmsendmail() {
+            var a = document.getElementById("sendresult");
+            if (confirm("You're going to send email to Candidates by pressing OK")) {
+                a.setAttribute('href',"{% url 'sendresult' %}");
+            } else {
+                return false;
+            }
+        }
+    </script>
+    <!--END-->
   <!-- <div style="margin: 50px"> -->
     <div id="inline-toolbar">
   <!-- </button> -->
@@ -111,6 +124,8 @@
         <th scope="col" style="color:#fff">School Name</th>
         <th scope="col" style="color:#fff">City</th>
         <th scope="col" style="color:#fff">Test taken?</th>
+        <!--Moonlight-->
+        <th scope="col" style="color:#fff">Result Sent?</th>
       </tr>
     </thead>
     <tbody>
@@ -138,12 +153,16 @@
       <td>{{ candidate.sname }}</td>
       <td>{{ candidate.city }}</td>
       <td>{{ candidate.taken_test}}</td>
+        <!--Moonlight-->
+      <td>{{ candidate.result_sent }}</td>
     </tr>      
     {% endfor %}
     </tbody>
   </table>
 </div>
 </div>
+
+
 <div class="modal fade" id="editModal" tabindex="-1" role="">
   <div class="modal-dialog modal-login" role="document"><!-- login to lg-->
       <div class="modal-content">
