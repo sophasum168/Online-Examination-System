@@ -28,7 +28,7 @@ SECRET_KEY = 'r998j^tkgzc@2#)k5tlv941vwm=v=nfo)v16n1$t4(a351bl%2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.7.226',]
+ALLOWED_HOSTS = ['127.0.0.1','192.168.7.226','10.10.11.107']
 DATE_FORMAT = "Y-m-d"
 USE_L10N = False
 
@@ -156,15 +156,6 @@ CELERY_TIMEZONE = 'Asia/Bangkok'
 # Settings for sending email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-# <<<<<<< HEAD
-
-
-# =======
-# # <<<<<<< HEAD
-# # EMAIL_HOST_USER = 'kimmiratorimoonlight17@kit.edu.kh'
-# # EMAIL_HOST_PASSWORD = 'Bigbibo09876'
-# # =======
-# >>>>>>> b9b582be362f5b6c00eeb7efe85f803f93dbd71f
 EMAIL_HOST_USER = 'admin'
 EMAIL_HOST_PASSWORD = 'passord'
 
