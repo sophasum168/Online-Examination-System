@@ -242,6 +242,7 @@ def send_result(request):
 	failed_candidates =[]
 
 	for i in range(len(objects)):
+		# passed score is 3 and up
 		if objects[i].score >= 3:
 			emailList_passed.append(objects[i].email)
 			passed_candidates.append(objects[i])
@@ -257,7 +258,7 @@ def send_result(request):
 	if emailList_passed:
 		send_mail(
 			'KIT Register Credential',
-			'Passed aiiiiiiii',
+			'Dear Candidate,\nWe are glad to announce that you have passed KIT The Entrance Exam. Congratulations.\nBest Regards,\nKIT Team',
 			'kimmiratorimoonlight17@kit.edu.kh',
 			emailList_passed,
 			fail_silently=False,
@@ -265,7 +266,7 @@ def send_result(request):
 	if emailList_failed:
 		send_mail(
 			'KIT Register Credential',
-			'We',
+			'Dear Candidate,\nAlthough you have not passed The Entrance Exam, we really thank you for your strong interest and appreciation to KIT. We hope that you are going to participate in the exam again next year.\nBest Regards,\nKIT Team',
 			'kimmiratorimoonlight17@kit.edu.kh',
 			emailList_failed,
 			fail_silently=False,

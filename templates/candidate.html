@@ -78,12 +78,12 @@
   <!-- <br> -->
   <center><h2><b><u>Candidate Information</u></b></h2></center>
     <!--Moonlight => Send results Button-->
-    <a id="sendresult" onclick="confirmsendmail()" class="btn" style="margin-left: 5%">Send Results to Candidates</a>
+    <a id="sendresult" onclick="confirmsendmail()" class="btn" style="margin-left:25px; color:#FFFFFF">Send Results to Candidates</a>
     <!--Confirm Sending Email-->
     <script>
         function confirmsendmail() {
             var a = document.getElementById("sendresult");
-            if (confirm("You're going to send email to Passed Candidate by pressing OK")) {
+            if (confirm("You're going to send email to Candidates by pressing OK")) {
                 a.setAttribute('href',"{% url 'sendresult' %}");
             } else {
                 return false;
