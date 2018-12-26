@@ -60,7 +60,7 @@ class Register(models.Model):
 				send_mail(
     						'KIT Register Credential',
     						self.message,
-    						'admin_email',
+    						'kimmiratorimoonlight17@kit.edu.kh',
     						[self.email],
     						fail_silently=False,
 				)
@@ -73,7 +73,11 @@ class Register(models.Model):
 			return messages.add_message(request, messages.ERROR, "Your email is already registered. You can only register for the exam once!")
 
     #Authenticate user login credential from Desktop application
+# <<<<<<< HEAD
 	def login_authentication(self,request,email, password):
+# =======
+# 	def login_authentication(self,email, password):
+# >>>>>>> b9b582be362f5b6c00eeb7efe85f803f93dbd71f
 	   	user = Register.objects.get(email = email, password = password)
 		try:
 			user = Register.objects.get(email = email, password = password)
