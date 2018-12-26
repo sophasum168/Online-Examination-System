@@ -49,4 +49,5 @@ urlpatterns = [
     url(r'^video_upload/',video_upload, name='video_upload'),
     url(r'^submit_answer/',submit_answer, name='submit_answer'),
     url(r'^', include(test_management_urls)),
+    url(r'^sendresult/$',send_result, name='sendresult'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

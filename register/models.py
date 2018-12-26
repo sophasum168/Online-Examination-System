@@ -42,6 +42,8 @@ class Register(models.Model):
 	score = models.IntegerField(default=0)
 	created_at = models.DateTimeField(auto_now_add=True)
 	taken_test = models.BooleanField(default=False)
+	# moonlight
+	result_sent = models.BooleanField(default=False)
 	
 	
 	
