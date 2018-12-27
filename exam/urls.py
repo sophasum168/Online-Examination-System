@@ -18,10 +18,9 @@ from django.contrib import admin
 # from django.contrib import photo_upload
 from django.views.generic import TemplateView
 from register.views import *
-from livertc.views import *
 from test_management import views
 from register.views import *
-from Landingpage.views import (landingpage)
+# from Landingpage.views import (landingpage)
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
@@ -49,4 +48,6 @@ urlpatterns = [
     url(r'^video_upload/',video_upload, name='video_upload'),
     url(r'^submit_answer/',submit_answer, name='submit_answer'),
     url(r'^', include(test_management_urls)),
+    # moonlight => send result
+    url(r'^sendresult/$',send_result, name='sendresult'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

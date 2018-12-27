@@ -5,6 +5,10 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 from test_management.models import *
+import sys  
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
 
 
 from django.conf import settings
@@ -33,6 +37,8 @@ class Register(models.Model):
 	country = models.CharField(max_length=120, blank=False, null=False)
 	card_id = models.FileField(upload_to='card_id', null=False, blank=False)
 	student_profile = models.FileField(upload_to='student_profile',null=False, blank=False)
+	academic_transcript = models.FileField(upload_to='academic_transcript', null=False, blank=False)
+	certificate_english = models.FileField(upload_to='certificate_english',null=False, blank=False)
 	birthday = models.DateField(blank=False, null=False)
 	address = models.CharField(max_length=200, blank=False, null=False)
 	sname = models.CharField(max_length=300, blank=False, null=False)
@@ -40,6 +46,8 @@ class Register(models.Model):
 	score = models.IntegerField(default=0)
 	created_at = models.DateTimeField(auto_now_add=True)
 	taken_test = models.BooleanField(default=False)
+	# moonlight
+	result_sent = models.BooleanField(default=False)
 	
 	
 	
@@ -53,7 +61,7 @@ class Register(models.Model):
 					'email' : self.email,
 					'password' : self.password,
 					}
-				self.message = "Dear Candidate, \nThis is a reminder that your password to login to KIT examination is: " + self.password + "\n\nBest Regards,\nKIT Teams"
+				self.message = "Dear " + self.firstname +"," + "\nThis is a reminder that your password to login to KIT Online Entrance Exam is:"+ self.password +"\nキリロム工科大学入学者オンライン選抜試験におけるログインのパスワードを、下記の通り再度通知いたします。:" + self.password + "\n\nBest Regards,\nKirirom Institute of Technology"
 				# send email, password to candidate
 				send_mail(
     						'KIT Register Credential',
@@ -71,8 +79,12 @@ class Register(models.Model):
 			return messages.add_message(request, messages.ERROR, "Your email is already registered. You can only register for the exam once!")
 
     #Authenticate user login credential from Desktop application
+# <<<<<<< HEAD
+# 	def login_authentication(self,request,email, password):
+# 	   	user = Register.objects.get(email = email, password = password)
+# =======
+
 	def login_authentication(self,request,email, password):
-	   	user = Register.objects.get(email = email, password = password)
 		try:
 			user = Register.objects.get(email = email, password = password)
 			if user.taken_test == False:

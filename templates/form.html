@@ -143,7 +143,7 @@ body {font-size:100%}
                       <i class="material-icons">account_circle</i>
                          </span>
                         </div>
-                     <input type="text" required pattern="[a-z-A-Z]*" class="form-control" name="firstname" id="firstname" required="true" placeholder="First Name..."/>
+                     <input type="text" pattern="[a-z-A-Z]*" class="form-control" name="firstname" id="firstname" required="true" placeholder="First Name..."/>
                       </div>
                     </div>
                     </td>
@@ -211,7 +211,7 @@ body {font-size:100%}
                             <i class="material-icons">date_range</i>
                                </span>
                         </div>
-                     <input type="date" id="datefield" type='date' min='1980-01-01' max='2018-12-12' class="form-control" name="birthday"  required="true"
+                     <input type="date" id="datefield" type='date' min='1980-01-01' max='2010-12-12' class="form-control" name="birthday"  required="true"
                      placeholder="Birthday"/>
                       </div>
                     </div>
@@ -236,15 +236,33 @@ body {font-size:100%}
                             <td>
                               <!--Changed => Moonlight-->
                               <b style="margin-left: 5px;">Student ID Card</b>
-                              <br>
+                              <p style="margin-left: 5px; margin-bottom: 0px;">(学生証もしくは身分証明証)</p>
+                              <!-- <br> -->
                               <!-- might change -->
                                <input required="true" name="card_id" class="btn btn-round add-btn" type="file" id="fileName" accept=".jpg,.jpeg,.png" onchange="validateFileType()"/>
                             </td>
                             <td>
                                 <!--Changed => Moonlight-->
                             <b style="margin-left: 5px;">Student Profile</b>
-                            <br>
+                            <p style="margin-left: 5px;margin-bottom: 0px;">(顔写真)</p>
                              <input required="true" id="student_profile" value="student_profile" name="student_profile" class="btn btn-round add-btn" type="file" accept=".jpg,.jpeg,.png" onchange="validateFileType()" />
+                            </td>
+                          </tr>
+                          </div>
+                          <div>
+                          <tr>
+                            <td>
+                              <!--Changed => Moonlight-->
+                              <b style="margin-left: 5px;">Academic Transcript</b>
+                              <p style="margin-left: 5px;margin-bottom: 0px;">(成績証明書)</p>
+                              <!-- might change -->
+                               <input required="true" name="academic_transcript" class="btn btn-round add-btn" type="file" id="academic_transcript" accept=".jpg,.jpeg,.png" onchange="validateFileType()"/>
+                            </td>
+                            <td>
+                                <!--Changed => Moonlight-->
+                              <b style="margin-left: 5px;">Certificate of English Proficiency</b>
+                              <p style="margin-left: 5px;margin-bottom: 0px;">(英語力に関する証明書)</p>
+                               <input required="true" id="certificate_english" value="certificate_english" name="certificate_english" class="btn btn-round add-btn" type="file" accept=".jpg,.jpeg,.png" onchange="validateFileType()" />
                             </td>
                           </tr>
                           </div>
@@ -262,7 +280,7 @@ body {font-size:100%}
                         <tr> -->
                         <td>
                           <label for="city" style="color: black; margin-left: 13px;"><b>CITY</b></label>
-                          <select id="state" name="city" style="border-radius: 5px; padding: 6px; width: 92%;margin: 0 5px; box-shadow: 0px 2px 5px 0px;" required="True">
+                          <select id="state" name="city" style="border-radius: 5px; padding: 6px; width: 90%;margin: 0 5px; box-shadow: 0px 2px 5px 0px;" required="True">
                           </select>
                         </td>
                       </tr>

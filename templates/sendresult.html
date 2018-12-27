@@ -1,0 +1,123 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="../static/img/kit-11.png">
+    <title>
+        {% block title %}
+            KIT Online Exam
+        {% endblock title %}
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/test_management.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-select.min.css' %}" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg bg-rose">
+    <img src="../static/img/kit-11.png" style="height: 70px; margin-left: 25px;">
+    <div class="container">
+        <div class="navbar-translate">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        </div>
+        <div class="collapse navbar-collapse" style="margin-left: 175px;">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="{% url 'register' %}" class="nav-link"><b>Dashboard</b></a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'question' %}" class="nav-link"><b>Question</b></a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'test' %}" class="nav-link"><b>Test</b></a>
+                </li>
+                <li class="nav-item active"><!--active-->
+                    <a href="{% url 'candidate' %}" class="nav-link"><b>Candidate</b></a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'livertc' %}" class="nav-link"><b>Live Streaming</b></a>
+                </li>
+                <li class="nav-item">
+                    <a href="#report" class="nav-link"><b>Reporting</b></a>
+                </li>
+                <!-- sokmeng -->
+                <li class="nav-item">
+                    <form class="Logout-link" action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success" style="margin-left:120px">Logout</button>
+                    </form>
+                </li>
+                <!--  -->
+            </ul>
+
+
+        </div>
+    </div>
+</nav>
+
+<!--------------------------------------------------------------------------------------->
+
+<!-- <center><h2><b><u>You have sent results to these emails</u></b></h2></center> -->
+<h2 class="text-center" style="color: #07123e;"><u><b>You have sent results to these emails</b></u></h2>
+
+<h3 style="margin-left: 25px;"><b>Passed</b></h3>
+<div class="table-container" >
+<div class="table-responsive">
+<table id="fresh-table" class="table table-striped candidate table-hover table-sm "><!-- table-hover table-sm -->
+    <thead style="background-color:#006699">
+    <tr>
+        <th scope="col" style="color:#fff">Candidate Emails</th>
+        <th scope="col" style="color:#fff">First Name</th>
+        <th scope="col" style="color:#fff">Last Name</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for candidate in passed %}
+            <tr>
+                <td>{{candidate.email}}</td>
+                <td>{{ candidate.firstname }}</td>
+                <td>{{ candidate.lastname }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+<br><br>
+
+<h3 style="margin-left: 25px;"><b>Failed</b></h3>
+<div class="table-container" >
+<div class="table-responsive">
+<table id="fresh-table" class="table table-striped candidate table-sm "><!-- table-hover table-sm -->
+    <thead style="background-color:#006699">
+    <tr>
+        <th scope="col" style="color:#fff">Candidate Emails</th>
+        <th scope="col" style="color:#fff">First Name</th>
+        <th scope="col" style="color:#fff">Last Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for cand in failed %}
+        <tr>
+            <td>{{cand.email}}</td>
+            <td>{{ cand.firstname }}</td>
+            <td>{{ cand.lastname }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+
+</body>
+
+</html>
