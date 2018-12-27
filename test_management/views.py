@@ -255,7 +255,7 @@ def get_question_lists(request):
         email = credential['email']
         password = credential['password']
         try:
-            status = Register().login_authentication(email, password)
+            status = Register().login_authentication(request,email, password)
         except Exception:
             status = False
         if status is True:

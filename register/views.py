@@ -198,7 +198,8 @@ def submit_answer(request):
 						correct_answer = Option.objects.get(question_id = question_id, answer='T').id
 						if int(answer.selected_option) == int(correct_answer):
 							user_id.score += 1
-						answer.save()
+							#change request
+						answer.save(request)
 				else:
 					if question['essay_answer']:
 						answer.candidate_id = user_id
