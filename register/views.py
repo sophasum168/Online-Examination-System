@@ -81,10 +81,10 @@ def livertc(request):
 def candidate(request):
 	# Moonlight => Filter Passed, Failed Candidate
 	if request.GET.get('Passed'):
-		candidates = Register.objects.filter(score__gte=3)
+		candidates = Register.objects.filter(score__gte=40)
 		return render(request,'candidate.html',{'candidates':candidates})
 	elif request.GET.get('Failed'):
-		candidates = Register.objects.filter(score__lt=3, taken_test=True)
+		candidates = Register.objects.filter(score__lt=40, taken_test=True)
 		return render(request,'candidate.html',{'candidates':candidates})
 	else:
 		candidates = Register.objects.all()
@@ -258,13 +258,13 @@ def send_result(request):
 
 	for i in range(len(objects)):
 		# passed score is 3 and up
-		if objects[i].score >= 3:
+		if objects[i].score >= 40:
 			emailList_passed.append(objects[i].email)
 			passed_candidates.append(objects[i])
 			objects[i].result_sent = True
 			objects[i].save(request)
 
-		elif objects[i].score in range(1,3):
+		elif objects[i].score in range(1,40):
 			emailList_failed.append(str(objects[i].email))
 			failed_candidates.append(objects[i])
 			objects[i].result_sent = True
