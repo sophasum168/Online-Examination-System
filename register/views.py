@@ -79,11 +79,16 @@ def livertc(request):
     
 @login_required(login_url="/login/")
 def candidate(request):
-	# c=Register.objects.all()
-	# lastSeenId = float('-Inf')
-	candidates = Register.objects.all()
-	# return HttpResponse(output)
-	return render(request,'candidate.html',{'candidates':candidates})
+	# Moonlight => Filter Passed, Failed Candidate
+	if request.GET.get('Passed'):
+		candidates = Register.objects.filter(score__gte=3)
+		return render(request,'candidate.html',{'candidates':candidates})
+	elif request.GET.get('Failed'):
+		candidates = Register.objects.filter(score__lt=3, taken_test=True)
+		return render(request,'candidate.html',{'candidates':candidates})
+	else:
+		candidates = Register.objects.all()
+		return render(request,'candidate.html',{'candidates':candidates})
 
 # @login_required(login_url="/login/")
 # def login(request):
