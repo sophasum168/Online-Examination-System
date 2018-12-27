@@ -154,19 +154,14 @@ CELERY_TIMEZONE = 'Asia/Bangkok'
 # Settings for sending email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-# <<<<<<< HEAD
-
-
-# =======
-# # <<<<<<< HEAD
-# # EMAIL_HOST_USER = 'kimmiratorimoonlight17@kit.edu.kh'
-# # EMAIL_HOST_PASSWORD = 'Bigbibo09876'
-# # =======
-# >>>>>>> b9b582be362f5b6c00eeb7efe85f803f93dbd71f
-EMAIL_HOST_USER = 'sumsopha15@kit.edu.kh'
-EMAIL_HOST_PASSWORD = 'BONGSOPHA22'
-
+EMAIL_HOST_USER = 'kimmiratorimoonlight17@kit.edu.kh'
+EMAIL_HOST_PASSWORD = 'Bigbibo09876'
 EMAIL_USE_TLS = True
+# >>>>>>> b9b582be362f5b6c00eeb7efe85f803f93dbd71f
+# EMAIL_HOST_USER = 'sumsopha15@kit.edu.kh'
+# EMAIL_HOST_PASSWORD = 'BONGSOPHA22'
+
+
 
 
 
