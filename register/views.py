@@ -254,25 +254,20 @@ def logout_view(request):
 
 # 	Moonlight => Send Results
 def send_result(request):
-	objects = Register.objects.filter(result_sent=False)
+	passed_candidates = Register.objects.filter(result_sent=False, taken_test=True, score__gte=40)
+	failed_candidates = Register.objects.filter(result_sent=False, taken_test=True, score__lt=40)
 	emailList_passed = []
-	passed_candidates =[]
 	emailList_failed =[]
-	failed_candidates =[]
 
-	for i in range(len(objects)):
-		# passed score is 3 and up
-		if objects[i].score >= 40:
-			emailList_passed.append(objects[i].email)
-			passed_candidates.append(objects[i])
-			objects[i].result_sent = True
-			objects[i].save(request)
+	for candidate in passed_candidates:
+		emailList_passed.append(candidate.email)
+		candidate.result_sent = True
+		candidate.save(request)
 
-		elif objects[i].score in range(1,40):
-			emailList_failed.append(str(objects[i].email))
-			failed_candidates.append(objects[i])
-			objects[i].result_sent = True
-			objects[i].save(request)
+	for candidate in failed_candidates:
+		emailList_failed.append(candidate.email)
+		candidate.result_sent = True
+		candidate.save(request)
 
 	if emailList_passed:
 		send_mail(
@@ -292,7 +287,6 @@ def send_result(request):
 		)
 	context ={
 		'passed':passed_candidates,
-
 		'failed': failed_candidates,
 	}
 	return render(request,"sendresult.html",context)
