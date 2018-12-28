@@ -28,7 +28,7 @@ SECRET_KEY = 'r998j^tkgzc@2#)k5tlv941vwm=v=nfo)v16n1$t4(a351bl%2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.7.226','10.10.19.187',]
+ALLOWED_HOSTS = ['127.0.0.1','192.168.7.226','10.10.19.187', 'localhost']
 DATE_FORMAT = "Y-m-d"
 USE_L10N = False
 

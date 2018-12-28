@@ -211,8 +211,12 @@ def submit_answer(request):
 				if question['question_type'] == 'QCM':
 					answer.candidate_id = user_id
 					answer.question_id = question_id
-					if question['selected_option']:
-						answer.selected_option = question['selected_option']
+					try:
+						selected_option = question['selected_option']
+					except Exception as exception:
+						continue
+					if selected_option:
+						answer.selected_option = selected_option
 						correct_answer = Option.objects.get(question_id = question_id, answer='T').id
 						if int(answer.selected_option) == int(correct_answer):
 							user_id.score += 1
